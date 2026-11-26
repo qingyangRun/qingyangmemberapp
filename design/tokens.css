@@ -1,0 +1,102 @@
+/* 清样会员 · 设计变量
+   风格：专业科技（冷灰蓝 / 主色 #2457F5 / 点缀 青绿 #0C7372） */
+:root{
+  /* 底色与表面 */
+  --bg:#F4F6FA;
+  --surface:#FFFFFF;
+  --surface-2:#F7F9FC;
+  --surface-3:#EDF1F7;
+
+  /* 文字 */
+  --ink:#0F172A;
+  --ink-2:#28374F;
+  --muted:#5A6A82;
+  --faint:#7C8BA1;
+
+  /* 线与边界 */
+  --line:#E4E9F1;
+  --line-strong:#CFD8E6;
+
+  /* 品牌 */
+  --primary:#2457F5;
+  --primary-deep:#1A44CC;
+  --primary-soft:#EBF0FF;
+  --primary-soft-2:#DCE5FF;
+
+  /* 辅助 */
+  --accent:#0C7372;
+  --accent-bright:#14A39F;
+  --accent-soft:#E3F4F1;
+
+  --gold:#87560A;
+  --gold-bright:#C08A2E;
+  --gold-soft:#FBF1DC;
+
+  /* 语义 */
+  --success:#0E7A52;
+  --success-soft:#E2F4EB;
+  --warn:#A64B00;
+  --warn-soft:#FDEFE0;
+  --danger:#C0342B;
+  --danger-soft:#FCEBE9;
+
+  /* 字体 */
+  --font:"PingFang SC","HarmonyOS Sans SC","MiSans","Microsoft YaHei",system-ui,sans-serif;
+
+  /* 字号阶梯 */
+  --fs-10:10px;
+  --fs-11:11px;
+  --fs-12:12px;
+  --fs-13:13px;
+  --fs-15:15px;
+  --fs-16:16px;
+  --fs-18:18px;
+  --fs-20:20px;
+  --fs-24:24px;
+  --fs-28:28px;
+  --fs-32:32px;
+  --fs-36:36px;
+
+  /* 形状 */
+  --r-xs:6px;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:14px;
+  --r-xl:18px;
+  --r-pill:999px;
+
+  --shadow-sm:0 1px 2px rgba(15,23,42,.05);
+  --shadow-md:0 12px 28px -16px rgba(15,23,42,.32);
+  --shadow-blue:0 8px 18px -10px rgba(36,87,245,.55);
+  --primary-glow:rgba(70,112,255,.5);
+
+  /* 导航 */
+  --nav-bg:#FFFFFF;
+}
+
+/* ---------- 主题色（管理 → 主题颜色 里选择，默认经典蓝） ---------- */
+[data-theme="green"]{
+  --primary-glow:rgba(15,122,90,.42);
+  --primary:#0F7A5A;--primary-deep:#0B6046;--primary-soft:#E6F4EF;--primary-soft-2:#CBEAE0;
+  --shadow-blue:0 8px 18px -10px rgba(15,122,90,.5);
+}
+[data-theme="violet"]{
+  --primary-glow:rgba(91,63,209,.42);
+  --primary:#5B3FD1;--primary-deep:#4530A8;--primary-soft:#EEEAFB;--primary-soft-2:#DED6F7;
+  --shadow-blue:0 8px 18px -10px rgba(91,63,209,.5);
+}
+[data-theme="orange"]{
+  --primary-glow:rgba(191,90,20,.38);
+  --primary:#BF5A14;--primary-deep:#98470F;--primary-soft:#FDF0E4;--primary-soft-2:#F8E0CA;
+  --shadow-blue:0 8px 18px -10px rgba(191,90,20,.45);
+}
+[data-theme="rose"]{
+  --primary-glow:rgba(191,53,102,.38);
+  --primary:#BF3566;--primary-deep:#98284F;--primary-soft:#FCE9F0;--primary-soft-2:#F7D6E3;
+  --shadow-blue:0 8px 18px -10px rgba(191,53,102,.45);
+}
+[data-theme="graphite"]{
+  --primary-glow:rgba(43,58,82,.42);
+  --primary:#2B3A52;--primary-deep:#1B263A;--primary-soft:#EAEEF5;--primary-soft-2:#D8E0EC;
+  --shadow-blue:0 8px 18px -10px rgba(43,58,82,.5);
+}

@@ -1,0 +1,9 @@
+{
+  "desc": "清样会员",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

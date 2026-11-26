@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:已选会员, search:搜索会员">
+<title>核销 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .mode{display:flex;gap:2px;padding:3px;background:var(--surface-3);border-radius:11px;margin-bottom:10px}
+
+  .mode button{flex:1;height:44px;border-radius:9px;font-size:var(--fs-12);color:var(--muted)}
+
+  .mode button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--shadow-sm)}
+
+  .found{overflow:hidden}
+
+  .found-top{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 12px}
+
+  .found-top .cell-main{min-width:0}
+
+  .found .nm{display:flex;align-items:center;gap:6px;font-size:var(--fs-18);font-weight:600;white-space:nowrap;flex-wrap:wrap;row-gap:4px}
+
+  .found .sub{margin-top:2px;font-size:var(--fs-12);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .found .wrap-tags{margin-top:6px;gap:5px}
+
+  .found .wrap-tags .tag{height:20px;font-size:var(--fs-11)}
+
+  .found-assets{display:flex;border-top:1px solid var(--line);background:var(--surface-2)}
+
+  .found-assets>div{flex:1;padding:10px 16px}
+
+  .found-assets>div+div{border-left:1px solid var(--line)}
+
+  .found-assets span{display:block;font-size:var(--fs-11);color:var(--muted)}
+
+  .found-assets b{display:block;margin-top:1px;font-size:var(--fs-18);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .found-assets b small{font-size:var(--fs-11);font-weight:400;color:var(--muted);margin-left:2px}
+
+  .svc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-bottom:2px}
+
+  .svc button{width:100%;min-height:46px;padding:6px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;justify-content:center;gap:1px;text-align:left;color:var(--ink-2);font-size:var(--fs-13)}
+
+  .svc button b{font-size:var(--fs-11);font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .svc button.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);font-weight:600}
+
+  .svc button.on b{color:var(--primary)}
+
+  .svc button.other{grid-column:span 2;flex-direction:row;align-items:center;justify-content:center;gap:8px;text-align:center}
+
+  .usecard{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+
+  .usecard:first-of-type{border-top:0;padding-top:2px}
+
+  .usecard .ci{flex:1;min-width:0}
+
+  .usecard .nm{display:flex;align-items:center;gap:6px;font-size:var(--fs-15);font-weight:500;white-space:nowrap;flex-wrap:wrap;row-gap:3px}
+
+  .usecard .sub{margin-top:1px;font-size:var(--fs-11);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .sumcard{padding:14px 16px;margin-top:10px}
+
+  .sumline{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:var(--fs-13);color:var(--muted);padding:3px 0}
+
+  .sumline b{color:var(--ink-2);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .sumline.total{margin-top:7px;padding-top:10px;border-top:1px dashed var(--line-strong);font-size:var(--fs-13);color:var(--ink)}
+
+  .sumline.total b{font-size:var(--fs-18)}
+
+  .sumnote{margin-top:7px;font-size:var(--fs-11);color:var(--muted);line-height:1.55}
+
+  .mp-actionbar .sum b i{font-style:normal;font-size:var(--fs-11);font-weight:400;color:var(--muted)}
+
+    .mp-actionbar .sum b i{display:none}
+
+  .search-only{display:none}
+
+  [data-state="search"] .found-wrap{display:none}
+
+  [data-state="search"] .search-only{display:block}
+
+  [data-state="search"] .mp-actionbar{display:none}
+
+  .howto .cell{padding:12px 16px}
+
+  .howto .cell-title{font-size:var(--fs-13);font-weight:500}
+
+  .howto .cell-sub{margin-top:1px}
+
+  .recent-sum{display:flex;align-items:center;gap:16px;padding:2px 4px 10px}
+
+  .recent-sum b{font-size:var(--fs-18);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .recent-sum span{font-size:var(--fs-12);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="home.html" aria-label="返回工作台"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>核销</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <div class="found-wrap">
+
+    <section class="card found">
+      <div class="found-top">
+        <span class="ava lg gold">陈</span>
+        <div class="cell-main">
+          <div class="nm">陈嘉怡 <span class="badge gold">金卡</span><span class="badge green">正常</span></div>
+          <div class="sub">138 **** 6621 · 卡号 QH 8821</div>
+          <div class="wrap-tags"><span class="tag">高复购</span><span class="tag">敏感头皮</span><span class="tag">生日月</span></div>
+        </div>
+        <a class="btn btn-sm" href="?state=search">重选</a>
+      </div>
+      <div class="found-assets">
+        <div><span>账户余额</span><b>¥1,280<small>.00</small></b></div>
+        <div><span>可用次卡</span><b>10<small>次 · 3 张</small></b></div>
+      </div>
+    </section>
+
+    <div class="seg" style="margin-top:12px" role="group" aria-label="核销方式">
+      <button>余额核销</button>
+      <button>次卡核销</button>
+      <button class="on">组合核销</button>
+    </div>
+
+    <div class="card vsec" style="margin-top:10px">
+      <div class="vsec-head"><h2>余额核销</h2><span>可用 ¥1,280.00</span></div>
+      <div class="svc">
+        <button>洗剪吹 <b>¥68</b></button>
+        <button class="on">剪发造型 <b>¥128</b></button>
+        <button>头皮护理 <b>¥228</b></button>
+        <button>染发 <b>¥388</b></button>
+        <button class="other">其他金额</button>
+      </div>
+      <div class="amount">
+        <span class="cur">¥</span>
+        <input type="text" value="128.00" inputmode="decimal" aria-label="余额核销金额">
+        <span class="after">核销后 ¥1,152.00</span>
+      </div>
+    </div>
+
+    <div class="card vsec">
+      <div class="vsec-head"><h2>次卡核销</h2><span>本次扣减 1 次</span></div>
+      <div class="usecard">
+        <span class="lead teal"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="ci">
+          <div class="nm">剪发次卡 <span class="badge teal">8 / 12</span></div>
+          <div class="sub">有效期至 2027-03-31</div>
+        </div>
+        <div class="stepper">
+          <button type="button" aria-label="减少次数"><svg class="ic"><use href="icons.svg#i-minus"></use></svg></button>
+          <span class="v">1</span>
+          <button type="button" aria-label="增加次数"><svg class="ic"><use href="icons.svg#i-plus"></use></svg></button>
+        </div>
+      </div>
+      <div class="usecard">
+        <span class="lead gray"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="ci">
+          <div class="nm">头皮护理 <span class="badge teal">2 / 6</span></div>
+          <div class="sub">有效期至 2026-12-20</div>
+        </div>
+        <div class="stepper">
+          <button type="button" aria-label="减少次数" disabled><svg class="ic"><use href="icons.svg#i-minus"></use></svg></button>
+          <span class="v">0</span>
+          <button type="button" aria-label="增加次数"><svg class="ic"><use href="icons.svg#i-plus"></use></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <section class="card sumcard">
+      <div class="sumline"><span>余额核销</span><b>¥128.00</b></div>
+      <div class="sumline"><span>次卡核销</span><b>剪发 1 次</b></div>
+      <div class="sumline total"><span>本次合计</span><b>¥128.00 + 1 次</b></div>
+      <p class="sumnote">本次消费预计获得 <b>128 积分</b>；核销完成后自动计入消费记录与会员等级。</p>
+    </section>
+
+  </div>
+
+  <div class="search-only" style="margin-top:14px">
+    <section class="card" style="padding:14px 16px">
+      <div class="mode" role="group" aria-label="查询方式">
+        <button class="on">手机后四位</button>
+        <button>完整手机号</button>
+        <button>会员卡号</button>
+      </div>
+      <div class="search-row">
+        <div class="searchbar">
+          <svg class="ic"><use href="icons.svg#i-search"></use></svg>
+          <input type="search" value="6621" placeholder="输入手机号后四位" aria-label="搜索会员">
+        </div>
+        <a class="query-btn" href="?state=default">查询</a>
+      </div>
+      <p class="field-note" style="padding:9px 0 0">支持手机号后四位模糊匹配，输入完整手机号或会员卡号也能直接查询。</p>
+    </section>
+
+    <section class="card list howto" style="margin-top:12px">
+      <div class="cell">
+        <span class="lead"><svg class="ic"><use href="icons.svg#i-phone"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">手机号后四位</span>
+          <span class="cell-sub">如 6621，支持模糊匹配，命中多人时可继续选择</span>
+        </span>
+      </div>
+      <div class="cell">
+        <span class="lead"><svg class="ic"><use href="icons.svg#i-search"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">完整手机号</span>
+          <span class="cell-sub">如 138 0000 0000，精确匹配</span>
+        </span>
+      </div>
+      <div class="cell">
+        <span class="lead"><svg class="ic"><use href="icons.svg#i-bankcard"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">会员卡号</span>
+          <span class="cell-sub">如 QH 8821，实体卡与电子卡通用</span>
+        </span>
+      </div>
+    </section>
+
+    <div class="recent-sum">
+      <b>今日已核销 27 笔</b>
+      <span>合计 ¥3,158.00</span>
+    </div>
+    <div class="card list">
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm teal">林</span>
+        <span class="cell-main">
+          <span class="cell-title">林之遥 · 剪发次卡</span>
+          <span class="cell-sub">10:12 · 经办 林岚 · 剩余 8 次</span>
+        </span>
+        <span class="cell-amt">−1<span class="faint" style="font-size:11px;font-weight:400"> 次</span></span>
+      </a>
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm">黄</span>
+        <span class="cell-main">
+          <span class="cell-title">黄诗敏 · 染发造型</span>
+          <span class="cell-sub">09:47 · 经办 周宁 · 余额支付</span>
+        </span>
+        <span class="cell-amt">−¥388.00</span>
+      </a>
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm gold">陈</span>
+        <span class="cell-main">
+          <span class="cell-title">陈嘉怡 · 剪发造型</span>
+          <span class="cell-sub">09:32 · 经办 林岚 · 余额 + 次卡</span>
+        </span>
+        <span class="cell-amt">−¥128.00</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<div class="mp-actionbar">
+  <div class="sum"><span>本次合计</span><b>¥128.00 <i>+ 剪发 1 次</i></b></div>
+  <a class="btn btn-primary" href="member-detail.html">确认核销</a>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

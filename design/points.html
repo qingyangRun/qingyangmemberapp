@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<title>积分设置 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .master{display:flex;align-items:center;gap:12px;padding:16px}
+
+  .master .mi{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--gold-soft);color:var(--gold);flex:none}
+
+  .master .mi .ic{width:23px;height:23px}
+
+  .master .nm{display:flex;align-items:center;gap:7px;font-size:var(--fs-16);font-weight:600}
+
+  .master .sub{margin-top:2px;font-size:var(--fs-12);color:var(--muted);line-height:1.5}
+
+  .rule{padding:14px 16px}
+
+  .rule+.rule{margin-top:10px}
+
+  .rule-top{display:flex;align-items:center;gap:12px}
+
+  .rule-top .nm{font-size:var(--fs-15);font-weight:600}
+
+  .rule-top .sub{margin-top:2px;font-size:var(--fs-11);color:var(--muted)}
+
+  .ratio{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-strong)}
+
+  .ratio .rt{font-size:var(--fs-12);color:var(--muted)}
+
+  .ratio .rbox{display:flex;align-items:center;gap:6px;height:44px;padding:0 10px;border-radius:9px;border:1px solid var(--line-strong);background:#fff}
+
+  .ratio .rbox input{width:46px;min-height:44px;border:0;background:none;outline:none;text-align:center;font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .ratio .rbox .u{font-size:var(--fs-12);color:var(--muted)}
+
+  .off-rule{opacity:.55}
+
+  .off-rule .ratio .rbox{background:var(--surface-2)}
+
+  .preview-card{padding:14px 16px;margin-top:16px}
+
+  .preview-head{display:flex;align-items:center;gap:6px;font-size:var(--fs-13);font-weight:600}
+
+  .preview-head .ic{width:15px;height:15px;color:var(--gold)}
+
+  .pline{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;font-size:var(--fs-13);color:var(--muted)}
+
+  .pline b{color:var(--ink-2);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .pline .pts{color:var(--gold);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .preview-note{margin-top:8px;padding-top:10px;border-top:1px solid var(--line);font-size:var(--fs-11);color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="settings.html" aria-label="返回管理"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>积分设置</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <section class="card master">
+    <span class="mi"><svg class="ic"><use href="icons.svg#i-sparkles"></use></svg></span>
+    <div class="cell-main">
+      <div class="nm">启用积分</div>
+      <div class="sub">消费完成后实时入账，会员可在详情页查看积分余额</div>
+    </div>
+    <button class="sw on" type="button" aria-pressed="true" aria-label="启用积分"></button>
+  </section>
+
+  <div class="section-head" style="padding:18px 4px 10px">
+    <h2>积分获得方式</h2>
+    <span class="small muted">按实付金额计算</span>
+  </div>
+
+  <article class="card rule">
+    <div class="rule-top">
+      <span class="lead"><svg class="ic"><use href="icons.svg#i-wallet"></use></svg></span>
+      <div class="cell-main">
+        <div class="nm">余额充值</div>
+        <div class="sub">充值到账后入账，赠送金额不计积分</div>
+      </div>
+      <button class="sw on" type="button" aria-pressed="true" aria-label="余额充值计积分开关"></button>
+    </div>
+    <div class="ratio">
+      <span class="rt">每 1 元获得</span>
+      <div class="rbox">
+        <input type="text" value="1" aria-label="余额充值积分比例">
+        <span class="u">积分</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card rule">
+    <div class="rule-top">
+      <span class="lead teal"><svg class="ic"><use href="icons.svg#i-scan"></use></svg></span>
+      <div class="cell-main">
+        <div class="nm">消费核销</div>
+        <div class="sub">余额或次卡核销后，按消费金额入账</div>
+      </div>
+      <button class="sw on" type="button" aria-pressed="true" aria-label="消费核销计积分开关"></button>
+    </div>
+    <div class="ratio">
+      <span class="rt">每 1 元获得</span>
+      <div class="rbox">
+        <input type="text" value="1" aria-label="消费核销积分比例">
+        <span class="u">积分</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card rule">
+    <div class="rule-top">
+      <span class="lead gold"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+      <div class="cell-main">
+        <div class="nm">购买次卡</div>
+        <div class="sub">次卡收款后按售价入账，退款时扣回</div>
+      </div>
+      <button class="sw on" type="button" aria-pressed="true" aria-label="购买次卡计积分开关"></button>
+    </div>
+    <div class="ratio">
+      <span class="rt">每 1 元获得</span>
+      <div class="rbox">
+        <input type="text" value="0.5" aria-label="购买次卡积分比例">
+        <span class="u">积分</span>
+      </div>
+    </div>
+  </article>
+
+  <section class="card preview-card">
+    <div class="preview-head"><svg class="ic"><use href="icons.svg#i-sparkles"></use></svg>以陈嘉怡为例</div>
+    <div class="pline"><span>充值 ¥500（赠送 ¥50 不计）</span><span class="pts">+500 积分</span></div>
+    <div class="pline"><span>余额核销 ¥128</span><span class="pts">+128 积分</span></div>
+    <div class="pline"><span>购买 ¥680 次卡</span><span class="pts">+340 积分</span></div>
+    <p class="preview-note">积分按实付金额向下取整；发生退款时，对应积分会自动扣回。积分不可折现、不可转让。</p>
+  </section>
+
+  <p class="page-lead" style="margin-top:14px">修改比例不会追溯已产生的积分，仅对之后的充值、消费生效。</p>
+
+</main>
+
+<div class="mp-actionbar">
+  <div class="sum"><span>保存后立即生效</span><b>3 项获得方式</b></div>
+  <a class="btn btn-primary" href="settings.html">保存设置</a>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

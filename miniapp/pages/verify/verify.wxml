@@ -1,0 +1,252 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page has-action">
+    <view class="div found-wrap">
+      <view class="section card found">
+        <view class="div found-top">
+          <text class="span ava lg gold">陈</text>
+          <view class="div cell-main">
+            <view class="div nm">
+              <text>陈嘉怡</text>
+              <text class="span badge gold">金卡</text>
+              <text class="span badge green">正常</text>
+            </view>
+            <text class="div sub">138 **** 6621 · 卡号 QH 8821</text>
+            <view class="div wrap-tags">
+              <text class="span tag">高复购</text>
+              <text class="span tag">敏感头皮</text>
+              <text class="span tag">生日月</text>
+            </view>
+          </view>
+          <view class="a btn btn-sm" hover-class="tap" bindtap="setState" data-state="search">
+            <text>重选</text>
+          </view>
+        </view>
+        <view class="div found-assets">
+          <view class="div">
+            <text class="span">账户余额</text>
+            <view class="b">
+              <text>¥1,280</text>
+              <text class="small">.00</text>
+            </view>
+          </view>
+          <view class="div">
+            <text class="span">可用次卡</text>
+            <view class="b">
+              <text>10</text>
+              <text class="small">次 · 3 张</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="div seg" style="margin-top:24rpx">
+        <view class="button" hover-class="tap">
+          <text>余额核销</text>
+        </view>
+        <view class="button" hover-class="tap">
+          <text>次卡核销</text>
+        </view>
+        <view class="button on" hover-class="tap">
+          <text>组合核销</text>
+        </view>
+      </view>
+      <view class="div card vsec" style="margin-top:20rpx">
+        <view class="div vsec-head">
+          <text class="h2">余额核销</text>
+          <text class="span">可用 ¥1,280.00</text>
+        </view>
+        <view class="div svc">
+          <view class="button" hover-class="tap">
+            <text>洗剪吹</text>
+            <text class="b">¥68</text>
+          </view>
+          <view class="button on" hover-class="tap">
+            <text>剪发造型</text>
+            <text class="b">¥128</text>
+          </view>
+          <view class="button" hover-class="tap">
+            <text>头皮护理</text>
+            <text class="b">¥228</text>
+          </view>
+          <view class="button" hover-class="tap">
+            <text>染发</text>
+            <text class="b">¥388</text>
+          </view>
+          <view class="button other" hover-class="tap">
+            <text>其他金额</text>
+          </view>
+        </view>
+        <view class="div amount">
+          <text class="span cur">¥</text>
+          <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+          <text class="span after">核销后 ¥1,152.00</text>
+        </view>
+      </view>
+      <view class="div card vsec">
+        <view class="div vsec-head">
+          <text class="h2">次卡核销</text>
+          <text class="span">本次扣减 1 次</text>
+        </view>
+        <view class="div usecard">
+          <view class="span lead teal">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div ci">
+            <view class="div nm">
+              <text>剪发次卡</text>
+              <text class="span badge teal">8 / 12</text>
+            </view>
+            <text class="div sub">有效期至 2027-03-31</text>
+          </view>
+          <view class="div stepper">
+            <view class="button" hover-class="tap">
+              <view class="i-minus ic"></view>
+            </view>
+            <text class="span v">1</text>
+            <view class="button" hover-class="tap">
+              <view class="i-plus ic"></view>
+            </view>
+          </view>
+        </view>
+        <view class="div usecard">
+          <view class="span lead gray">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div ci">
+            <view class="div nm">
+              <text>头皮护理</text>
+              <text class="span badge teal">2 / 6</text>
+            </view>
+            <text class="div sub">有效期至 2026-12-20</text>
+          </view>
+          <view class="div stepper">
+            <view class="button" hover-class="tap">
+              <view class="i-minus ic"></view>
+            </view>
+            <text class="span v">0</text>
+            <view class="button" hover-class="tap">
+              <view class="i-plus ic"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="section card sumcard">
+        <view class="div sumline">
+          <text class="span">余额核销</text>
+          <text class="b">¥128.00</text>
+        </view>
+        <view class="div sumline">
+          <text class="span">次卡核销</text>
+          <text class="b">剪发 1 次</text>
+        </view>
+        <view class="div sumline total">
+          <text class="span">本次合计</text>
+          <text class="b">¥128.00 + 1 次</text>
+        </view>
+        <view class="p sumnote">
+          <text>本次消费预计获得</text>
+          <text class="b">128 积分</text>
+          <text>；核销完成后自动计入消费记录与会员等级。</text>
+        </view>
+      </view>
+    </view>
+    <view class="div search-only" style="margin-top:28rpx">
+      <view class="section card" style="padding:28rpx 32rpx">
+        <view class="div mode">
+          <view class="button on" hover-class="tap">
+            <text>手机后四位</text>
+          </view>
+          <view class="button" hover-class="tap">
+            <text>完整手机号</text>
+          </view>
+          <view class="button" hover-class="tap">
+            <text>会员卡号</text>
+          </view>
+        </view>
+        <view class="div search-row">
+          <view class="div searchbar">
+            <view class="i-search ic"></view>
+            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="输入手机号后四位" bindinput="onInput" />
+          </view>
+          <view class="a query-btn" hover-class="tap" bindtap="setState" data-state="default">
+            <text>查询</text>
+          </view>
+        </view>
+        <text class="p field-note" style="padding:18rpx 0 0">支持手机号后四位模糊匹配，输入完整手机号或会员卡号也能直接查询。</text>
+      </view>
+      <view class="section card list howto" style="margin-top:24rpx">
+        <view class="div cell">
+          <view class="span lead">
+            <view class="i-phone ic"></view>
+          </view>
+          <view class="span cell-main">
+            <text class="span cell-title">手机号后四位</text>
+            <text class="span cell-sub">如 6621，支持模糊匹配，命中多人时可继续选择</text>
+          </view>
+        </view>
+        <view class="div cell">
+          <view class="span lead">
+            <view class="i-search ic"></view>
+          </view>
+          <view class="span cell-main">
+            <text class="span cell-title">完整手机号</text>
+            <text class="span cell-sub">如 138 6621 3048，精确匹配</text>
+          </view>
+        </view>
+        <view class="div cell">
+          <view class="span lead">
+            <view class="i-bankcard ic"></view>
+          </view>
+          <view class="span cell-main">
+            <text class="span cell-title">会员卡号</text>
+            <text class="span cell-sub">如 QH 8821，实体卡与电子卡通用</text>
+          </view>
+        </view>
+      </view>
+      <view class="div recent-sum">
+        <text class="b">今日已核销 27 笔</text>
+        <text class="span">合计 ¥3,158.00</text>
+      </view>
+      <view class="div card list">
+        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
+          <text class="span ava sm teal">林</text>
+          <view class="span cell-main">
+            <text class="span cell-title">林之遥 · 剪发次卡</text>
+            <text class="span cell-sub">10:12 · 经办 林岚 · 剩余 8 次</text>
+          </view>
+          <view class="span cell-amt">
+            <text>−1</text>
+            <text class="span faint" style="font-size:22rpx;font-weight:400">次</text>
+          </view>
+        </view>
+        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
+          <text class="span ava sm">黄</text>
+          <view class="span cell-main">
+            <text class="span cell-title">黄诗敏 · 染发造型</text>
+            <text class="span cell-sub">09:47 · 经办 周宁 · 余额支付</text>
+          </view>
+          <text class="span cell-amt">−¥388.00</text>
+        </view>
+        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
+          <text class="span ava sm gold">陈</text>
+          <view class="span cell-main">
+            <text class="span cell-title">陈嘉怡 · 剪发造型</text>
+            <text class="span cell-sub">09:32 · 经办 林岚 · 余额 + 次卡</text>
+          </view>
+          <text class="span cell-amt">−¥128.00</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="div mp-actionbar">
+    <view class="div sum">
+      <text class="span">本次合计</text>
+      <view class="b">
+        <text>¥128.00</text>
+        <text class="i">+ 剪发 1 次</text>
+      </view>
+    </view>
+    <view class="a btn btn-primary" bindtap="go" data-page="member-detail" hover-class="tap">
+      <text>确认核销</text>
+    </view>
+  </view>
+</view>

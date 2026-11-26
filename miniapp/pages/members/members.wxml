@@ -1,0 +1,235 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page">
+    <view class="div search-row">
+      <view class="div searchbar">
+        <view class="i-search ic"></view>
+        <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="搜索姓名 / 手机号 / 卡号" bindinput="onInput" />
+      </view>
+      <view class="a btn-icon" hover-class="tap" bindtap="setState" data-state="filter">
+        <view class="i-filter ic"></view>
+      </view>
+    </view>
+    <view class="div chips" style="margin-top:28rpx">
+      <view class="a chip on" hover-class="tap" bindtap="setState" data-state="default">
+        <text>全部</text>
+      </view>
+      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+        <text>金卡以上</text>
+      </view>
+      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+        <text>有余额</text>
+      </view>
+      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+        <text>有次卡</text>
+      </view>
+      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+        <text>沉睡</text>
+      </view>
+      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+        <text>生日月</text>
+      </view>
+    </view>
+    <view class="div list-head">
+      <text class="b">1,286 位会员</text>
+      <text class="span">本月新增 42 · 沉睡 63</text>
+    </view>
+    <view class="div card list">
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava gold">陈</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">陈嘉怡</text>
+            <text class="span badge gold">金卡</text>
+          </view>
+          <text class="span cell-sub">138 **** 6621 · 卡号 QH 8821</text>
+          <view class="span wrap-tags">
+            <text class="span tag">高复购</text>
+            <text class="span tag">生日月</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b">¥1,280</text>
+          <text class="span">次卡 10 次</text>
+        </view>
+      </view>
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava dark">周</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">周明轩</text>
+            <text class="span badge gray">黑金</text>
+          </view>
+          <text class="span cell-sub">139 **** 0837 · 卡号 QH 8830</text>
+          <view class="span wrap-tags">
+            <text class="span tag">高复购</text>
+            <text class="span tag">转介绍</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b">¥4,860</text>
+          <text class="span">次卡 21 次</text>
+        </view>
+      </view>
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava">林</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">林之遥</text>
+            <text class="span badge blue">银卡</text>
+          </view>
+          <text class="span cell-sub">137 **** 4290 · 卡号 QH 8842</text>
+          <view class="span wrap-tags">
+            <text class="span tag">敏感头皮</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b">¥620</text>
+          <text class="span">次卡 8 次</text>
+        </view>
+      </view>
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava gray">苏</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">苏晚</text>
+            <text class="span badge gray">普通</text>
+          </view>
+          <text class="span cell-sub">150 **** 1176 · 卡号 QH 8855</text>
+          <view class="span wrap-tags">
+            <text class="span tag">新会员</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b zero">¥0</text>
+          <text class="span">暂无次卡</text>
+        </view>
+      </view>
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava gold">黄</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">黄诗敏</text>
+            <text class="span badge gold">金卡</text>
+          </view>
+          <text class="span cell-sub">186 **** 5502 · 卡号 QH 8861</text>
+          <view class="span wrap-tags">
+            <text class="span tag">只做烫染</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b">¥2,100</text>
+          <text class="span">次卡 6 次</text>
+        </view>
+      </view>
+      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
+        <text class="span ava gray">郑</text>
+        <view class="span cell-main">
+          <view class="span mrow-top">
+            <text class="b">郑凯文</text>
+            <text class="span badge blue">银卡</text>
+          </view>
+          <text class="span cell-sub">135 **** 9948 · 卡号 QH 8873</text>
+          <view class="span wrap-tags">
+            <text class="span tag">沉睡 62 天</text>
+          </view>
+        </view>
+        <view class="span figure">
+          <text class="b">¥340</text>
+          <text class="span">次卡 3 次</text>
+        </view>
+      </view>
+    </view>
+    <text class="p list-end">已显示 6 / 1,286 位</text>
+  </view>
+  <view class="div mask">
+    <view class="div sheet">
+      <view class="div sheet-grab"></view>
+      <view class="div sheet-head">
+        <text class="h2">筛选会员</text>
+        <view class="a sheet-close" hover-class="tap" bindtap="setState" data-state="default">
+          <view class="i-close ic"></view>
+        </view>
+      </view>
+      <view class="div fgroup">
+        <text class="h3">会员等级</text>
+        <view class="div chips">
+          <view class="button chip on" hover-class="tap">
+            <text>全部等级</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>普通</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>银卡</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>金卡</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>黑金</text>
+          </view>
+        </view>
+      </view>
+      <view class="div fgroup">
+        <text class="h3">会员状态</text>
+        <view class="div chips">
+          <view class="button chip on" hover-class="tap">
+            <text>正常</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>沉睡</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>停用</text>
+          </view>
+        </view>
+      </view>
+      <view class="div fgroup">
+        <text class="h3">会员标记（可多选）</text>
+        <view class="div chips">
+          <view class="button chip on" hover-class="tap">
+            <text>高复购</text>
+          </view>
+          <view class="button chip on" hover-class="tap">
+            <text>生日月</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>敏感头皮</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>只做烫染</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>转介绍</text>
+          </view>
+          <view class="button chip" hover-class="tap">
+            <text>沉睡唤醒</text>
+          </view>
+        </view>
+      </view>
+      <view class="div fgroup">
+        <text class="h3">余额区间</text>
+        <view class="div range">
+          <view class="div input-box">
+            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="最低" bindinput="onInput" />
+            <text class="span unit">元</text>
+          </view>
+          <text class="span dash">—</text>
+          <view class="div input-box">
+            <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="最高" bindinput="onInput" />
+            <text class="span unit">元</text>
+          </view>
+        </view>
+      </view>
+      <view class="div sheet-actions">
+        <view class="a btn btn-ghost" hover-class="tap" bindtap="setState" data-state="default">
+          <text>重置</text>
+        </view>
+        <view class="a btn btn-primary" hover-class="tap" bindtap="setState" data-state="default">
+          <text>查看 218 位会员</text>
+        </view>
+      </view>
+      <text class="p sheet-note">筛选条件可叠加，结果会同步到会员列表；「查看」后可在列表继续按标记搜索。</text>
+    </view>
+  </view>
+</view>

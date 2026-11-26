@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/members/members",
+    "pages/records/records",
+    "pages/stats/stats",
+    "pages/settings/settings",
+    "pages/member-detail/member-detail",
+    "pages/member-new/member-new",
+    "pages/member-edit/member-edit",
+    "pages/verify/verify",
+    "pages/recharge/recharge",
+    "pages/levels/levels",
+    "pages/points/points",
+    "pages/cards/cards",
+    "pages/theme/theme"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "清样会员",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F4F6FA"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#5A6A82",
+    "selectedColor": "#2457F5",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "清样会员"
+      },
+      {
+        "pagePath": "pages/members/members",
+        "text": "会员"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/stats/stats",
+        "text": "数据"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "管理"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

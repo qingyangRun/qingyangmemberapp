@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:余额充值, card:购买次卡">
+<title>储值开卡 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .who .fig{flex:none;text-align:right}
+
+  .who .fig span{display:block;font-size:var(--fs-11);color:var(--muted)}
+
+  .who .fig b{font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .amt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+
+  .amt-grid button{height:46px;border-radius:11px;border:1px solid var(--line);background:var(--surface);font-size:var(--fs-15);font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+  .amt-grid button.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
+
+  .giftline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:9px 12px;border-radius:10px;background:var(--gold-soft)}
+
+  .giftline span{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-12);color:var(--gold)}
+
+  .giftline span .ic{width:14px;height:14px;stroke-width:2}
+
+  .giftline b{font-size:var(--fs-13);color:var(--gold);font-variant-numeric:tabular-nums}
+
+  .arrive{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:var(--fs-13);color:var(--muted)}
+
+  .arrive b{font-size:var(--fs-18);font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .mp-page .card+.card{margin-top:12px}
+
+  .pick .cell{padding:13px 16px;text-align:left;align-items:flex-start}
+
+  .pick .nm{display:flex;align-items:center;gap:6px;font-size:var(--fs-15);font-weight:500}
+
+  .pick .sub{margin-top:2px;font-size:var(--fs-12);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .pick .pr{flex:none;text-align:right;margin-top:2px}
+
+  .pick .pr b{display:block;font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .pick .pr span{display:block;font-size:var(--fs-11);color:var(--muted)}
+
+  .pick .cell.on{background:#FAFBFF}
+
+  .pay .cell{text-align:left}
+
+  .pay .cell-title{font-size:var(--fs-15)}
+
+  .pay .cell-sub{margin-top:1px}
+
+  .radio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-strong);flex:none;display:grid;place-items:center}
+
+  .radio i{width:10px;height:10px;border-radius:50%;background:var(--primary);opacity:0}
+
+  .radio.on{border-color:var(--primary)}
+
+  .radio.on i{opacity:1}
+
+  .fields{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);margin-top:12px}
+
+  .fields .field{padding-left:16px;padding-right:16px}
+
+  .fields .field input{text-align:left}
+
+  [data-state="default"] .card-only{display:none}
+
+  [data-state="card"] .recharge-only{display:none}
+
+  [data-state="default"] .sum-card{display:none}
+
+  [data-state="default"] .seg .s-recharge,
+  [data-state="card"] .seg .s-card{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--shadow-sm)}
+
+  .notice{display:flex;align-items:flex-start;gap:6px;margin-top:12px;font-size:var(--fs-11);color:var(--muted);line-height:1.6}
+
+  .notice .ic{width:13px;height:13px;margin-top:2px;flex:none;color:var(--faint);stroke-width:2}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="member-detail.html" aria-label="返回会员详情"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>储值开卡</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <div class="card who">
+    <span class="ava gold">陈</span>
+    <div class="cell-main">
+      <div class="nm">陈嘉怡 <span class="badge gold">金卡</span></div>
+      <div class="sub">138 **** 6621 · QH 8821</div>
+    </div>
+    <div class="fig"><span>当前余额</span><b>¥1,280.00</b></div>
+  </div>
+
+  <div class="seg" style="margin-top:12px" role="group" aria-label="业务类型">
+    <a class="s-recharge" href="?state=default">余额充值</a>
+    <a class="s-card" href="?state=card">购买次卡</a>
+  </div>
+
+  <div class="recharge-only">
+    <section class="card vsec" style="margin-top:12px">
+      <div class="vsec-head"><h2>充值金额</h2><span>充 500 赠 50</span></div>
+      <div class="amt-grid">
+        <button>¥200</button>
+        <button class="on">¥500</button>
+        <button>¥1,000</button>
+        <button>¥2,000</button>
+      </div>
+      <div class="amount lg">
+        <span class="cur">¥</span>
+        <input type="text" value="500.00" inputmode="decimal" aria-label="充值金额">
+      </div>
+      <div class="giftline">
+        <span><svg class="ic"><use href="icons.svg#i-gift"></use></svg>满 ¥500 赠 ¥50</span>
+        <b>+50.00</b>
+      </div>
+      <div class="arrive"><span>本次到账（含赠送）</span><b>¥550.00</b></div>
+    </section>
+
+    <section class="card vsec" style="margin-top:12px">
+      <div class="vsec-head"><h2>升级进度</h2><span>黑金卡</span></div>
+      <div class="between" style="font-size:var(--fs-12);color:var(--muted)">
+        <span>累计消费 ¥6,420 / ¥8,000</span><span>差 ¥1,580</span>
+      </div>
+      <div class="bar-track" style="margin-top:8px"><i class="gold" style="width:80%"></i></div>
+      <p class="vsec-head" style="margin:8px 0 0;display:block;font-size:var(--fs-11);color:var(--muted)">本次充值计 500 积分，赠送金额不计积分。</p>
+    </section>
+  </div>
+
+  <div class="card-only">
+    <div class="card list pick" style="margin-top:12px">
+      <button class="cell on" type="button">
+        <span class="ck on"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span>
+        <span class="cell-main">
+          <span class="nm">剪发次卡 <span class="badge teal">10 + 2 次</span></span>
+          <span class="sub">有效期 12 个月 · 单价 ¥56.7 / 次</span>
+        </span>
+        <span class="pr"><b>¥680</b><span>省 ¥136</span></span>
+      </button>
+      <button class="cell" type="button">
+        <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span>
+        <span class="cell-main">
+          <span class="nm">头皮护理 <span class="badge teal">6 + 1 次</span></span>
+          <span class="sub">有效期 12 个月 · 单价 ¥154.3 / 次</span>
+        </span>
+        <span class="pr"><b>¥1,080</b><span>省 ¥96</span></span>
+      </button>
+      <button class="cell" type="button">
+        <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span>
+        <span class="cell-main">
+          <span class="nm">染发次卡 <span class="badge teal">3 次</span></span>
+          <span class="sub">有效期 12 个月 · 单价 ¥560 / 次</span>
+        </span>
+        <span class="pr"><b>¥1,680</b><span>省 ¥84</span></span>
+      </button>
+    </div>
+
+    <section class="card vsec" style="margin-top:12px">
+      <div class="vsec-head"><h2>本次开卡</h2><span>1 张</span></div>
+      <div class="arrive" style="margin-top:0"><span>剪发次卡到账</span><b>12 次</b></div>
+      <div class="arrive"><span>计入累计消费</span><b>¥680.00</b></div>
+      <div class="arrive"><span>预计获得积分</span><b>340</b></div>
+    </section>
+  </div>
+
+  <section class="card list pay" style="margin-top:12px">
+    <button class="cell" type="button">
+      <span class="lead" style="background:var(--success-soft);color:var(--success)"><svg class="ic"><use href="icons.svg#i-wallet"></use></svg></span>
+      <span class="cell-main">
+        <span class="cell-title">微信支付</span>
+        <span class="cell-sub">实时到账，可原路退款</span>
+      </span>
+      <span class="radio on"><i></i></span>
+    </button>
+    <button class="cell" type="button">
+      <span class="lead gold"><svg class="ic"><use href="icons.svg#i-banknote"></use></svg></span>
+      <span class="cell-main">
+        <span class="cell-title">现金</span>
+        <span class="cell-sub">前台收取，需当班对账</span>
+      </span>
+      <span class="radio"><i></i></span>
+    </button>
+    <button class="cell" type="button">
+      <span class="lead"><svg class="ic"><use href="icons.svg#i-bankcard"></use></svg></span>
+      <span class="cell-main">
+        <span class="cell-title">银行卡</span>
+        <span class="cell-sub">POS 刷卡后手动确认</span>
+      </span>
+      <span class="radio"><i></i></span>
+    </button>
+  </section>
+
+  <div class="fields">
+    <div class="field">
+      <span class="lb">备注</span>
+      <div class="ctl"><input type="text" placeholder="选填，如「双十一活动」" aria-label="备注"></div>
+    </div>
+  </div>
+
+  <p class="notice"><svg class="ic"><use href="icons.svg#i-help"></use></svg>收款后立即生成记录，可在「记录」中查看；赠送金额不可提现、不可退。</p>
+
+</main>
+
+<div class="mp-actionbar recharge-only">
+  <div class="sum"><span>实收金额</span><b>¥500.00</b></div>
+  <a class="btn btn-primary" href="member-detail.html">确认收款</a>
+</div>
+
+<div class="mp-actionbar card-only">
+  <div class="sum"><span>实收金额</span><b>¥680.00</b></div>
+  <a class="btn btn-primary" href="member-detail.html">确认购买</a>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

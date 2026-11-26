@@ -1,0 +1,214 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page has-action">
+    <view class="section card sum3">
+      <view class="div">
+        <text class="span">在售项目</text>
+        <view class="b">
+          <text>3</text>
+          <text class="small">个</text>
+        </view>
+      </view>
+      <view class="div">
+        <text class="span">本月售出</text>
+        <view class="b">
+          <text>52</text>
+          <text class="small">张</text>
+        </view>
+      </view>
+      <view class="div">
+        <text class="span">本月核销</text>
+        <view class="b">
+          <text>186</text>
+          <text class="small">次</text>
+        </view>
+      </view>
+    </view>
+    <view class="div" style="margin-top:24rpx">
+      <view class="article card tcard">
+        <view class="div tcard-top">
+          <view class="span tem">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div cell-main">
+            <view class="div nm">
+              <text>剪发次卡</text>
+              <text class="span badge teal">在售</text>
+            </view>
+            <text class="div sub">10 次 + 赠 2 次 · 有效期 12 个月</text>
+          </view>
+          <view class="div price">
+            <text class="b">¥680</text>
+            <text class="span">¥56.7 / 次</text>
+          </view>
+        </view>
+        <view class="div tcard-foot">
+          <text class="span">已售 186 张 · 核销 1,024 次</text>
+          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
+            <text>编辑</text>
+            <view class="i-chevron ic"></view>
+          </view>
+        </view>
+      </view>
+      <view class="article card tcard">
+        <view class="div tcard-top">
+          <view class="span tem">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div cell-main">
+            <view class="div nm">
+              <text>头皮护理</text>
+              <text class="span badge teal">在售</text>
+            </view>
+            <text class="div sub">6 次 + 赠 1 次 · 有效期 12 个月</text>
+          </view>
+          <view class="div price">
+            <text class="b">¥1,080</text>
+            <text class="span">¥154.3 / 次</text>
+          </view>
+        </view>
+        <view class="div tcard-foot">
+          <text class="span">已售 64 张 · 核销 302 次</text>
+          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
+            <text>编辑</text>
+            <view class="i-chevron ic"></view>
+          </view>
+        </view>
+      </view>
+      <view class="article card tcard">
+        <view class="div tcard-top">
+          <view class="span tem">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div cell-main">
+            <view class="div nm">
+              <text>染发次卡</text>
+              <text class="span badge teal">在售</text>
+            </view>
+            <text class="div sub">3 次 · 有效期 12 个月</text>
+          </view>
+          <view class="div price">
+            <text class="b">¥1,680</text>
+            <text class="span">¥560 / 次</text>
+          </view>
+        </view>
+        <view class="div tcard-foot">
+          <text class="span">已售 22 张 · 核销 58 次</text>
+          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
+            <text>编辑</text>
+            <view class="i-chevron ic"></view>
+          </view>
+        </view>
+      </view>
+      <view class="article card tcard off">
+        <view class="div tcard-top">
+          <view class="span tem" style="background:var(--surface-3);color:var(--muted)">
+            <view class="i-cards ic"></view>
+          </view>
+          <view class="div cell-main">
+            <view class="div nm">
+              <text>造型次卡</text>
+              <text class="span badge gray">已下架</text>
+            </view>
+            <text class="div sub">5 次 + 赠 1 次 · 2026-10-01 下架</text>
+          </view>
+          <view class="div price">
+            <text class="b" style="color:var(--muted)">¥500</text>
+            <text class="span">¥83.3 / 次</text>
+          </view>
+        </view>
+        <view class="div tcard-foot">
+          <text class="span">已售 45 张 · 核销 210 次 · 不影响已购会员使用</text>
+          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
+            <text>编辑</text>
+            <view class="i-chevron ic"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <text class="p page-lead" style="margin-top:28rpx">下架项目不影响会员已购买次卡的使用；删除项目会保留历史记录。</text>
+  </view>
+  <view class="div mp-actionbar">
+    <view class="div sum">
+      <text class="span">共 4 个项目</text>
+      <text class="b">3 个在售</text>
+    </view>
+    <view class="a btn btn-primary" hover-class="tap" bindtap="setState" data-state="edit">
+      <text>新建次卡项目</text>
+    </view>
+  </view>
+  <view class="div mask">
+    <view class="div sheet">
+      <view class="div sheet-grab"></view>
+      <view class="div sheet-head">
+        <text class="h2">次卡项目设置</text>
+        <view class="a sheet-close" hover-class="tap" bindtap="setState" data-state="default">
+          <view class="i-close ic"></view>
+        </view>
+      </view>
+      <view class="div sform">
+        <view class="div srow">
+          <text class="span lb">项目名称</text>
+          <view class="div ctl">
+            <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+          </view>
+        </view>
+        <view class="div srow">
+          <text class="span lb">售价</text>
+          <view class="div ctl">
+            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="" bindinput="onInput" />
+            <text class="span unit">元</text>
+          </view>
+        </view>
+        <view class="div srow">
+          <text class="span lb">可用次数</text>
+          <view class="div ctl">
+            <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="" bindinput="onInput" />
+            <text class="span unit">次</text>
+          </view>
+        </view>
+        <view class="div srow">
+          <text class="span lb">赠送次数</text>
+          <view class="div ctl">
+            <input class="input" data-key="f3" value="{{inputs.f3}}" placeholder="" bindinput="onInput" />
+            <text class="span unit">次</text>
+          </view>
+        </view>
+      </view>
+      <view class="div sgroup">
+        <text class="h3">使用规则</text>
+        <view class="div sform">
+          <view class="div srow">
+            <text class="span lb">有效期</text>
+            <view class="div ctl">
+              <input class="input" data-key="f4" value="{{inputs.f4}}" placeholder="" bindinput="onInput" />
+              <text class="span unit">个月</text>
+            </view>
+          </view>
+          <view class="div srow">
+            <text class="span lb">适用项目</text>
+            <view class="div ctl">
+              <input class="input" data-key="f5" value="{{inputs.f5}}" placeholder="" bindinput="onInput" />
+            </view>
+          </view>
+          <view class="div srow">
+            <text class="span lb">上架状态</text>
+            <view class="div ctl">
+              <view class="button sw on" hover-class="tap"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="div preview">
+        <view class="i-cards ic"></view>
+        <text class="p">会员购买后到账 12 次，单次成本 ¥56.7；按「购买次卡」规则可获得 340 积分。</text>
+      </view>
+      <view class="a btn btn-primary btn-block" hover-class="tap" bindtap="setState" data-state="default">
+        <text>保存项目</text>
+      </view>
+      <view class="button del-link" hover-class="tap">
+        <view class="i-trash ic"></view>
+        <text>删除该项目</text>
+      </view>
+    </view>
+  </view>
+</view>

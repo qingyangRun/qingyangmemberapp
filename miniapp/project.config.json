@@ -1,0 +1,11 @@
+{
+  "description": "清样会员 · 微信小程序",
+  "compileType": "miniprogram",
+  "libVersion": "3.5.5",
+  "appid": "touristappid",
+  "projectname": "qingyang-member",
+  "setting": {
+    "urlCheck": false,
+    "es6": true
+  }
+}

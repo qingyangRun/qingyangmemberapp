@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:本月, week:本周, day:今日">
+<title>数据 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  [data-state="default"] .wk,[data-state="default"] .dy{display:none}
+
+  [data-state="week"] .mo,[data-state="week"] .dy{display:none}
+
+  [data-state="day"] .mo,[data-state="day"] .wk{display:none}
+
+  .range{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 4px 0;font-size:var(--fs-11);color:var(--muted)}
+
+  .range b{font-weight:500;color:var(--ink-2)}
+
+  .kpis{margin-top:10px}
+
+  .chart-card{padding:14px 16px;margin-top:12px}
+
+  .chart-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+
+  .chart-head h2{font-size:var(--fs-13);font-weight:600}
+
+  .chart-head span{font-size:var(--fs-11);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .chart{display:flex;align-items:flex-end;gap:8px;height:108px;margin-top:14px}
+
+  .chart .b{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-width:0}
+
+  .chart .b i{display:block;border-radius:5px 5px 3px 3px;background:var(--primary-soft-2);min-height:6px}
+
+  .chart .b i.on{background:var(--primary)}
+
+  .chart .b span{font-size:var(--fs-10);color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .chart .b:hover i{background:var(--primary)}
+
+  .dims{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:10px;padding-bottom:2px}
+
+  .dims::-webkit-scrollbar{display:none}
+
+  .dim{flex:none;display:inline-flex;align-items:center;gap:3px;height:44px;padding:0 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-size:var(--fs-12);color:var(--ink-2)}
+
+  .dim .ic{width:13px;height:13px;stroke-width:2;color:var(--faint)}
+
+  .breakdown{padding:14px 16px;margin-top:12px}
+
+  .breakdown-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+  .breakdown-head h2{font-size:var(--fs-13);font-weight:600}
+
+  .breakdown-head span{font-size:var(--fs-11);color:var(--muted)}
+
+  .stack{display:flex;gap:2px;height:10px;border-radius:5px;overflow:hidden;margin-top:12px}
+
+  .stack i{display:block;height:100%}
+
+  .stack .a{background:var(--primary);border-radius:5px 0 0 5px}
+
+  .stack .b{background:var(--accent-bright);border-radius:0 5px 5px 0}
+
+  .legend{display:flex;margin-top:11px}
+
+  .legend>div{flex:1;min-width:0}
+
+  .legend .k{display:flex;align-items:center;gap:5px;font-size:var(--fs-11);color:var(--muted)}
+
+  .legend .k i{width:7px;height:7px;border-radius:2px;background:var(--primary);display:block;flex:none}
+
+  .legend .k i.teal{background:var(--accent-bright)}
+
+  .legend b{display:block;margin-top:3px;font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .legend b small{font-size:var(--fs-11);font-weight:400;color:var(--muted);margin-left:3px}
+
+  .top-cell{padding:12px 16px;align-items:center}
+
+  .rank{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;background:var(--surface-3);color:var(--muted);font-size:var(--fs-10);font-weight:600;flex:none}
+
+  .rank.top{background:var(--gold-soft);color:var(--gold)}
+
+  .top-cell .cell-title{font-size:var(--fs-13);font-weight:600}
+
+  .top-cell .cell-sub{font-size:var(--fs-11);margin-top:1px}
+
+  .top-cell .bar-track{height:5px;margin-top:5px}
+
+  .top-cell .cell-amt{font-size:var(--fs-13)}
+
+  .stack2{display:flex;align-items:center;gap:12px}
+
+  .stack2 .bar-track{flex:1}
+
+  [data-state="day"] .seg .s-day,
+  [data-state="week"] .seg .s-week,
+  [data-state="default"] .seg .s-month{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--shadow-sm)}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav"><h1>数据</h1></div>
+</header>
+
+<main class="mp-page">
+
+  <div class="seg" role="group" aria-label="统计周期">
+    <a class="s-day" href="?state=day">今日</a>
+    <a class="s-week" href="?state=week">本周</a>
+    <a class="s-month" href="?state=default">本月</a>
+  </div>
+
+  <div class="range">
+    <span class="mo">11-01 至 11-25 · 对比上月同期</span>
+    <span class="wk">11-23 至 11-25 · 对比上周同期</span>
+    <span class="dy">11-25 · 对比昨日</span>
+    <b>实时</b>
+  </div>
+
+  <div class="stat-grid kpis">
+    <section class="stat">
+      <div class="k">营业额</div>
+      <div class="v num"><span class="mo">¥28,460</span><span class="wk">¥7,860</span><span class="dy">¥3,286</span></div>
+      <div class="d up"><svg class="ic"><use href="icons.svg#i-arrow-up"></use></svg><span class="mo">12.4%</span><span class="wk">6.8%</span><span class="dy">12.4%</span></div>
+    </section>
+    <section class="stat">
+      <div class="k">会员充值</div>
+      <div class="v num"><span class="mo">¥9,800</span><span class="wk">¥2,300</span><span class="dy">¥1,200</span></div>
+      <div class="d up"><svg class="ic"><use href="icons.svg#i-arrow-up"></use></svg><span class="mo">8.2%</span><span class="wk">4.2%</span><span class="dy">18.0%</span></div>
+    </section>
+    <section class="stat">
+      <div class="k">次卡售出</div>
+      <div class="v num"><span class="mo">52</span><span class="wk">14</span><span class="dy">6</span><small>张</small></div>
+      <div class="d down"><svg class="ic"><use href="icons.svg#i-arrow-down"></use></svg><span class="mo">3.1%</span><span class="wk">1.2%</span><span class="dy">2.5%</span></div>
+    </section>
+    <section class="stat">
+      <div class="k">核销</div>
+      <div class="v num"><span class="mo">486</span><span class="wk">118</span><span class="dy">27</span><small>次</small></div>
+      <div class="d up"><svg class="ic"><use href="icons.svg#i-arrow-up"></use></svg><span class="mo">16.7%</span><span class="wk">9.4%</span><span class="dy">16.7%</span></div>
+    </section>
+  </div>
+
+  <section class="card chart-card">
+    <div class="chart-head">
+      <h2>营业额趋势</h2>
+      <span>单位：元</span>
+    </div>
+
+    <div class="chart mo">
+      <div class="b"><i style="height:58%"></i><span>11/1-7</span></div>
+      <div class="b"><i style="height:74%"></i><span>11/8-14</span></div>
+      <div class="b"><i style="height:52%"></i><span>11/15-21</span></div>
+      <div class="b"><i class="on" style="height:88%"></i><span>11/22-25</span></div>
+    </div>
+
+    <div class="chart wk">
+      <div class="b"><i style="height:46%"></i><span>周一</span></div>
+      <div class="b"><i style="height:58%"></i><span>周二</span></div>
+      <div class="b"><i style="height:52%"></i><span>周三</span></div>
+      <div class="b"><i style="height:70%"></i><span>周四</span></div>
+      <div class="b"><i style="height:84%"></i><span>周五</span></div>
+      <div class="b"><i class="on" style="height:96%"></i><span>周六</span></div>
+      <div class="b"><i style="height:62%"></i><span>周日</span></div>
+    </div>
+
+    <div class="chart dy">
+      <div class="b"><i style="height:28%"></i><span>09</span></div>
+      <div class="b"><i style="height:46%"></i><span>10</span></div>
+      <div class="b"><i style="height:38%"></i><span>11</span></div>
+      <div class="b"><i style="height:62%"></i><span>12</span></div>
+      <div class="b"><i style="height:55%"></i><span>13</span></div>
+      <div class="b"><i style="height:80%"></i><span>14</span></div>
+      <div class="b"><i style="height:68%"></i><span>15</span></div>
+      <div class="b"><i class="on" style="height:92%"></i><span>16</span></div>
+    </div>
+
+    <div class="between" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">
+      <span class="small muted">日均营业额</span>
+      <b class="num" style="font-size:var(--fs-15);font-weight:600"><span class="mo">¥1,138</span><span class="wk">¥1,123</span><span class="dy">¥3,286</span></b>
+    </div>
+  </section>
+
+  <div class="section-head" style="padding:18px 4px 0">
+    <h2>会员维度</h2>
+  </div>
+  <div class="dims">
+    <button class="dim" type="button">全部等级 <svg class="ic"><use href="icons.svg#i-chevron-down"></use></svg></button>
+    <button class="dim" type="button">全部状态 <svg class="ic"><use href="icons.svg#i-chevron-down"></use></svg></button>
+    <button class="dim" type="button">全部标记 <svg class="ic"><use href="icons.svg#i-chevron-down"></use></svg></button>
+  </div>
+
+  <section class="card breakdown">
+    <div class="breakdown-head">
+      <h2>消费构成</h2>
+      <span class="mo">本月 · ¥9,800</span>
+      <span class="wk">本周 · ¥2,300</span>
+      <span class="dy">今日 · ¥1,200</span>
+    </div>
+    <div class="stack">
+      <i class="a" style="width:62%"></i>
+      <i class="b" style="width:38%"></i>
+    </div>
+    <div class="legend">
+      <div>
+        <div class="k"><i></i>余额消费</div>
+        <b><span class="mo">¥6,076<small>62%</small></span><span class="wk">¥1,426<small>62%</small></span><span class="dy">¥744<small>62%</small></span></b>
+      </div>
+      <div>
+        <div class="k"><i class="teal"></i>次卡核销</div>
+        <b><span class="mo">¥3,724<small>38%</small></span><span class="wk">¥874<small>38%</small></span><span class="dy">¥456<small>38%</small></span></b>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head" style="padding:18px 4px 10px">
+    <h2>会员贡献 Top 3</h2>
+    <a class="more" href="members.html">全部会员 <svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+  </div>
+  <div class="card list">
+    <div class="cell top-cell">
+      <span class="rank top">1</span>
+      <span class="ava sm dark">周</span>
+      <div class="cell-main">
+        <div class="cell-title">周明轩 <span class="badge gray">黑金</span></div>
+        <div class="cell-sub">12 次到店 · 充值 ¥2,300</div>
+        <div class="bar-track"><i class="gold" style="width:100%"></i></div>
+      </div>
+      <span class="cell-amt">¥3,860</span>
+    </div>
+    <div class="cell top-cell">
+      <span class="rank top">2</span>
+      <span class="ava sm gold">陈</span>
+      <div class="cell-main">
+        <div class="cell-title">陈嘉怡 <span class="badge gold">金卡</span></div>
+        <div class="cell-sub">9 次到店 · 充值 ¥1,650</div>
+        <div class="bar-track"><i style="width:76%"></i></div>
+      </div>
+      <span class="cell-amt">¥2,940</span>
+    </div>
+    <div class="cell top-cell">
+      <span class="rank top">3</span>
+      <span class="ava sm gold">黄</span>
+      <div class="cell-main">
+        <div class="cell-title">黄诗敏 <span class="badge gold">金卡</span></div>
+        <div class="cell-sub">7 次到店 · 充值 ¥1,080</div>
+        <div class="bar-track"><i style="width:49%"></i></div>
+      </div>
+      <span class="cell-amt">¥1,880</span>
+    </div>
+  </div>
+
+  <p class="page-lead" style="margin-top:14px">统计不含已退款记录；切换日 / 周 / 月即按对应周期重新计算。</p>
+
+</main>
+
+<nav class="mp-tabbar" aria-label="主导航">
+  <a href="home.html"><svg class="ic"><use href="icons.svg#i-home"></use></svg><span>工作台</span></a>
+  <a href="members.html"><svg class="ic"><use href="icons.svg#i-users"></use></svg><span>会员</span></a>
+  <a href="records.html"><svg class="ic"><use href="icons.svg#i-receipt"></use></svg><span>记录</span></a>
+  <a class="on" href="stats.html"><svg class="ic"><use href="icons.svg#i-chart"></use></svg><span>数据</span></a>
+  <a href="settings.html"><svg class="ic"><use href="icons.svg#i-sliders"></use></svg><span>管理</span></a>
+</nav>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

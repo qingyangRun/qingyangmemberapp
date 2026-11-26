@@ -1,0 +1,7 @@
+<view class="tb">
+  <view class="tb-item {{selected === 'index' ? 'on' : ''}}" bindtap="switchTab" data-page="index"><view class="ic tb-ic i-home"></view><text class="tb-tx">工作台</text></view>
+  <view class="tb-item {{selected === 'members' ? 'on' : ''}}" bindtap="switchTab" data-page="members"><view class="ic tb-ic i-users"></view><text class="tb-tx">会员</text></view>
+  <view class="tb-item {{selected === 'records' ? 'on' : ''}}" bindtap="switchTab" data-page="records"><view class="ic tb-ic i-receipt"></view><text class="tb-tx">记录</text></view>
+  <view class="tb-item {{selected === 'stats' ? 'on' : ''}}" bindtap="switchTab" data-page="stats"><view class="ic tb-ic i-chart"></view><text class="tb-tx">数据</text></view>
+  <view class="tb-item {{selected === 'settings' ? 'on' : ''}}" bindtap="switchTab" data-page="settings"><view class="ic tb-ic i-sliders"></view><text class="tb-tx">管理</text></view>
+</view>

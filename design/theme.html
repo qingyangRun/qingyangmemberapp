@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<title>主题颜色 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .intro{padding:14px 16px}
+  .intro p{font-size:var(--fs-12);color:var(--muted);line-height:1.65}
+  .intro p b{color:var(--ink-2);font-weight:600}
+  .theme-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+  .theme-opt{position:relative;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:var(--r-lg);border:1.5px solid var(--line);background:var(--surface);text-align:left;color:var(--ink)}
+  .theme-opt.on{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+  .theme-swatch{display:flex;gap:6px;align-items:center}
+  .theme-swatch i{display:block;height:28px;border-radius:8px;flex:1}
+  .theme-swatch i.deep{flex:0 0 18px}
+  .theme-nm{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:var(--fs-15);font-weight:600}
+  .theme-nm .ck{width:20px;height:20px;margin:0}
+  .theme-opt.on .ck{background:var(--primary);border-color:var(--primary)}
+  .theme-opt.on .ck .ic{opacity:1}
+  .theme-desc{font-size:var(--fs-11);color:var(--muted)}
+  .preview-block{padding:14px 16px;margin-top:14px}
+  .preview-block h2{font-size:var(--fs-13);font-weight:600;margin-bottom:10px}
+  .pv-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .pv-chip{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-pill);background:var(--primary-soft);color:var(--primary);font-size:var(--fs-12);font-weight:500}
+  .pv-dot{width:26px;height:26px;border-radius:9px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:var(--fs-11);font-weight:600}
+  .pv-line{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;font-size:var(--fs-12);color:var(--muted)}
+  .pv-line b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .bar-track{height:7px;border-radius:4px;background:var(--surface-3);overflow:hidden;margin-top:8px}
+  .bar-track i{display:block;height:100%;border-radius:4px;background:var(--primary)}
+  .reset-row{display:flex;justify-content:center;margin-top:18px}
+  .reset-row button{height:44px;padding:0 16px;font-size:var(--fs-13);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="settings.html" aria-label="返回管理"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>主题颜色</h1>
+  </div>
+</header>
+
+<main class="mp-page">
+
+  <section class="card intro">
+    <p>主题颜色决定<b>按钮、选中态、进度条和强调文字</b>的颜色。选好后全店生效，已保存的记录不受影响。</p>
+  </section>
+
+  <div class="theme-list" role="radiogroup" aria-label="主题颜色">
+    <button class="theme-opt on" type="button" role="radio" aria-checked="true" data-theme-option="blue">
+      <span class="theme-swatch"><i style="background:#2457F5"></i><i class="deep" style="background:#EBF0FF"></i></span>
+      <span class="theme-nm">经典蓝 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">默认 · 专业稳重</span>
+    </button>
+
+    <button class="theme-opt" type="button" role="radio" aria-checked="false" data-theme-option="green">
+      <span class="theme-swatch"><i style="background:#0F7A5A"></i><i class="deep" style="background:#E6F4EF"></i></span>
+      <span class="theme-nm">清样绿 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">贴合店名 · 温和自然</span>
+    </button>
+
+    <button class="theme-opt" type="button" role="radio" aria-checked="false" data-theme-option="violet">
+      <span class="theme-swatch"><i style="background:#5B3FD1"></i><i class="deep" style="background:#EEEAFB"></i></span>
+      <span class="theme-nm">雅紫 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">偏美业 · 细腻有质感</span>
+    </button>
+
+    <button class="theme-opt" type="button" role="radio" aria-checked="false" data-theme-option="orange">
+      <span class="theme-swatch"><i style="background:#BF5A14"></i><i class="deep" style="background:#FDF0E4"></i></span>
+      <span class="theme-nm">琥珀橙 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">温暖亲切 · 亲和力强</span>
+    </button>
+
+    <button class="theme-opt" type="button" role="radio" aria-checked="false" data-theme-option="rose">
+      <span class="theme-swatch"><i style="background:#BF3566"></i><i class="deep" style="background:#FCE9F0"></i></span>
+      <span class="theme-nm">玫瑰红 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">女性客群 · 明快醒目</span>
+    </button>
+
+    <button class="theme-opt" type="button" role="radio" aria-checked="false" data-theme-option="graphite">
+      <span class="theme-swatch"><i style="background:#2B3A52"></i><i class="deep" style="background:#EAEEF5"></i></span>
+      <span class="theme-nm">石墨黑 <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span></span>
+      <span class="theme-desc">克制高级 · 突出内容</span>
+    </button>
+  </div>
+
+  <section class="card preview-block">
+    <h2>效果预览</h2>
+    <div class="pv-row">
+      <span class="pv-chip">会员价 9 折</span>
+      <span class="pv-dot">金</span>
+      <span class="btn btn-sm btn-primary" style="height:34px">确认核销</span>
+    </div>
+    <div class="pv-line"><span>累计消费</span><b>¥6,420 / ¥8,000</b></div>
+    <div class="bar-track"><i style="width:80%"></i></div>
+  </section>
+
+  <div class="reset-row">
+    <button type="button" data-theme-reset>恢复默认（经典蓝）</button>
+  </div>
+
+</main>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

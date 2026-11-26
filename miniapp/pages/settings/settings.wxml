@@ -1,0 +1,170 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page">
+    <view class="section card shop">
+      <view class="div shop-top">
+        <text class="span mark">青</text>
+        <view class="div cell-main">
+          <view class="div nm">
+            <text>清样造型</text>
+            <text class="span badge green">营业中</text>
+          </view>
+          <view class="p sub">
+            <text>望京店 · 朝阳区望京 SOHO T1 101</text>
+            <text>
+</text>
+            <text>店长 林岚 · 010-8800 6621</text>
+          </view>
+        </view>
+        <view class="button edit" hover-class="tap">
+          <text>资料</text>
+        </view>
+      </view>
+      <view class="div shop-stats">
+        <view class="div">
+          <text class="span">会员总数</text>
+          <view class="b">
+            <text>1,286</text>
+            <text class="small">人</text>
+          </view>
+        </view>
+        <view class="div">
+          <text class="span">会员等级</text>
+          <view class="b">
+            <text>4</text>
+            <text class="small">个</text>
+          </view>
+        </view>
+        <view class="div">
+          <text class="span">在售次卡</text>
+          <view class="b">
+            <text>3</text>
+            <text class="small">个项目</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <text class="p g-label">会员设置</text>
+    <view class="div card list set">
+      <view class="a cell" bindtap="go" data-page="levels" hover-class="tap">
+        <view class="span lead gold">
+          <view class="i-crown ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">等级管理</text>
+          <text class="span cell-sub">累计充值 / 消费达标升级</text>
+        </view>
+        <text class="span cell-amt">4 个等级</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="a cell" bindtap="go" data-page="points" hover-class="tap">
+        <view class="span lead">
+          <view class="i-sparkles ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">积分设置</text>
+          <text class="span cell-sub">按比例获得积分</text>
+        </view>
+        <text class="span cell-amt">已启用</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="a cell" bindtap="go" data-page="cards" hover-class="tap">
+        <view class="span lead teal">
+          <view class="i-cards ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">次卡项目</text>
+          <text class="span cell-sub">价格、次数与赠送次数</text>
+        </view>
+        <text class="span cell-amt">3 个在售</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="a cell" bindtap="go" data-page="members" data-state="filter" hover-class="tap">
+        <view class="span lead gray">
+          <view class="i-tag ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">会员标记</text>
+          <text class="span cell-sub">用于筛选与批量触达</text>
+        </view>
+        <text class="span cell-amt">6 个标记</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+    </view>
+    <text class="p g-label">数据与记录</text>
+    <view class="div card list set">
+      <view class="a cell" bindtap="go" data-page="records" hover-class="tap">
+        <view class="span lead">
+          <view class="i-receipt ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">记录查看</text>
+          <text class="span cell-sub">充值、消费核销、次卡买卖</text>
+        </view>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="a cell" bindtap="go" data-page="stats" hover-class="tap">
+        <view class="span lead">
+          <view class="i-chart ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">数据统计</text>
+          <text class="span cell-sub">日 / 周 / 月经营数据</text>
+        </view>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="button cell" style="text-align:left" hover-class="tap">
+        <view class="span lead gray">
+          <view class="i-download ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">导出数据</text>
+          <text class="span cell-sub">本月流水 .xlsx · 486 条</text>
+        </view>
+        <text class="span cell-amt">导出</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+    </view>
+    <text class="p g-label">外观</text>
+    <view class="div card list set">
+      <view class="a cell" bindtap="go" data-page="theme" hover-class="tap">
+        <view class="span lead" style="background:var(--primary-soft);color:var(--primary)">
+          <view class="i-sliders ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">主题颜色</text>
+          <text class="span cell-sub">全站强调色随之变化</text>
+        </view>
+        <text class="span cell-amt" data-theme-name="">经典蓝</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+    </view>
+    <text class="p g-label">其他</text>
+    <view class="div card list set">
+      <view class="button cell" style="text-align:left" hover-class="tap">
+        <view class="span lead gray">
+          <view class="i-help ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">帮助与反馈</text>
+          <text class="span cell-sub">常见问题、联系服务顾问</text>
+        </view>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="div cell">
+        <view class="span lead gray">
+          <view class="i-store ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">关于清样会员</text>
+          <text class="span cell-sub">版本 2.4.1 · 数据存储于境内</text>
+        </view>
+      </view>
+    </view>
+    <view class="p footer">
+      <text>清样会员 · 门店编号 0108</text>
+      <text>
+</text>
+      <text>数据同步于 2026-11-25 10:32</text>
+    </view>
+  </view>
+</view>

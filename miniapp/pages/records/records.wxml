@@ -1,0 +1,189 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page">
+    <view class="div monthbar">
+      <view class="button mnav" hover-class="tap">
+        <view class="i-back ic"></view>
+      </view>
+      <view class="div mcur">
+        <text class="b">2026 年 11 月</text>
+        <text class="span">11-01 至 11-30 · 全部会员</text>
+      </view>
+      <view class="button mnav" hover-class="tap">
+        <view class="i-chevron ic"></view>
+      </view>
+    </view>
+    <view class="section card sum3">
+      <view class="div">
+        <text class="span">收款合计</text>
+        <text class="b">¥18,660</text>
+      </view>
+      <view class="div">
+        <text class="span">核销合计</text>
+        <text class="b">¥9,800</text>
+      </view>
+      <view class="div">
+        <text class="span">流水笔数</text>
+        <view class="b">
+          <text>486</text>
+          <text class="small">笔</text>
+        </view>
+      </view>
+    </view>
+    <view class="div chips">
+      <view class="a chip c-all" hover-class="tap" bindtap="setState" data-state="default">
+        <text>全部</text>
+      </view>
+      <view class="a chip c-recharge" hover-class="tap" bindtap="setState" data-state="recharge">
+        <text>余额充值</text>
+      </view>
+      <view class="a chip c-consume" hover-class="tap" bindtap="setState" data-state="consume">
+        <text>消费核销</text>
+      </view>
+      <view class="a chip c-cardbuy" hover-class="tap" bindtap="setState" data-state="cardbuy">
+        <text>次卡购买</text>
+      </view>
+      <view class="a chip c-cardverify" hover-class="tap" bindtap="setState" data-state="cardverify">
+        <text>次卡核销</text>
+      </view>
+    </view>
+    <view class="div list-head">
+      <text class="h2">流水明细</text>
+      <text class="span">按时间倒序</text>
+    </view>
+    <view class="div card list">
+      <view class="div cell rec t-recharge">
+        <view class="span rec-ic">
+          <view class="i-wallet ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">陈嘉怡 · 余额充值</text>
+          <text class="span cell-sub">11-25 10:24 · 微信支付 · 赠 ¥50</text>
+        </view>
+        <text class="span cell-amt in">+¥550.00</text>
+      </view>
+      <view class="div cell rec t-cardverify">
+        <view class="span rec-ic verify">
+          <view class="i-scan ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">林之遥 · 次卡核销</text>
+          <text class="span cell-sub">11-25 10:12 · 剪发次卡 · 剩余 8 次</text>
+        </view>
+        <view class="span cell-amt">
+          <text>−1</text>
+          <text class="span u">次</text>
+        </view>
+      </view>
+      <view class="div cell rec t-cardbuy">
+        <view class="span rec-ic buy">
+          <view class="i-cards ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">周明轩 · 次卡购买</text>
+          <text class="span cell-sub">11-25 09:58 · 头皮护理 6+1 次</text>
+        </view>
+        <text class="span cell-amt in">+¥1,080.00</text>
+      </view>
+      <view class="div cell rec t-consume">
+        <view class="span rec-ic consum">
+          <view class="i-banknote ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">陈嘉怡 · 余额消费</text>
+          <text class="span cell-sub">11-25 09:32 · 剪发造型 · 林岚</text>
+        </view>
+        <text class="span cell-amt">−¥128.00</text>
+      </view>
+      <view class="div cell rec t-consume">
+        <view class="span rec-ic consum">
+          <view class="i-banknote ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">黄诗敏 · 余额消费</text>
+          <text class="span cell-sub">11-24 17:40 · 染发造型 · 周宁</text>
+        </view>
+        <text class="span cell-amt">−¥388.00</text>
+      </view>
+      <view class="div cell rec t-recharge">
+        <view class="span rec-ic">
+          <view class="i-wallet ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">陈嘉怡 · 余额充值</text>
+          <text class="span cell-sub">11-24 15:02 · 现金 · 赠 ¥100</text>
+        </view>
+        <text class="span cell-amt in">+¥1,100.00</text>
+      </view>
+      <view class="div cell rec t-cardbuy">
+        <view class="span rec-ic buy">
+          <view class="i-cards ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">郑凯文 · 次卡购买</text>
+          <text class="span cell-sub">11-24 14:22 · 剪发次卡 10+2 次 · 银行卡</text>
+        </view>
+        <text class="span cell-amt in">+¥680.00</text>
+      </view>
+      <view class="div cell rec t-recharge">
+        <view class="span rec-ic">
+          <view class="i-wallet ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">苏晚 · 余额充值</text>
+          <text class="span cell-sub">11-23 18:05 · 微信支付 · 新会员首充</text>
+        </view>
+        <text class="span cell-amt in">+¥200.00</text>
+      </view>
+      <view class="div cell rec t-cardverify">
+        <view class="span rec-ic verify">
+          <view class="i-scan ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">林之遥 · 次卡核销</text>
+          <text class="span cell-sub">11-23 17:36 · 头皮护理 · 剩余 2 次</text>
+        </view>
+        <view class="span cell-amt">
+          <text>−1</text>
+          <text class="span u">次</text>
+        </view>
+      </view>
+      <view class="div cell rec t-consume">
+        <view class="span rec-ic consum">
+          <view class="i-banknote ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">吴迪 · 余额消费</text>
+          <text class="span cell-sub">11-23 11:20 · 头皮护理 · 周宁</text>
+        </view>
+        <text class="span cell-amt">−¥228.00</text>
+      </view>
+      <view class="div cell rec t-cardverify">
+        <view class="span rec-ic verify">
+          <view class="i-scan ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">何雨桐 · 次卡核销</text>
+          <text class="span cell-sub">11-22 19:12 · 剪发次卡 · 剩余 4 次</text>
+        </view>
+        <view class="span cell-amt">
+          <text>−1</text>
+          <text class="span u">次</text>
+        </view>
+      </view>
+      <view class="div cell rec t-recharge">
+        <view class="span rec-ic">
+          <view class="i-wallet ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">周明轩 · 余额充值</text>
+          <text class="span cell-sub">11-22 10:40 · 微信支付 · 赠 ¥300</text>
+        </view>
+        <text class="span cell-amt in">+¥2,300.00</text>
+      </view>
+    </view>
+    <view class="p end-note">
+      <view class="i-receipt ic" style="width:24rpx;height:24rpx"></view>
+      <text>已展示本月最近 12 笔，共 486 笔</text>
+    </view>
+  </view>
+</view>

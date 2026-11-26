@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<title>编辑会员 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .who .cell-main{min-width:0}
+
+  .who .status{display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-12);color:var(--success);flex:none}
+
+  .tag-pick{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 12px}
+
+  .tag-pick .tag{height:44px;padding:0 12px;font-size:var(--fs-12);border-radius:9px}
+
+  .tag-pick .add{display:inline-flex;align-items:center;gap:3px;height:44px;padding:0 11px;border-radius:9px;border:1px dashed var(--line-strong);color:var(--muted);font-size:var(--fs-12);background:#fff}
+
+  .tag-pick .add .ic{width:13px;height:13px;stroke-width:2.2}
+
+  .rule-row{display:flex;align-items:center;gap:8px;padding:13px 16px;border-top:1px solid var(--line)}
+
+  .rule-row .cell-main{flex:1;min-width:0}
+
+  .rule-row .cell-title{font-size:var(--fs-15)}
+
+  .rule-row .cell-sub{margin-top:1px}
+
+  .rule-row .lk{display:inline-flex;align-items:center;gap:1px;min-height:44px;margin:-10px 0;font-size:var(--fs-12);color:var(--primary);flex:none}
+
+  .rule-row .lk .ic{width:14px;height:14px;stroke-width:2}
+
+  .cards-mini{padding:4px 16px 12px}
+
+  .cards-mini .cm{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+
+  .cards-mini .cm:last-child{border-bottom:0;padding-bottom:2px}
+
+  .cards-mini .cm .cell-main{min-width:0}
+
+  .cards-mini .nm{font-size:var(--fs-15);font-weight:500}
+
+  .cards-mini .sub{font-size:var(--fs-11);color:var(--muted);margin-top:1px}
+
+  .danger-zone{margin-top:20px;display:flex;justify-content:center}
+
+  .danger-zone button{display:inline-flex;align-items:center;gap:5px;height:44px;padding:0 14px;font-size:var(--fs-13);color:var(--danger)}
+
+  .danger-zone .ic{width:16px;height:16px}
+
+  .field-note b{color:var(--ink-2);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="member-detail.html" aria-label="返回会员详情"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>编辑会员</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <div class="card who" style="margin-bottom:12px">
+    <span class="ava gold">陈</span>
+    <div class="cell-main">
+      <div class="nm">陈嘉怡 <span class="badge gold">金卡</span></div>
+      <div class="sub">卡号 QH 8821 · 2026-03-12 入会</div>
+    </div>
+    <span class="status"><span class="dot"></span>正常</span>
+  </div>
+
+  <section class="form-group">
+    <div class="group-head"><h2>基本信息</h2></div>
+    <div class="field">
+      <label class="lb" for="ename">姓名</label>
+      <div class="ctl"><input id="ename" type="text" value="陈嘉怡"></div>
+    </div>
+    <div class="field">
+      <label class="lb" for="ephone">手机号</label>
+      <div class="ctl"><input id="ephone" type="tel" value="138 0000 0000" inputmode="numeric"></div>
+    </div>
+    <div class="field">
+      <span class="lb">性别</span>
+      <div class="ctl">
+        <div class="seg mini" role="group" aria-label="性别">
+          <button>男</button>
+          <button class="on">女</button>
+          <button>保密</button>
+        </div>
+      </div>
+    </div>
+    <button class="field" type="button" style="width:100%;text-align:left">
+      <span class="lb">生日</span>
+      <span class="ctl">
+        <span class="val">1996-11-18</span>
+        <svg class="ic tail"><use href="icons.svg#i-calendar"></use></svg>
+      </span>
+    </button>
+  </section>
+
+
+  <section class="form-group">
+    <div class="group-head"><h2>会员标记</h2><span>可多选</span></div>
+    <div class="tag-pick">
+      <button class="tag on">高复购</button>
+      <button class="tag on">敏感头皮</button>
+      <button class="tag on">生日月</button>
+      <button class="tag">只做烫染</button>
+      <button class="tag">转介绍</button>
+      <button class="tag">沉睡唤醒</button>
+      <button class="tag add"><svg class="ic"><use href="icons.svg#i-plus"></use></svg>新建标记</button>
+    </div>
+    <p class="field-note">标记会显示在会员卡和列表里，并可用于筛选、批量发送优惠。</p>
+  </section>
+
+  <section class="form-group">
+    <div class="group-head"><h2>会员状态</h2></div>
+    <div class="field">
+      <span class="lb">当前状态</span>
+      <div class="ctl">
+        <div class="seg mini" role="group" aria-label="会员状态">
+          <button class="on">正常</button>
+          <button>沉睡</button>
+          <button>停用</button>
+        </div>
+      </div>
+    </div>
+    <p class="field-note">停用后无法充值、核销，会员仍保留全部记录，可随时恢复。</p>
+  </section>
+
+  <section class="form-group">
+    <div class="group-head"><h2>等级</h2><span>自动评定</span></div>
+    <div class="rule-row">
+      <span class="lead gold"><svg class="ic"><use href="icons.svg#i-crown"></use></svg></span>
+      <div class="cell-main">
+        <div class="cell-title">当前等级：金卡</div>
+        <div class="cell-sub">累计充值 ¥3,600 · 累计消费 ¥6,420</div>
+      </div>
+      <a class="lk" href="levels.html">等级规则<svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+    </div>
+  </section>
+
+  <section class="form-group">
+    <div class="group-head"><h2>次卡</h2><a class="more small" href="recharge.html?state=card" style="color:var(--primary)">为该会员开卡</a></div>
+    <div class="cards-mini">
+      <div class="cm">
+        <span class="ava sm teal"><svg class="ic" style="width:17px;height:17px"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">剪发次卡</div>
+          <div class="sub">剩 8 / 12 次 · 2027-03-31 到期</div>
+        </div>
+        <span class="badge teal">8 次</span>
+      </div>
+      <div class="cm">
+        <span class="ava sm teal"><svg class="ic" style="width:17px;height:17px"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">头皮护理</div>
+          <div class="sub">剩 2 / 6 次 · 2026-12-20 到期</div>
+        </div>
+        <span class="badge teal">2 次</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-group">
+    <div class="group-head"><h2>备注</h2><span>仅店内可见</span></div>
+    <div class="field-col">
+      <textarea class="area" placeholder="记录偏好、忌口、过敏史等" aria-label="会员备注">偏好自然卷度，不染深色；每次到店先做头皮舒缓。</textarea>
+    </div>
+  </section>
+
+  <div class="danger-zone">
+    <button type="button"><svg class="ic"><use href="icons.svg#i-trash"></use></svg>删除会员</button>
+  </div>
+
+</main>
+
+<div class="mp-actionbar">
+  <a class="btn btn-ghost" href="member-detail.html" style="flex:1">取消</a>
+  <a class="btn btn-primary" href="member-detail.html" style="flex:2">保存修改</a>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

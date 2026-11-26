@@ -1,0 +1,183 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page has-action">
+    <view class="div card who" style="margin-bottom:24rpx">
+      <text class="span ava gold">陈</text>
+      <view class="div cell-main">
+        <view class="div nm">
+          <text>陈嘉怡</text>
+          <text class="span badge gold">金卡</text>
+        </view>
+        <text class="div sub">卡号 QH 8821 · 2026-03-12 入会</text>
+      </view>
+      <view class="span status">
+        <view class="span dot"></view>
+        <text>正常</text>
+      </view>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">基本信息</text>
+      </view>
+      <view class="div field">
+        <text class="label lb">姓名</text>
+        <view class="div ctl">
+          <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+        </view>
+      </view>
+      <view class="div field">
+        <text class="label lb">手机号</text>
+        <view class="div ctl">
+          <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="" bindinput="onInput" />
+        </view>
+      </view>
+      <view class="div field">
+        <text class="span lb">性别</text>
+        <view class="div ctl">
+          <view class="div seg mini">
+            <view class="button" hover-class="tap">
+              <text>男</text>
+            </view>
+            <view class="button on" hover-class="tap">
+              <text>女</text>
+            </view>
+            <view class="button" hover-class="tap">
+              <text>保密</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="button field" style="text-align:left" hover-class="tap">
+        <text class="span lb">生日</text>
+        <view class="span ctl">
+          <text class="span val">1996-11-18</text>
+          <view class="i-calendar ic tail"></view>
+        </view>
+      </view>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">会员标记</text>
+        <text class="span">可多选</text>
+      </view>
+      <view class="div tag-pick">
+        <view class="button tag on" hover-class="tap">
+          <text>高复购</text>
+        </view>
+        <view class="button tag on" hover-class="tap">
+          <text>敏感头皮</text>
+        </view>
+        <view class="button tag on" hover-class="tap">
+          <text>生日月</text>
+        </view>
+        <view class="button tag" hover-class="tap">
+          <text>只做烫染</text>
+        </view>
+        <view class="button tag" hover-class="tap">
+          <text>转介绍</text>
+        </view>
+        <view class="button tag" hover-class="tap">
+          <text>沉睡唤醒</text>
+        </view>
+        <view class="button tag add" hover-class="tap">
+          <view class="i-plus ic"></view>
+          <text>新建标记</text>
+        </view>
+      </view>
+      <text class="p field-note">标记会显示在会员卡和列表里，并可用于筛选、批量发送优惠。</text>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">会员状态</text>
+      </view>
+      <view class="div field">
+        <text class="span lb">当前状态</text>
+        <view class="div ctl">
+          <view class="div seg mini">
+            <view class="button on" hover-class="tap">
+              <text>正常</text>
+            </view>
+            <view class="button" hover-class="tap">
+              <text>沉睡</text>
+            </view>
+            <view class="button" hover-class="tap">
+              <text>停用</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <text class="p field-note">停用后无法充值、核销，会员仍保留全部记录，可随时恢复。</text>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">等级</text>
+        <text class="span">自动评定</text>
+      </view>
+      <view class="div rule-row">
+        <view class="span lead gold">
+          <view class="i-crown ic"></view>
+        </view>
+        <view class="div cell-main">
+          <text class="div cell-title">当前等级：金卡</text>
+          <text class="div cell-sub">累计充值 ¥3,600 · 累计消费 ¥6,420</text>
+        </view>
+        <view class="a lk" bindtap="go" data-page="levels" hover-class="tap">
+          <text>等级规则</text>
+          <view class="i-chevron ic"></view>
+        </view>
+      </view>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">次卡</text>
+        <view class="a more small" style="color:var(--primary)" bindtap="go" data-page="recharge" data-state="card" hover-class="tap">
+          <text>为该会员开卡</text>
+        </view>
+      </view>
+      <view class="div cards-mini">
+        <view class="div cm">
+          <view class="span ava sm teal">
+            <view class="i-cards ic" style="width:34rpx;height:34rpx"></view>
+          </view>
+          <view class="div cell-main">
+            <text class="div nm">剪发次卡</text>
+            <text class="div sub">剩 8 / 12 次 · 2027-03-31 到期</text>
+          </view>
+          <text class="span badge teal">8 次</text>
+        </view>
+        <view class="div cm">
+          <view class="span ava sm teal">
+            <view class="i-cards ic" style="width:34rpx;height:34rpx"></view>
+          </view>
+          <view class="div cell-main">
+            <text class="div nm">头皮护理</text>
+            <text class="div sub">剩 2 / 6 次 · 2026-12-20 到期</text>
+          </view>
+          <text class="span badge teal">2 次</text>
+        </view>
+      </view>
+    </view>
+    <view class="section form-group">
+      <view class="div group-head">
+        <text class="h2">备注</text>
+        <text class="span">仅店内可见</text>
+      </view>
+      <view class="div field-col">
+        <textarea class="area" data-key="f2" value="{{inputs.f2}}" placeholder="记录偏好、忌口、过敏史等" bindinput="onInput" />
+      </view>
+    </view>
+    <view class="div danger-zone">
+      <view class="button" hover-class="tap">
+        <view class="i-trash ic"></view>
+        <text>删除会员</text>
+      </view>
+    </view>
+  </view>
+  <view class="div mp-actionbar split">
+    <view class="a btn btn-ghost" style="flex:1" bindtap="go" data-page="member-detail" hover-class="tap">
+      <text>取消</text>
+    </view>
+    <view class="a btn btn-primary" style="flex:2" bindtap="go" data-page="member-detail" hover-class="tap">
+      <text>保存修改</text>
+    </view>
+  </view>
+</view>

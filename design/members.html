@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:会员列表, filter:筛选面板">
+<title>会员 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .mrow{padding:14px 16px}
+
+  .mrow-top{display:flex;align-items:center;gap:6px;min-width:0}
+
+  .mrow-top b{font-size:var(--fs-15);font-weight:600;white-space:nowrap}
+
+  .mrow .cell-sub{margin-top:2px}
+
+  .mrow .wrap-tags{margin-top:6px;gap:5px}
+
+  .figure{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+
+  .figure b{font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+  .figure b.zero{color:var(--muted);font-weight:500}
+
+  .figure span{font-size:var(--fs-11);color:var(--muted);white-space:nowrap}
+
+  .list-end{display:flex;align-items:center;justify-content:center;gap:4px;padding:18px 0 0;font-size:var(--fs-11);color:var(--muted)}
+
+  [data-state="filter"] .mask{display:flex}
+
+  .fgroup+.fgroup{margin-top:18px}
+
+  .fgroup h3{font-size:var(--fs-13);font-weight:600;color:var(--ink-2);margin-bottom:9px}
+
+  .fgroup .chips{flex-wrap:wrap;overflow:visible;row-gap:8px}
+
+  .range{display:flex;align-items:center;gap:8px}
+
+  .range .input-box{flex:1}
+
+  .range .dash{color:var(--muted)}
+
+  .sheet-actions{display:flex;gap:12px;margin-top:22px}
+
+  .sheet-actions .btn{flex:1}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav"><h1>会员</h1></div>
+</header>
+
+<main class="mp-page">
+
+  <div class="search-row">
+    <div class="searchbar">
+      <svg class="ic"><use href="icons.svg#i-search"></use></svg>
+      <input type="search" placeholder="搜索姓名 / 手机号 / 卡号" aria-label="搜索会员">
+    </div>
+    <a class="btn-icon" href="?state=filter" aria-label="筛选会员"><svg class="ic"><use href="icons.svg#i-filter"></use></svg></a>
+  </div>
+
+  <div class="chips" style="margin-top:14px">
+    <a class="chip on" href="?state=default">全部</a>
+    <a class="chip" href="?state=default">金卡以上</a>
+    <a class="chip" href="?state=default">有余额</a>
+    <a class="chip" href="?state=default">有次卡</a>
+    <a class="chip" href="?state=default">沉睡</a>
+    <a class="chip" href="?state=default">生日月</a>
+  </div>
+
+  <div class="list-head">
+    <b>1,286 位会员</b>
+    <span>本月新增 42 · 沉睡 63</span>
+  </div>
+
+  <div class="card list">
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava gold">陈</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>陈嘉怡</b><span class="badge gold">金卡</span></span>
+        <span class="cell-sub">138 **** 6621 · 卡号 QH 8821</span>
+        <span class="wrap-tags"><span class="tag">高复购</span><span class="tag">生日月</span></span>
+      </span>
+      <span class="figure"><b>¥1,280</b><span>次卡 10 次</span></span>
+    </a>
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava dark">周</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>周明轩</b><span class="badge gray">黑金</span></span>
+        <span class="cell-sub">139 **** 0837 · 卡号 QH 8830</span>
+        <span class="wrap-tags"><span class="tag">高复购</span><span class="tag">转介绍</span></span>
+      </span>
+      <span class="figure"><b>¥4,860</b><span>次卡 21 次</span></span>
+    </a>
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava">林</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>林之遥</b><span class="badge blue">银卡</span></span>
+        <span class="cell-sub">137 **** 4290 · 卡号 QH 8842</span>
+        <span class="wrap-tags"><span class="tag">敏感头皮</span></span>
+      </span>
+      <span class="figure"><b>¥620</b><span>次卡 8 次</span></span>
+    </a>
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava gray">苏</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>苏晚</b><span class="badge gray">普通</span></span>
+        <span class="cell-sub">150 **** 1176 · 卡号 QH 8855</span>
+        <span class="wrap-tags"><span class="tag">新会员</span></span>
+      </span>
+      <span class="figure"><b class="zero">¥0</b><span>暂无次卡</span></span>
+    </a>
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava gold">黄</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>黄诗敏</b><span class="badge gold">金卡</span></span>
+        <span class="cell-sub">186 **** 5502 · 卡号 QH 8861</span>
+        <span class="wrap-tags"><span class="tag">只做烫染</span></span>
+      </span>
+      <span class="figure"><b>¥2,100</b><span>次卡 6 次</span></span>
+    </a>
+    <a class="cell mrow" href="member-detail.html">
+      <span class="ava gray">郑</span>
+      <span class="cell-main">
+        <span class="mrow-top"><b>郑凯文</b><span class="badge blue">银卡</span></span>
+        <span class="cell-sub">135 **** 9948 · 卡号 QH 8873</span>
+        <span class="wrap-tags"><span class="tag">沉睡 62 天</span></span>
+      </span>
+      <span class="figure"><b>¥340</b><span>次卡 3 次</span></span>
+    </a>
+  </div>
+
+  <p class="list-end">已显示 6 / 1,286 位</p>
+
+</main>
+
+<div class="mask" role="dialog" aria-modal="true" aria-label="筛选会员">
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <div class="sheet-head">
+      <h2>筛选会员</h2>
+      <a class="sheet-close" href="?state=default" aria-label="关闭筛选"><svg class="ic"><use href="icons.svg#i-close"></use></svg></a>
+    </div>
+
+    <div class="fgroup">
+      <h3>会员等级</h3>
+      <div class="chips">
+        <button class="chip on">全部等级</button>
+        <button class="chip">普通</button>
+        <button class="chip">银卡</button>
+        <button class="chip">金卡</button>
+        <button class="chip">黑金</button>
+      </div>
+    </div>
+
+    <div class="fgroup">
+      <h3>会员状态</h3>
+      <div class="chips">
+        <button class="chip on">正常</button>
+        <button class="chip">沉睡</button>
+        <button class="chip">停用</button>
+      </div>
+    </div>
+
+    <div class="fgroup">
+      <h3>会员标记（可多选）</h3>
+      <div class="chips">
+        <button class="chip on">高复购</button>
+        <button class="chip on">生日月</button>
+        <button class="chip">敏感头皮</button>
+        <button class="chip">只做烫染</button>
+        <button class="chip">转介绍</button>
+        <button class="chip">沉睡唤醒</button>
+      </div>
+    </div>
+
+    <div class="fgroup">
+      <h3>余额区间</h3>
+      <div class="range">
+        <div class="input-box"><input type="number" placeholder="最低" aria-label="最低余额"><span class="unit">元</span></div>
+        <span class="dash">—</span>
+        <div class="input-box"><input type="number" placeholder="最高" aria-label="最高余额"><span class="unit">元</span></div>
+      </div>
+    </div>
+
+    <div class="sheet-actions">
+      <a class="btn btn-ghost" href="?state=default">重置</a>
+      <a class="btn btn-primary" href="?state=default">查看 218 位会员</a>
+    </div>
+    <p class="sheet-note">筛选条件可叠加，结果会同步到会员列表；「查看」后可在列表继续按标记搜索。</p>
+  </div>
+</div>
+
+<nav class="mp-tabbar" aria-label="主导航">
+  <a href="home.html"><svg class="ic"><use href="icons.svg#i-home"></use></svg><span>工作台</span></a>
+  <a class="on" href="members.html"><svg class="ic"><use href="icons.svg#i-users"></use></svg><span>会员</span></a>
+  <a href="records.html"><svg class="ic"><use href="icons.svg#i-receipt"></use></svg><span>记录</span></a>
+  <a href="stats.html"><svg class="ic"><use href="icons.svg#i-chart"></use></svg><span>数据</span></a>
+  <a href="settings.html"><svg class="ic"><use href="icons.svg#i-sliders"></use></svg><span>管理</span></a>
+</nav>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

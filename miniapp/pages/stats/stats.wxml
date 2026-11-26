@@ -1,0 +1,303 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page">
+    <view class="div seg">
+      <view class="a s-day" hover-class="tap" bindtap="setState" data-state="day">
+        <text>今日</text>
+      </view>
+      <view class="a s-week" hover-class="tap" bindtap="setState" data-state="week">
+        <text>本周</text>
+      </view>
+      <view class="a s-month" hover-class="tap" bindtap="setState" data-state="default">
+        <text>本月</text>
+      </view>
+    </view>
+    <view class="div range">
+      <text class="span mo">11-01 至 11-25 · 对比上月同期</text>
+      <text class="span wk">11-23 至 11-25 · 对比上周同期</text>
+      <text class="span dy">11-25 · 对比昨日</text>
+      <text class="b">实时</text>
+    </view>
+    <view class="div stat-grid kpis">
+      <view class="section stat">
+        <text class="div k">营业额</text>
+        <view class="div v num">
+          <text class="span mo">¥28,460</text>
+          <text class="span wk">¥7,860</text>
+          <text class="span dy">¥3,286</text>
+        </view>
+        <view class="div d up">
+          <view class="i-arrow-up ic"></view>
+          <text class="span mo">12.4%</text>
+          <text class="span wk">6.8%</text>
+          <text class="span dy">12.4%</text>
+        </view>
+      </view>
+      <view class="section stat">
+        <text class="div k">会员充值</text>
+        <view class="div v num">
+          <text class="span mo">¥9,800</text>
+          <text class="span wk">¥2,300</text>
+          <text class="span dy">¥1,200</text>
+        </view>
+        <view class="div d up">
+          <view class="i-arrow-up ic"></view>
+          <text class="span mo">8.2%</text>
+          <text class="span wk">4.2%</text>
+          <text class="span dy">18.0%</text>
+        </view>
+      </view>
+      <view class="section stat">
+        <text class="div k">次卡售出</text>
+        <view class="div v num">
+          <text class="span mo">52</text>
+          <text class="span wk">14</text>
+          <text class="span dy">6</text>
+          <text class="small">张</text>
+        </view>
+        <view class="div d down">
+          <view class="i-arrow-down ic"></view>
+          <text class="span mo">3.1%</text>
+          <text class="span wk">1.2%</text>
+          <text class="span dy">2.5%</text>
+        </view>
+      </view>
+      <view class="section stat">
+        <text class="div k">核销</text>
+        <view class="div v num">
+          <text class="span mo">486</text>
+          <text class="span wk">118</text>
+          <text class="span dy">27</text>
+          <text class="small">次</text>
+        </view>
+        <view class="div d up">
+          <view class="i-arrow-up ic"></view>
+          <text class="span mo">16.7%</text>
+          <text class="span wk">9.4%</text>
+          <text class="span dy">16.7%</text>
+        </view>
+      </view>
+    </view>
+    <view class="section card chart-card">
+      <view class="div chart-head">
+        <text class="h2">营业额趋势</text>
+        <text class="span">单位：元</text>
+      </view>
+      <view class="div chart mo">
+        <view class="div b">
+          <view class="i" style="height:58%"></view>
+          <text class="span">11/1-7</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:74%"></view>
+          <text class="span">11/8-14</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:52%"></view>
+          <text class="span">11/15-21</text>
+        </view>
+        <view class="div b">
+          <view class="i on" style="height:88%"></view>
+          <text class="span">11/22-25</text>
+        </view>
+      </view>
+      <view class="div chart wk">
+        <view class="div b">
+          <view class="i" style="height:46%"></view>
+          <text class="span">周一</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:58%"></view>
+          <text class="span">周二</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:52%"></view>
+          <text class="span">周三</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:70%"></view>
+          <text class="span">周四</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:84%"></view>
+          <text class="span">周五</text>
+        </view>
+        <view class="div b">
+          <view class="i on" style="height:96%"></view>
+          <text class="span">周六</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:62%"></view>
+          <text class="span">周日</text>
+        </view>
+      </view>
+      <view class="div chart dy">
+        <view class="div b">
+          <view class="i" style="height:28%"></view>
+          <text class="span">09</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:46%"></view>
+          <text class="span">10</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:38%"></view>
+          <text class="span">11</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:62%"></view>
+          <text class="span">12</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:55%"></view>
+          <text class="span">13</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:80%"></view>
+          <text class="span">14</text>
+        </view>
+        <view class="div b">
+          <view class="i" style="height:68%"></view>
+          <text class="span">15</text>
+        </view>
+        <view class="div b">
+          <view class="i on" style="height:92%"></view>
+          <text class="span">16</text>
+        </view>
+      </view>
+      <view class="div between" style="margin-top:28rpx;padding-top:24rpx;border-top:2rpx solid var(--line)">
+        <text class="span small muted">日均营业额</text>
+        <view class="b num" style="font-size:var(--fs-15);font-weight:600">
+          <text class="span mo">¥1,138</text>
+          <text class="span wk">¥1,123</text>
+          <text class="span dy">¥3,286</text>
+        </view>
+      </view>
+    </view>
+    <view class="div section-head" style="padding:36rpx 8rpx 0">
+      <text class="h2">会员维度</text>
+    </view>
+    <view class="div dims">
+      <view class="button dim" hover-class="tap">
+        <text>全部等级</text>
+        <view class="i-chevron-down ic"></view>
+      </view>
+      <view class="button dim" hover-class="tap">
+        <text>全部状态</text>
+        <view class="i-chevron-down ic"></view>
+      </view>
+      <view class="button dim" hover-class="tap">
+        <text>全部标记</text>
+        <view class="i-chevron-down ic"></view>
+      </view>
+    </view>
+    <view class="section card breakdown">
+      <view class="div breakdown-head">
+        <text class="h2">消费构成</text>
+        <text class="span mo">本月 · ¥9,800</text>
+        <text class="span wk">本周 · ¥2,300</text>
+        <text class="span dy">今日 · ¥1,200</text>
+      </view>
+      <view class="div stack">
+        <view class="i a" style="width:62%"></view>
+        <view class="i b" style="width:38%"></view>
+      </view>
+      <view class="div legend">
+        <view class="div">
+          <view class="div k">
+            <view class="i"></view>
+            <text>余额消费</text>
+          </view>
+          <view class="b">
+            <view class="span mo">
+              <text>¥6,076</text>
+              <text class="small">62%</text>
+            </view>
+            <view class="span wk">
+              <text>¥1,426</text>
+              <text class="small">62%</text>
+            </view>
+            <view class="span dy">
+              <text>¥744</text>
+              <text class="small">62%</text>
+            </view>
+          </view>
+        </view>
+        <view class="div">
+          <view class="div k">
+            <view class="i teal"></view>
+            <text>次卡核销</text>
+          </view>
+          <view class="b">
+            <view class="span mo">
+              <text>¥3,724</text>
+              <text class="small">38%</text>
+            </view>
+            <view class="span wk">
+              <text>¥874</text>
+              <text class="small">38%</text>
+            </view>
+            <view class="span dy">
+              <text>¥456</text>
+              <text class="small">38%</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="div section-head" style="padding:36rpx 8rpx 20rpx">
+      <text class="h2">会员贡献 Top 3</text>
+      <view class="a more" bindtap="go" data-page="members" hover-class="tap">
+        <text>全部会员</text>
+        <view class="i-chevron ic"></view>
+      </view>
+    </view>
+    <view class="div card list">
+      <view class="div cell top-cell">
+        <text class="span rank top">1</text>
+        <text class="span ava sm dark">周</text>
+        <view class="div cell-main">
+          <view class="div cell-title">
+            <text>周明轩</text>
+            <text class="span badge gray">黑金</text>
+          </view>
+          <text class="div cell-sub">12 次到店 · 充值 ¥2,300</text>
+          <view class="div bar-track">
+            <view class="i gold" style="width:100%"></view>
+          </view>
+        </view>
+        <text class="span cell-amt">¥3,860</text>
+      </view>
+      <view class="div cell top-cell">
+        <text class="span rank top">2</text>
+        <text class="span ava sm gold">陈</text>
+        <view class="div cell-main">
+          <view class="div cell-title">
+            <text>陈嘉怡</text>
+            <text class="span badge gold">金卡</text>
+          </view>
+          <text class="div cell-sub">9 次到店 · 充值 ¥1,650</text>
+          <view class="div bar-track">
+            <view class="i" style="width:76%"></view>
+          </view>
+        </view>
+        <text class="span cell-amt">¥2,940</text>
+      </view>
+      <view class="div cell top-cell">
+        <text class="span rank top">3</text>
+        <text class="span ava sm gold">黄</text>
+        <view class="div cell-main">
+          <view class="div cell-title">
+            <text>黄诗敏</text>
+            <text class="span badge gold">金卡</text>
+          </view>
+          <text class="div cell-sub">7 次到店 · 充值 ¥1,080</text>
+          <view class="div bar-track">
+            <view class="i" style="width:49%"></view>
+          </view>
+        </view>
+        <text class="span cell-amt">¥1,880</text>
+      </view>
+    </view>
+    <text class="p page-lead" style="margin-top:28rpx">统计不含已退款记录；切换日 / 周 / 月即按对应周期重新计算。</text>
+  </view>
+</view>

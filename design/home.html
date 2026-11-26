@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<title>工作台 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .hero{position:relative;overflow:hidden;background:#101B2E;border-radius:var(--r-xl);padding:18px;color:#fff;box-shadow:var(--shadow-md)}
+
+  .hero::after{content:"";position:absolute;right:-46px;top:-78px;width:196px;height:196px;border-radius:50%;background:radial-gradient(circle,var(--primary-glow),transparent 68%)}
+
+  .hero-top{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+
+  .hero-lb{font-size:var(--fs-12);color:#AEBBD0;letter-spacing:.04em}
+
+  .hero-num{display:flex;align-items:baseline;margin-top:3px;font-size:var(--fs-36);font-weight:600;line-height:1.08;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+
+  .hero-num .cny{font-size:var(--fs-18);font-weight:500;color:#D6DEF0;margin-right:2px}
+
+  .hero-num .dec{font-size:var(--fs-18);color:#C9D3E6}
+
+  .hero-tag{display:inline-flex;align-items:center;gap:2px;height:23px;padding:0 8px;border-radius:7px;background:rgba(20,163,159,.2);color:#69E4D7;font-size:var(--fs-11);font-weight:600;flex:none}
+
+  .hero-tag .ic{width:11px;height:11px;stroke-width:2.4}
+
+  .hero-sub{margin-top:5px;font-size:var(--fs-12);color:#93A3BC}
+
+  .hero-stats{position:relative;z-index:1;display:flex;margin-top:15px;padding-top:13px;border-top:1px solid rgba(255,255,255,.13)}
+
+  .hero-stats>div{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+
+  .hero-stats>div+div{padding-left:14px;border-left:1px solid rgba(255,255,255,.1)}
+
+  .hero-stats span{font-size:var(--fs-11);color:#9FAEC6}
+
+  .hero-stats b{font-size:var(--fs-16);font-weight:600;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .hero-stats b i{font-style:normal;font-size:var(--fs-11);font-weight:400;color:#9FAEC6;margin-left:1px}
+
+  .quick{display:grid;grid-template-columns:repeat(4,1fr);margin-top:12px;padding:9px 4px}
+
+  .quick a{display:flex;flex-direction:column;align-items:center;gap:7px;padding:9px 2px;border-radius:12px;font-size:var(--fs-12);color:var(--ink-2);min-height:80px;justify-content:center}
+
+  .quick .qi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary)}
+
+  .quick .qi .ic{width:22px;height:22px}
+
+  .quick .qi.teal{background:var(--accent-soft);color:var(--accent)}
+
+  .quick .qi.gold{background:var(--gold-soft);color:var(--gold)}
+
+  .quick .qi.dark{background:var(--ink);color:#fff}
+
+  .task .cell{padding-top:12px;padding-bottom:12px}
+
+  .task .cell-title{font-size:var(--fs-15);font-weight:500}
+
+  .task .cell-sub{margin-top:1px}
+
+  .feed .cell{padding-top:11px;padding-bottom:11px}
+
+  .feed .cell-title{font-weight:400;flex-wrap:wrap;row-gap:2px}
+
+  .feed .cell-title b{font-weight:600;white-space:nowrap;flex:none}
+
+  .feed .cell-amt{font-size:var(--fs-15)}
+
+  .feed .cell-amt .u{font-size:var(--fs-11);font-weight:400;color:var(--muted);margin-left:2px}
+
+  .foot-note{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:22px;font-size:var(--fs-11);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav custom">
+    <div class="nav-brand">
+      <span class="brand-mark"><svg class="ic"><use href="icons.svg#i-store"></use></svg></span>
+      <span class="brand-name">清样会员</span>
+      <span class="brand-sub">望京店</span>
+    </div>
+  </div>
+</header>
+
+<main class="mp-page">
+
+  <section class="hero" aria-label="今日经营概览">
+    <div class="hero-top">
+      <div>
+        <p class="hero-lb">今日实收</p>
+        <p class="hero-num"><span class="cny">¥</span>3,286<span class="dec">.50</span></p>
+        <p class="hero-sub">11 月 25 日 周三 · 数据更新至 10:32</p>
+      </div>
+      <span class="hero-tag"><svg class="ic"><use href="icons.svg#i-arrow-up"></use></svg>较昨日 12.4%</span>
+    </div>
+    <div class="hero-stats">
+      <div><span>会员充值</span><b>¥1,200</b></div>
+      <div><span>核销</span><b>27<i>笔</i></b></div>
+      <div><span>新增会员</span><b>6<i>人</i></b></div>
+    </div>
+  </section>
+
+  <nav class="card quick" aria-label="快捷操作">
+    <a href="member-new.html"><span class="qi"><svg class="ic"><use href="icons.svg#i-user-plus"></use></svg></span>创建会员</a>
+    <a href="recharge.html"><span class="qi teal"><svg class="ic"><use href="icons.svg#i-wallet"></use></svg></span>会员充值</a>
+    <a href="verify.html"><span class="qi dark"><svg class="ic"><use href="icons.svg#i-scan"></use></svg></span>核销</a>
+    <a href="recharge.html?state=card"><span class="qi gold"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>次卡开卡</a>
+  </nav>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>待处理</h2>
+      <a class="more" href="members.html">全部 <svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+    </div>
+    <div class="card list task">
+      <a class="cell" href="members.html">
+        <span class="lead gold"><svg class="ic"><use href="icons.svg#i-cake"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">今天生日</span>
+          <span class="cell-sub">3 位会员 · 可发送生日券</span>
+        </span>
+        <span class="pill">3</span>
+        <svg class="ic chev"><use href="icons.svg#i-chevron"></use></svg>
+      </a>
+      <a class="cell" href="members.html?state=filter">
+        <span class="lead warn"><svg class="ic"><use href="icons.svg#i-clock"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">沉睡会员</span>
+          <span class="cell-sub">12 人超过 30 天未到店</span>
+        </span>
+        <span class="pill warn">12</span>
+        <svg class="ic chev"><use href="icons.svg#i-chevron"></use></svg>
+      </a>
+      <a class="cell" href="members.html">
+        <span class="lead teal"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <span class="cell-main">
+          <span class="cell-title">次卡将到期</span>
+          <span class="cell-sub">5 张 · 30 天内到期</span>
+        </span>
+        <span class="pill gray">5</span>
+        <svg class="ic chev"><use href="icons.svg#i-chevron"></use></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>最近动态</h2>
+      <a class="more" href="records.html">流水 <svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+    </div>
+    <div class="card list feed">
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm gold">陈</span>
+        <span class="cell-main">
+          <span class="cell-title"><b>陈嘉怡</b> 充值 ¥500</span>
+          <span class="cell-sub">10:24 · 余额充值 · 赠 ¥50</span>
+        </span>
+        <span class="cell-amt in">+¥550.00</span>
+      </a>
+      <a class="cell" href="records.html?state=cardverify">
+        <span class="ava sm teal">林</span>
+        <span class="cell-main">
+          <span class="cell-title"><b>林之遥</b> 核销剪发次卡</span>
+          <span class="cell-sub">10:12 · 次卡核销 · 剩 8 次</span>
+        </span>
+        <span class="cell-amt">−1<span class="u">次</span></span>
+      </a>
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm gray">周</span>
+        <span class="cell-main">
+          <span class="cell-title"><b>周明轩</b> 购买头皮护理卡</span>
+          <span class="cell-sub">09:58 · 次卡购买 · 6 次</span>
+        </span>
+        <span class="cell-amt in">+¥1,080.00</span>
+      </a>
+      <a class="cell" href="member-detail.html">
+        <span class="ava sm">沈</span>
+        <span class="cell-main">
+          <span class="cell-title"><b>沈知夏</b> 新会员建档</span>
+          <span class="cell-sub">09:41 · 由 林岚 创建</span>
+        </span>
+        <span class="cell-amt"><span class="badge blue">新会员</span></span>
+      </a>
+    </div>
+  </section>
+
+  <p class="foot-note"><svg class="ic" style="width:12px;height:12px"><use href="icons.svg#i-refresh"></use></svg>数据每 5 分钟同步一次</p>
+
+</main>
+
+<nav class="mp-tabbar" aria-label="主导航">
+  <a class="on" href="home.html"><svg class="ic"><use href="icons.svg#i-home"></use></svg><span>工作台</span></a>
+  <a href="members.html"><svg class="ic"><use href="icons.svg#i-users"></use></svg><span>会员</span></a>
+  <a href="records.html"><svg class="ic"><use href="icons.svg#i-receipt"></use></svg><span>记录</span></a>
+  <a href="stats.html"><svg class="ic"><use href="icons.svg#i-chart"></use></svg><span>数据</span></a>
+  <a href="settings.html"><svg class="ic"><use href="icons.svg#i-sliders"></use></svg><span>管理</span></a>
+</nav>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

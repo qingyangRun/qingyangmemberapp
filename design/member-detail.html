@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:消费核销, recharge:余额充值, cardbuy:次卡购买, cardverify:次卡核销">
+<title>会员详情 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .mcard{position:relative;overflow:hidden;background:#101B2E;border-radius:var(--r-xl);padding:18px;color:#fff;box-shadow:var(--shadow-md)}
+
+  .mcard::after{content:"";position:absolute;right:-56px;top:-84px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--primary-glow),transparent 68%)}
+
+  .mcard-top{position:relative;z-index:1;display:flex;align-items:flex-start;gap:12px}
+
+  .mcard .ava{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18)}
+
+  .mcard-id{flex:1;min-width:0}
+
+  .mcard-name{display:flex;align-items:center;gap:7px;font-size:var(--fs-18);font-weight:600;line-height:1.3}
+
+  .mcard-meta{margin-top:3px;font-size:var(--fs-12);color:#A9B6CA;font-variant-numeric:tabular-nums}
+
+  .mcard-edit{width:44px;height:44px;border-radius:11px;background:rgba(255,255,255,.1);display:grid;place-items:center;color:#DCE4F2;flex:none;margin:-5px -5px 0 0}
+
+  .mcard-edit .ic{width:17px;height:17px}
+
+  .mcard-tags{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+
+  .mcard-tags span{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:rgba(255,255,255,.08);font-size:var(--fs-11);color:#C6D2E4}
+
+  .mcard-assets{position:relative;z-index:1;display:flex;margin-top:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+
+  .mcard-assets>div{flex:1;min-width:0}
+
+  .mcard-assets span{display:block;font-size:var(--fs-11);color:#97A6BE}
+
+  .mcard-assets b{display:block;margin-top:2px;font-size:var(--fs-20);font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.2}
+
+  .mcard-assets b small{font-size:var(--fs-12);font-weight:400;color:#9FAEC6;margin-left:2px}
+
+  .mcard-progress{position:relative;z-index:1;margin-top:14px}
+
+  .mcard-progress .between{font-size:var(--fs-11);color:#97A6BE}
+
+  .mcard-progress .between b{color:#E7BC6B;font-weight:600}
+
+  .mcard-progress .track{height:5px;border-radius:3px;background:rgba(255,255,255,.14);margin-top:6px;overflow:hidden}
+
+  .mcard-progress .track i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#C08A2E,#E7BC6B)}
+
+  .actions{display:grid;grid-template-columns:repeat(4,1fr);margin-top:12px;padding:10px 4px}
+
+  .actions a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:7px 2px;min-height:76px;border-radius:12px;font-size:var(--fs-12);color:var(--ink-2)}
+
+  .actions .ai{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary)}
+
+  .actions .ai .ic{width:20px;height:20px}
+
+  .actions .ai.teal{background:var(--accent-soft);color:var(--accent)}
+
+  .actions .ai.gold{background:var(--gold-soft);color:var(--gold)}
+
+  .actions .ai.dark{background:var(--ink);color:#fff}
+
+  .cardrow{padding:13px 16px}
+
+  .cardrow .cell-title{font-size:var(--fs-15)}
+
+  .cardrow .cell-sub{margin-top:2px}
+
+  .card-status{display:flex;align-items:center;gap:8px}
+
+  .gone .cell-title,.gone .cell-sub{color:var(--muted)}
+
+  .rec-tabs{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;padding:0 16px;border-bottom:1px solid var(--line)}
+
+  .rec-tabs::-webkit-scrollbar{display:none}
+
+  .rec-tabs a{position:relative;display:flex;align-items:center;min-height:46px;font-size:var(--fs-13);color:var(--muted);white-space:nowrap}
+
+  [data-state="default"] .rec-tabs .t-consume,
+  [data-state="recharge"] .rec-tabs .t-recharge,
+  [data-state="cardbuy"] .rec-tabs .t-cardbuy,
+  [data-state="cardverify"] .rec-tabs .t-cardverify{color:var(--ink);font-weight:600}
+
+  [data-state="default"] .rec-tabs .t-consume::after,
+  [data-state="recharge"] .rec-tabs .t-recharge::after,
+  [data-state="cardbuy"] .rec-tabs .t-cardbuy::after,
+  [data-state="cardverify"] .rec-tabs .t-cardverify::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--primary)}
+
+  [data-state="default"] .rec:not(.t-consume),
+  [data-state="recharge"] .rec:not(.t-recharge),
+  [data-state="cardbuy"] .rec:not(.t-cardbuy),
+  [data-state="cardverify"] .rec:not(.t-cardverify){display:none}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="members.html" aria-label="返回会员列表"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>会员详情</h1>
+  </div>
+</header>
+
+<main class="mp-page">
+
+  <section class="mcard" aria-label="会员卡">
+    <div class="mcard-top">
+      <span class="ava lg gold">陈</span>
+      <div class="mcard-id">
+        <div class="mcard-name">陈嘉怡 <span class="badge gold">金卡</span></div>
+        <p class="mcard-meta">138 **** 6621 · 卡号 QH 8821 · 2026-03-12 入会</p>
+      </div>
+      <a class="mcard-edit" href="member-edit.html" aria-label="编辑会员"><svg class="ic"><use href="icons.svg#i-edit"></use></svg></a>
+    </div>
+    <div class="mcard-tags">
+      <span>高复购</span><span>生日月</span><span>敏感头皮</span><span>正常</span>
+    </div>
+    <div class="mcard-assets">
+      <div><span>账户余额</span><b>¥1,280<small>.00</small></b></div>
+      <div><span>次卡可用</span><b>10<small>次 · 3 张卡</small></b></div>
+    </div>
+    <div class="mcard-progress">
+      <div class="between"><span>金卡 → 黑金卡</span><span>累计消费 <b>¥6,420</b> / ¥8,000</span></div>
+      <div class="track"><i style="width:80%"></i></div>
+    </div>
+  </section>
+
+  <nav class="card actions" aria-label="会员操作">
+    <a href="recharge.html"><span class="ai teal"><svg class="ic"><use href="icons.svg#i-wallet"></use></svg></span>充值</a>
+    <a href="verify.html"><span class="ai dark"><svg class="ic"><use href="icons.svg#i-scan"></use></svg></span>核销</a>
+    <a href="recharge.html?state=card"><span class="ai gold"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>开次卡</a>
+    <a href="member-edit.html"><span class="ai"><svg class="ic"><use href="icons.svg#i-tag"></use></svg></span>标记</a>
+  </nav>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>次卡</h2>
+      <a class="more" href="recharge.html?state=card">＋ 开次卡</a>
+    </div>
+    <div class="card list">
+      <div class="cell cardrow">
+        <span class="lead teal"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="cell-title">剪发次卡 <span class="badge teal">8 / 12 次</span></div>
+          <div class="cell-sub">有效期至 2027-03-31</div>
+        </div>
+        <a class="btn btn-sm btn-soft" href="verify.html">核销</a>
+      </div>
+      <div class="cell cardrow">
+        <span class="lead teal"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="cell-title">头皮护理 <span class="badge teal">2 / 6 次</span></div>
+          <div class="cell-sub">有效期至 2026-12-20</div>
+        </div>
+        <a class="btn btn-sm btn-soft" href="verify.html">核销</a>
+      </div>
+      <div class="cell cardrow gone">
+        <span class="lead gray"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="cell-title">染发次卡 <span class="badge gray">已用完</span></div>
+          <div class="cell-sub">有效期至 2026-10-01</div>
+        </div>
+        <span class="badge gray">0 / 3 次</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>记录</h2>
+      <a class="more" href="records.html">全部 <svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+    </div>
+    <div class="card flush">
+      <nav class="rec-tabs" aria-label="记录类型">
+        <a class="t-consume" href="?state=default">消费核销</a>
+        <a class="t-recharge" href="?state=recharge">余额充值</a>
+        <a class="t-cardbuy" href="?state=cardbuy">次卡购买</a>
+        <a class="t-cardverify" href="?state=cardverify">次卡核销</a>
+      </nav>
+      <div class="list">
+        <div class="cell rec t-consume">
+          <span class="rec-time"><b>11-24</b><span>16:20</span></span>
+          <span class="cell-main">
+            <span class="cell-title">余额消费 · 剪发造型</span>
+            <span class="cell-sub">经办 林岚 · 余额支付</span>
+          </span>
+          <span class="cell-amt">−¥168.00</span>
+        </div>
+        <div class="cell rec t-consume">
+          <span class="rec-time"><b>11-12</b><span>14:05</span></span>
+          <span class="cell-main">
+            <span class="cell-title">余额消费 · 头皮护理</span>
+            <span class="cell-sub">经办 林岚 · 余额支付</span>
+          </span>
+          <span class="cell-amt">−¥228.00</span>
+        </div>
+        <div class="cell rec t-consume">
+          <span class="rec-time"><b>10-03</b><span>11:26</span></span>
+          <span class="cell-main">
+            <span class="cell-title">余额消费 · 洗剪吹</span>
+            <span class="cell-sub">经办 周宁 · 余额支付</span>
+          </span>
+          <span class="cell-amt">−¥98.00</span>
+        </div>
+
+        <div class="cell rec t-recharge">
+          <span class="rec-time"><b>11-24</b><span>15:02</span></span>
+          <span class="cell-main">
+            <span class="cell-title">余额充值 · 微信支付</span>
+            <span class="cell-sub">经办 林岚 · 赠 ¥50</span>
+          </span>
+          <span class="cell-amt in">+¥550.00</span>
+        </div>
+        <div class="cell rec t-recharge">
+          <span class="rec-time"><b>10-20</b><span>12:40</span></span>
+          <span class="cell-main">
+            <span class="cell-title">余额充值 · 现金</span>
+            <span class="cell-sub">经办 林岚 · 赠 ¥100</span>
+          </span>
+          <span class="cell-amt in">+¥1,100.00</span>
+        </div>
+
+        <div class="cell rec t-cardbuy">
+          <span class="rec-time"><b>09-12</b><span>18:30</span></span>
+          <span class="cell-main">
+            <span class="cell-title">次卡购买 · 剪发次卡</span>
+            <span class="cell-sub">10 次 + 赠 2 次 · 微信支付</span>
+          </span>
+          <span class="cell-amt in">+¥680.00</span>
+        </div>
+        <div class="cell rec t-cardbuy">
+          <span class="rec-time"><b>06-08</b><span>13:15</span></span>
+          <span class="cell-main">
+            <span class="cell-title">次卡购买 · 染发次卡</span>
+            <span class="cell-sub">3 次 · 银行卡</span>
+          </span>
+          <span class="cell-amt in">+¥1,680.00</span>
+        </div>
+
+        <div class="cell rec t-cardverify">
+          <span class="rec-time"><b>11-25</b><span>10:12</span></span>
+          <span class="cell-main">
+            <span class="cell-title">次卡核销 · 剪发次卡</span>
+            <span class="cell-sub">经办 林岚 · 剩余 8 次</span>
+          </span>
+          <span class="cell-amt">−1<span class="u">次</span></span>
+        </div>
+        <div class="cell rec t-cardverify">
+          <span class="rec-time"><b>11-18</b><span>16:40</span></span>
+          <span class="cell-main">
+            <span class="cell-title">次卡核销 · 头皮护理</span>
+            <span class="cell-sub">经办 周宁 · 剩余 2 次</span>
+          </span>
+          <span class="cell-amt">−1<span class="u">次</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

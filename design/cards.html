@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:次卡列表, edit:编辑次卡">
+<title>次卡项目 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .tcard{padding:14px 16px}
+
+  .tcard+.tcard{margin-top:10px}
+
+  .tcard-top{display:flex;align-items:center;gap:12px}
+
+  .tem{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none}
+
+  .tem .ic{width:21px;height:21px}
+
+  .tcard .nm{display:flex;align-items:center;gap:6px;font-size:var(--fs-15);font-weight:600}
+
+  .tcard .sub{margin-top:2px;font-size:var(--fs-11);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .tcard .price{flex:none;text-align:right}
+
+  .tcard .price b{display:block;font-size:var(--fs-18);font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+  .tcard .price span{display:block;font-size:var(--fs-11);color:var(--muted)}
+
+  .tcard-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:var(--fs-11);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .tcard-foot .lk{display:inline-flex;align-items:center;justify-content:center;gap:2px;min-width:52px;height:44px;margin:-12px 0;padding:0 4px;color:var(--ink-2);font-size:var(--fs-12);flex:none}
+
+  .tcard-foot .lk .ic{width:13px;height:13px;stroke-width:2;color:var(--faint)}
+
+  .tcard.off .nm{color:var(--muted)}
+
+  [data-state="edit"] .mask{display:flex}
+
+  [data-state="edit"] .mp-actionbar{display:none}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="settings.html" aria-label="返回管理"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>次卡项目</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <section class="card sum3">
+    <div><span>在售项目</span><b>3 <small>个</small></b></div>
+    <div><span>本月售出</span><b>52 <small>张</small></b></div>
+    <div><span>本月核销</span><b>186 <small>次</small></b></div>
+  </section>
+
+  <div style="margin-top:12px">
+    <article class="card tcard">
+      <div class="tcard-top">
+        <span class="tem"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">剪发次卡 <span class="badge teal">在售</span></div>
+          <div class="sub">10 次 + 赠 2 次 · 有效期 12 个月</div>
+        </div>
+        <div class="price"><b>¥680</b><span>¥56.7 / 次</span></div>
+      </div>
+      <div class="tcard-foot">
+        <span>已售 186 张 · 核销 1,024 次</span>
+        <a class="lk" href="?state=edit">编辑<svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+      </div>
+    </article>
+
+    <article class="card tcard">
+      <div class="tcard-top">
+        <span class="tem"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">头皮护理 <span class="badge teal">在售</span></div>
+          <div class="sub">6 次 + 赠 1 次 · 有效期 12 个月</div>
+        </div>
+        <div class="price"><b>¥1,080</b><span>¥154.3 / 次</span></div>
+      </div>
+      <div class="tcard-foot">
+        <span>已售 64 张 · 核销 302 次</span>
+        <a class="lk" href="?state=edit">编辑<svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+      </div>
+    </article>
+
+    <article class="card tcard">
+      <div class="tcard-top">
+        <span class="tem"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">染发次卡 <span class="badge teal">在售</span></div>
+          <div class="sub">3 次 · 有效期 12 个月</div>
+        </div>
+        <div class="price"><b>¥1,680</b><span>¥560 / 次</span></div>
+      </div>
+      <div class="tcard-foot">
+        <span>已售 22 张 · 核销 58 次</span>
+        <a class="lk" href="?state=edit">编辑<svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+      </div>
+    </article>
+
+    <article class="card tcard off">
+      <div class="tcard-top">
+        <span class="tem" style="background:var(--surface-3);color:var(--muted)"><svg class="ic"><use href="icons.svg#i-cards"></use></svg></span>
+        <div class="cell-main">
+          <div class="nm">造型次卡 <span class="badge gray">已下架</span></div>
+          <div class="sub">5 次 + 赠 1 次 · 2026-10-01 下架</div>
+        </div>
+        <div class="price"><b style="color:var(--muted)">¥500</b><span>¥83.3 / 次</span></div>
+      </div>
+      <div class="tcard-foot">
+        <span>已售 45 张 · 核销 210 次 · 不影响已购会员使用</span>
+        <a class="lk" href="?state=edit">编辑<svg class="ic"><use href="icons.svg#i-chevron"></use></svg></a>
+      </div>
+    </article>
+  </div>
+
+  <p class="page-lead" style="margin-top:14px">下架项目不影响会员已购买次卡的使用；删除项目会保留历史记录。</p>
+
+</main>
+
+<div class="mp-actionbar">
+  <div class="sum"><span>共 4 个项目</span><b>3 个在售</b></div>
+  <a class="btn btn-primary" href="?state=edit">新建次卡项目</a>
+</div>
+
+<div class="mask" role="dialog" aria-modal="true" aria-label="编辑次卡项目">
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <div class="sheet-head">
+      <h2>次卡项目设置</h2>
+      <a class="sheet-close" href="?state=default" aria-label="关闭"><svg class="ic"><use href="icons.svg#i-close"></use></svg></a>
+    </div>
+
+    <div class="sform">
+      <div class="srow">
+        <span class="lb">项目名称</span>
+        <div class="ctl"><input type="text" value="剪发次卡" aria-label="项目名称"></div>
+      </div>
+      <div class="srow">
+        <span class="lb">售价</span>
+        <div class="ctl"><input type="text" value="680" inputmode="numeric" aria-label="售价"><span class="unit">元</span></div>
+      </div>
+      <div class="srow">
+        <span class="lb">可用次数</span>
+        <div class="ctl"><input type="text" value="10" inputmode="numeric" aria-label="可用次数"><span class="unit">次</span></div>
+      </div>
+      <div class="srow">
+        <span class="lb">赠送次数</span>
+        <div class="ctl"><input type="text" value="2" inputmode="numeric" aria-label="赠送次数"><span class="unit">次</span></div>
+      </div>
+    </div>
+
+    <div class="sgroup">
+      <h3>使用规则</h3>
+      <div class="sform">
+        <div class="srow">
+          <span class="lb">有效期</span>
+          <div class="ctl"><input type="text" value="12" inputmode="numeric" aria-label="有效期"><span class="unit">个月</span></div>
+        </div>
+        <div class="srow">
+          <span class="lb">适用项目</span>
+          <div class="ctl"><input type="text" value="剪发 / 洗剪吹" aria-label="适用项目"></div>
+        </div>
+        <div class="srow">
+          <span class="lb">上架状态</span>
+          <div class="ctl"><button class="sw on" type="button" aria-pressed="true" aria-label="上架状态"></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview">
+      <svg class="ic"><use href="icons.svg#i-cards"></use></svg>
+      <p>会员购买后到账 12 次，单次成本 ¥56.7；按「购买次卡」规则可获得 340 积分。</p>
+    </div>
+
+    <a class="btn btn-primary btn-block" href="?state=default">保存项目</a>
+    <button class="del-link" type="button"><svg class="ic"><use href="icons.svg#i-trash"></use></svg>删除该项目</button>
+  </div>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

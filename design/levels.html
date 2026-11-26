@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-state="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<meta name="dsh-states" content="default:等级列表, edit:编辑等级">
+<title>等级管理 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .intro{padding:14px 16px}
+
+  .intro p{font-size:var(--fs-12);color:var(--muted);line-height:1.65}
+
+  .intro p b{color:var(--ink-2);font-weight:600}
+
+  .intro-stats{display:flex;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+
+  .intro-stats>div{flex:1}
+
+  .intro-stats span{display:block;font-size:var(--fs-11);color:var(--muted)}
+
+  .intro-stats b{font-size:var(--fs-18);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .lv-list{margin-top:12px}
+
+  .lv{padding:14px 16px}
+
+  .lv+.lv{margin-top:10px}
+
+  .lv-top{display:flex;align-items:center;gap:12px}
+
+  .emblem{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#fff;flex:none;background:linear-gradient(135deg,#7C8BA1,#AEBACB)}
+
+  .emblem .ic{width:22px;height:22px}
+
+  .emblem.black{background:linear-gradient(135deg,#1A2436,#3B4B68)}
+
+  .emblem.gold{background:linear-gradient(135deg,#A9741F,#E2B563)}
+
+  .emblem.blue{background:linear-gradient(135deg,#2F5DE8,#7C9BFF)}
+
+  .lv-name{display:flex;align-items:center;gap:6px;font-size:var(--fs-16);font-weight:600;flex-wrap:wrap;row-gap:2px}
+
+  .lv-name .count{font-size:var(--fs-11);color:var(--muted);font-weight:400;white-space:nowrap}
+
+  .lv-sub{margin-top:2px;font-size:var(--fs-12);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .lv-edit{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:2px;height:44px;padding:0 12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-size:var(--fs-12);color:var(--ink-2)}
+
+  .lv-edit .ic{width:13px;height:13px;stroke-width:2}
+
+  .lv-edit.dis{color:var(--muted);background:transparent;border-color:transparent;padding:0 4px}
+
+  .lv-cond{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+
+  .lv-rights{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+
+  .lv-rights .tag{height:22px;background:var(--surface-2)}
+
+  .lv-rights .tag.gold{background:var(--gold-soft);border-color:transparent;color:var(--gold)}
+
+  .lv-rights .tag.blue{background:var(--primary-soft);border-color:transparent;color:var(--primary)}
+
+  [data-state="edit"] .mask{display:flex}
+
+  [data-state="edit"] .mp-actionbar{display:none}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="settings.html" aria-label="返回管理"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>等级管理</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <section class="card intro">
+    <p>等级按 <b>累计充值</b> 或 <b>累计消费</b> 自动评定，两条条件满足其一即可升级，取达标等级中的最高级；满足条件次日生效。</p>
+    <div class="intro-stats">
+      <div><span>等级数量</span><b>4</b></div>
+      <div><span>金卡及以上</span><b>98 <small class="muted" style="font-size:11px;font-weight:400">人</small></b></div>
+      <div><span>本月升级</span><b>17 <small class="muted" style="font-size:11px;font-weight:400">人</small></b></div>
+    </div>
+  </section>
+
+  <div class="lv-list">
+    <article class="card lv">
+      <div class="lv-top">
+        <span class="emblem black"><svg class="ic"><use href="icons.svg#i-crown"></use></svg></span>
+        <div class="cell-main">
+          <div class="lv-name">黑金卡 <span class="count">12 人</span></div>
+          <div class="lv-sub">最高等级 · 不参与降级</div>
+        </div>
+        <a class="lv-edit" href="?state=edit"><svg class="ic"><use href="icons.svg#i-edit"></use></svg>编辑</a>
+      </div>
+      <div class="lv-cond">
+        <span class="tag">累计充值 ≥ ¥5,000</span>
+        <span class="tag">或 累计消费 ≥ ¥8,000</span>
+      </div>
+      <div class="lv-rights">
+        <span class="tag gold">会员价 85 折</span>
+        <span class="tag gold">积分 2 倍</span>
+        <span class="tag">生日礼</span>
+      </div>
+    </article>
+
+    <article class="card lv">
+      <div class="lv-top">
+        <span class="emblem gold"><svg class="ic"><use href="icons.svg#i-crown"></use></svg></span>
+        <div class="cell-main">
+          <div class="lv-name">金卡 <span class="count">86 人</span></div>
+          <div class="lv-sub">2026 年新增 32 人</div>
+        </div>
+        <a class="lv-edit" href="?state=edit"><svg class="ic"><use href="icons.svg#i-edit"></use></svg>编辑</a>
+      </div>
+      <div class="lv-cond">
+        <span class="tag">累计充值 ≥ ¥2,000</span>
+        <span class="tag">或 累计消费 ≥ ¥3,000</span>
+      </div>
+      <div class="lv-rights">
+        <span class="tag blue">会员价 9 折</span>
+        <span class="tag blue">积分 1.5 倍</span>
+        <span class="tag">生日礼</span>
+      </div>
+    </article>
+
+    <article class="card lv">
+      <div class="lv-top">
+        <span class="emblem blue"><svg class="ic"><use href="icons.svg#i-crown"></use></svg></span>
+        <div class="cell-main">
+          <div class="lv-name">银卡 <span class="count">214 人</span></div>
+          <div class="lv-sub">入门付费等级</div>
+        </div>
+        <a class="lv-edit" href="?state=edit"><svg class="ic"><use href="icons.svg#i-edit"></use></svg>编辑</a>
+      </div>
+      <div class="lv-cond">
+        <span class="tag">累计充值 ≥ ¥500</span>
+        <span class="tag">或 累计消费 ≥ ¥800</span>
+      </div>
+      <div class="lv-rights">
+        <span class="tag blue">会员价 95 折</span>
+        <span class="tag blue">积分 1.2 倍</span>
+      </div>
+    </article>
+
+    <article class="card lv">
+      <div class="lv-top">
+        <span class="emblem"><svg class="ic"><use href="icons.svg#i-users"></use></svg></span>
+        <div class="cell-main">
+          <div class="lv-name">普通会员 <span class="badge gray">默认</span><span class="count">974 人</span></div>
+          <div class="lv-sub">新会员自动归入</div>
+        </div>
+        <span class="lv-edit dis">默认等级</span>
+      </div>
+      <div class="lv-cond">
+        <span class="tag">无门槛</span>
+      </div>
+      <div class="lv-rights">
+        <span class="tag">积分 1 倍</span>
+        <span class="tag">无会员折扣</span>
+      </div>
+    </article>
+  </div>
+
+  <p class="page-lead" style="margin-top:14px">调整等级门槛只影响之后的评定，不会改变会员已有的等级记录。</p>
+
+</main>
+
+<div class="mp-actionbar">
+  <div class="sum"><span>共 4 个等级</span><b>1,286 位会员</b></div>
+  <a class="btn btn-primary" href="?state=edit">新建等级</a>
+</div>
+
+<div class="mask" role="dialog" aria-modal="true" aria-label="编辑等级">
+  <div class="sheet">
+    <div class="sheet-grab"></div>
+    <div class="sheet-head">
+      <h2>等级设置</h2>
+      <a class="sheet-close" href="?state=default" aria-label="关闭"><svg class="ic"><use href="icons.svg#i-close"></use></svg></a>
+    </div>
+
+    <div class="sform">
+      <div class="srow">
+        <span class="lb">等级名称</span>
+        <div class="ctl"><input type="text" value="金卡" aria-label="等级名称"></div>
+      </div>
+    </div>
+
+    <div class="sgroup">
+      <h3>达成条件（满足其一即可）</h3>
+      <div class="sform">
+        <div class="srow">
+          <span class="lb">累计充值 ≥</span>
+          <div class="ctl"><input type="text" value="2,000" inputmode="numeric" aria-label="累计充值门槛"><span class="unit">元</span></div>
+        </div>
+        <div class="srow">
+          <span class="lb">累计消费 ≥</span>
+          <div class="ctl"><input type="text" value="3,000" inputmode="numeric" aria-label="累计消费门槛"><span class="unit">元</span></div>
+        </div>
+      </div>
+      <p class="sheet-note">会员累计充值或累计消费任意一项达标，即自动升到该等级。</p>
+    </div>
+
+    <div class="sgroup">
+      <h3>会员权益</h3>
+      <div class="sform">
+        <div class="srow">
+          <span class="lb">会员折扣</span>
+          <div class="ctl"><input type="text" value="90" inputmode="numeric" aria-label="会员折扣"><span class="unit">%（即 9 折）</span></div>
+        </div>
+        <div class="srow">
+          <span class="lb">积分倍率</span>
+          <div class="ctl"><input type="text" value="1.5" inputmode="decimal" aria-label="积分倍率"><span class="unit">倍</span></div>
+        </div>
+        <div class="srow">
+          <span class="lb">生日礼</span>
+          <div class="ctl"><button class="sw on" type="button" aria-pressed="true" aria-label="生日礼开关"></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview">
+      <svg class="ic"><use href="icons.svg#i-sparkles"></use></svg>
+      <p>规则预览：会员累计充值 ¥2,400 时升为金卡；若同时达到黑金卡门槛，则直接升为黑金卡。</p>
+    </div>
+
+    <a class="btn btn-primary btn-block" href="?state=default">保存等级</a>
+    <button class="del-link" type="button"><svg class="ic"><use href="icons.svg#i-trash"></use></svg>删除该等级</button>
+  </div>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>

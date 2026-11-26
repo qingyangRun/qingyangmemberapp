@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dsh-design" content="miniprogram">
+<title>新增会员 · 清样会员</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  .card-opt{display:flex;align-items:center;gap:12px;width:100%;padding:13px 16px;border-top:1px solid var(--line);text-align:left}
+
+  .card-opt:first-of-type{border-top:0}
+
+  .card-opt .ci{flex:1;min-width:0}
+
+  .card-opt .nm{display:flex;align-items:center;gap:6px;font-size:var(--fs-15);font-weight:500;color:var(--ink)}
+
+  .card-opt .sub{margin-top:2px;font-size:var(--fs-12);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .card-opt .pr{flex:none;text-align:right}
+
+  .card-opt .pr b{display:block;font-size:var(--fs-15);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .card-opt .pr span{display:block;font-size:var(--fs-11);color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .card-opt.on{background:#FAFBFF}
+
+  .summary .field{min-height:48px}
+
+  .summary .lb{width:auto;font-size:var(--fs-13);color:var(--muted)}
+
+  .summary .val{font-size:var(--fs-15)}
+
+  .summary .total{border-top:1px solid var(--line)}
+
+  .summary .total .lb{font-weight:600;color:var(--ink);font-size:var(--fs-15)}
+
+  .summary .total .val{font-size:var(--fs-18);font-weight:600;letter-spacing:-.02em}
+
+  .level-note{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
+
+  .level-note p{font-size:var(--fs-12);color:var(--muted)}
+
+  .level-note p b{color:var(--ink-2);font-weight:600}
+
+  .card-opt .tag{height:20px;font-size:var(--fs-10)}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <div class="mp-status">
+    <span>9:41</span>
+    <span class="mp-sys" aria-hidden="true">
+      <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="currentColor"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 4.2a10 10 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M3.4 6.7a6.4 6.4 0 0 1 9.2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="8" cy="9.3" r="1.5" fill="currentColor"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" opacity=".4" fill="none"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><path d="M24 4.2v3.6a2 2 0 0 0 0-3.6z" fill="currentColor" opacity=".4"/></svg>
+    </span>
+  </div>
+  <div class="mp-nav">
+    <a class="mp-back" href="members.html" aria-label="返回会员列表"><svg class="ic"><use href="icons.svg#i-back"></use></svg></a>
+    <h1>新增会员</h1>
+  </div>
+</header>
+
+<main class="mp-page has-action">
+
+  <section class="form-group">
+    <div class="group-head"><h2>基本信息</h2><span>带 * 为必填</span></div>
+    <div class="field">
+      <label class="lb req" for="phone">手机号</label>
+      <div class="ctl"><input id="phone" type="tel" value="150 1234 5678" inputmode="numeric"></div>
+    </div>
+    <div class="field">
+      <label class="lb req" for="name">姓名</label>
+      <div class="ctl"><input id="name" type="text" value="沈知夏"></div>
+    </div>
+    <div class="field">
+      <span class="lb">性别</span>
+      <div class="ctl">
+        <div class="seg mini" role="group" aria-label="性别">
+          <button>男</button>
+          <button class="on">女</button>
+          <button>保密</button>
+        </div>
+      </div>
+    </div>
+    <button class="field" type="button" style="width:100%;text-align:left">
+      <span class="lb">生日</span>
+      <span class="ctl">
+        <span class="val">2000-08-12</span>
+        <svg class="ic tail"><use href="icons.svg#i-calendar"></use></svg>
+      </span>
+    </button>
+    <p class="field-note">生日为选填项，填写后生日当月自动加入提醒，并可发送生日礼。</p>
+  </section>
+
+
+  <section class="form-group">
+    <div class="group-head"><h2>初始余额</h2><span>选填</span></div>
+    <div class="field">
+      <span class="lb">储值金额</span>
+      <div class="ctl"><input type="text" value="500.00" inputmode="decimal" aria-label="初始余额"><span class="unit">元</span></div>
+    </div>
+    <p class="field-note">填写后同步生成一条「余额充值」记录，不计积分；可稍后在会员详情继续充值。</p>
+  </section>
+
+  <section class="form-group">
+    <div class="group-head"><h2>选择次卡</h2><span>可多选</span></div>
+    <button class="card-opt on" type="button" aria-pressed="true">
+      <span class="ci">
+        <span class="nm">剪发次卡 <span class="tag on">最受欢迎</span></span>
+        <span class="sub">10 次 + 赠 2 次 · 有效期 12 个月</span>
+      </span>
+      <span class="pr"><b>¥680</b><span>¥56.7 / 次</span></span>
+      <span class="ck on"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span>
+    </button>
+    <button class="card-opt" type="button" aria-pressed="false">
+      <span class="ci">
+        <span class="nm">头皮护理</span>
+        <span class="sub">6 次 + 赠 1 次 · 有效期 12 个月</span>
+      </span>
+      <span class="pr"><b>¥1,080</b><span>¥154.3 / 次</span></span>
+      <span class="ck"><svg class="ic"><use href="icons.svg#i-check"></use></svg></span>
+    </button>
+    <p class="field-note">次卡金额计入累计消费，并按积分设置里的「购买次卡」比例计积分。</p>
+  </section>
+
+  <section class="form-group summary">
+    <div class="field"><span class="lb">储值</span><span class="ctl"><span class="val">¥500.00</span></span></div>
+    <div class="field"><span class="lb">次卡 · 剪发 12 次</span><span class="ctl"><span class="val">¥680.00</span></span></div>
+    <div class="field total"><span class="lb">合计</span><span class="ctl"><span class="val">¥1,180.00</span></span></div>
+    <div class="level-note">
+      <p>创建后按累计充值自动评定等级</p>
+      <span class="badge blue">银卡</span>
+    </div>
+  </section>
+
+  <p class="page-lead" style="margin-top:12px">创建后可立即为会员充值、核销，或在详情页补充标记与备注。</p>
+
+</main>
+
+<div class="mp-actionbar">
+  <div class="sum"><span>合计</span><b>¥1,180.00</b></div>
+  <a class="btn btn-primary" href="member-detail.html">创建会员</a>
+</div>
+
+<script src="theme.js"></script>
+
+</body>
+</html>
