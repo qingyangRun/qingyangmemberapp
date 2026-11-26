@@ -4,7 +4,7 @@ Page({
   data: {
     theme: 'blue',
     state: 'default',
-    inputs: {f0: '陈嘉怡', f1: '138 6621 3048', f2: '偏好自然卷度，不染深色；每次到店先做头皮舒缓。'},
+    inputs: {f0: '陈嘉怡', f1: '138 0000 0000', f2: '偏好自然卷度，不染深色；每次到店先做头皮舒缓。'},
     selected: 'member-edit'
   },
 

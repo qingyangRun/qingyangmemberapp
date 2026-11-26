@@ -189,7 +189,7 @@
           </view>
           <view class="span cell-main">
             <text class="span cell-title">完整手机号</text>
-            <text class="span cell-sub">如 138 6621 3048，精确匹配</text>
+            <text class="span cell-sub">如 138 0000 0000，精确匹配</text>
           </view>
         </view>
         <view class="div cell">
