@@ -1,26 +1,26 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page has-action">
     <view class="section form-group">
-      <view class="div group-head">
+      <view class="group-head">
         <text class="h2">基本信息</text>
         <text class="span">带 * 为必填</text>
       </view>
-      <view class="div field">
+      <view class="field">
         <text class="label lb req">手机号</text>
-        <view class="div ctl">
+        <view class="ctl">
           <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
         </view>
       </view>
-      <view class="div field">
+      <view class="field">
         <text class="label lb req">姓名</text>
-        <view class="div ctl">
+        <view class="ctl">
           <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="" bindinput="onInput" />
         </view>
       </view>
-      <view class="div field">
+      <view class="field">
         <text class="span lb">性别</text>
-        <view class="div ctl">
-          <view class="div seg mini">
+        <view class="ctl">
+          <view class="seg mini">
             <view class="button" hover-class="tap">
               <text>男</text>
             </view>
@@ -43,13 +43,13 @@
       <text class="p field-note">生日为选填项，填写后生日当月自动加入提醒，并可发送生日礼。</text>
     </view>
     <view class="section form-group">
-      <view class="div group-head">
+      <view class="group-head">
         <text class="h2">初始余额</text>
         <text class="span">选填</text>
       </view>
-      <view class="div field">
+      <view class="field">
         <text class="span lb">储值金额</text>
-        <view class="div ctl">
+        <view class="ctl">
           <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="" bindinput="onInput" />
           <text class="span unit">元</text>
         </view>
@@ -57,7 +57,7 @@
       <text class="p field-note">填写后同步生成一条「余额充值」记录，不计积分；可稍后在会员详情继续充值。</text>
     </view>
     <view class="section form-group">
-      <view class="div group-head">
+      <view class="group-head">
         <text class="h2">选择次卡</text>
         <text class="span">可多选</text>
       </view>
@@ -93,33 +93,33 @@
       <text class="p field-note">次卡金额计入累计消费，并按积分设置里的「购买次卡」比例计积分。</text>
     </view>
     <view class="section form-group summary">
-      <view class="div field">
+      <view class="field">
         <text class="span lb">储值</text>
         <view class="span ctl">
           <text class="span val">¥500.00</text>
         </view>
       </view>
-      <view class="div field">
+      <view class="field">
         <text class="span lb">次卡 · 剪发 12 次</text>
         <view class="span ctl">
           <text class="span val">¥680.00</text>
         </view>
       </view>
-      <view class="div field total">
+      <view class="field total">
         <text class="span lb">合计</text>
         <view class="span ctl">
           <text class="span val">¥1,180.00</text>
         </view>
       </view>
-      <view class="div level-note">
+      <view class="level-note">
         <text class="p">创建后按累计充值自动评定等级</text>
         <text class="span badge blue">银卡</text>
       </view>
     </view>
     <text class="p page-lead" style="margin-top:24rpx">创建后可立即为会员充值、核销，或在详情页补充标记与备注。</text>
   </view>
-  <view class="div mp-actionbar">
-    <view class="div sum">
+  <view class="mp-actionbar">
+    <view class="sum">
       <text class="span">合计</text>
       <text class="b">¥1,180.00</text>
     </view>

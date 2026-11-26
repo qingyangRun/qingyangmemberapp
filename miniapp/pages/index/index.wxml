@@ -1,8 +1,8 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
     <view class="section hero">
-      <view class="div hero-top">
-        <view class="div">
+      <view class="hero-top">
+        <view>
           <text class="p hero-lb">今日实收</text>
           <view class="p hero-num">
             <text class="span cny">¥</text>
@@ -16,19 +16,19 @@
           <text>较昨日 12.4%</text>
         </view>
       </view>
-      <view class="div hero-stats">
-        <view class="div">
+      <view class="hero-stats">
+        <view>
           <text class="span">会员充值</text>
           <text class="b">¥1,200</text>
         </view>
-        <view class="div">
+        <view>
           <text class="span">核销</text>
           <view class="b">
             <text>27</text>
             <text class="i">笔</text>
           </view>
         </view>
-        <view class="div">
+        <view>
           <text class="span">新增会员</text>
           <view class="b">
             <text>6</text>
@@ -64,14 +64,14 @@
       </view>
     </view>
     <view class="section section">
-      <view class="div section-head">
+      <view class="section-head">
         <text class="h2">待处理</text>
         <view class="a more" bindtap="go" data-page="members" hover-class="tap">
           <text>全部</text>
           <view class="i-chevron ic"></view>
         </view>
       </view>
-      <view class="div card list task">
+      <view class="card list task">
         <view class="a cell" bindtap="go" data-page="members" hover-class="tap">
           <view class="span lead gold">
             <view class="i-cake ic"></view>
@@ -108,14 +108,14 @@
       </view>
     </view>
     <view class="section section">
-      <view class="div section-head">
+      <view class="section-head">
         <text class="h2">最近动态</text>
         <view class="a more" bindtap="go" data-page="records" hover-class="tap">
           <text>流水</text>
           <view class="i-chevron ic"></view>
         </view>
       </view>
-      <view class="div card list feed">
+      <view class="card list feed">
         <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
           <text class="span ava sm gold">陈</text>
           <view class="span cell-main">

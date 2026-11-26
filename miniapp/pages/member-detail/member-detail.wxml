@@ -1,10 +1,10 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
     <view class="section mcard">
-      <view class="div mcard-top">
+      <view class="mcard-top">
         <text class="span ava lg gold">陈</text>
-        <view class="div mcard-id">
-          <view class="div mcard-name">
+        <view class="mcard-id">
+          <view class="mcard-name">
             <text>陈嘉怡</text>
             <text class="span badge gold">金卡</text>
           </view>
@@ -14,21 +14,21 @@
           <view class="i-edit ic"></view>
         </view>
       </view>
-      <view class="div mcard-tags">
+      <view class="mcard-tags">
         <text class="span">高复购</text>
         <text class="span">生日月</text>
         <text class="span">敏感头皮</text>
         <text class="span">正常</text>
       </view>
-      <view class="div mcard-assets">
-        <view class="div">
+      <view class="mcard-assets">
+        <view>
           <text class="span">账户余额</text>
           <view class="b">
             <text>¥1,280</text>
             <text class="small">.00</text>
           </view>
         </view>
-        <view class="div">
+        <view>
           <text class="span">次卡可用</text>
           <view class="b">
             <text>10</text>
@@ -36,8 +36,8 @@
           </view>
         </view>
       </view>
-      <view class="div mcard-progress">
-        <view class="div between">
+      <view class="mcard-progress">
+        <view class="between">
           <text class="span">金卡 → 黑金卡</text>
           <view class="span">
             <text>累计消费</text>
@@ -45,7 +45,7 @@
             <text>/ ¥8,000</text>
           </view>
         </view>
-        <view class="div track">
+        <view class="track">
           <view class="i" style="width:80%"></view>
         </view>
       </view>
@@ -77,67 +77,67 @@
       </view>
     </view>
     <view class="section section">
-      <view class="div section-head">
+      <view class="section-head">
         <text class="h2">次卡</text>
         <view class="a more" bindtap="go" data-page="recharge" data-state="card" hover-class="tap">
           <text>＋ 开次卡</text>
         </view>
       </view>
-      <view class="div card list">
-        <view class="div cell cardrow">
+      <view class="card list">
+        <view class="cell cardrow">
           <view class="span lead teal">
             <view class="i-cards ic"></view>
           </view>
-          <view class="div cell-main">
-            <view class="div cell-title">
+          <view class="cell-main">
+            <view class="cell-title">
               <text>剪发次卡</text>
               <text class="span badge teal">8 / 12 次</text>
             </view>
-            <text class="div cell-sub">有效期至 2027-03-31</text>
+            <text class="cell-sub">有效期至 2027-03-31</text>
           </view>
           <view class="a btn btn-sm btn-soft" bindtap="go" data-page="verify" hover-class="tap">
             <text>核销</text>
           </view>
         </view>
-        <view class="div cell cardrow">
+        <view class="cell cardrow">
           <view class="span lead teal">
             <view class="i-cards ic"></view>
           </view>
-          <view class="div cell-main">
-            <view class="div cell-title">
+          <view class="cell-main">
+            <view class="cell-title">
               <text>头皮护理</text>
               <text class="span badge teal">2 / 6 次</text>
             </view>
-            <text class="div cell-sub">有效期至 2026-12-20</text>
+            <text class="cell-sub">有效期至 2026-12-20</text>
           </view>
           <view class="a btn btn-sm btn-soft" bindtap="go" data-page="verify" hover-class="tap">
             <text>核销</text>
           </view>
         </view>
-        <view class="div cell cardrow gone">
+        <view class="cell cardrow gone">
           <view class="span lead gray">
             <view class="i-cards ic"></view>
           </view>
-          <view class="div cell-main">
-            <view class="div cell-title">
+          <view class="cell-main">
+            <view class="cell-title">
               <text>染发次卡</text>
               <text class="span badge gray">已用完</text>
             </view>
-            <text class="div cell-sub">有效期至 2026-10-01</text>
+            <text class="cell-sub">有效期至 2026-10-01</text>
           </view>
           <text class="span badge gray">0 / 3 次</text>
         </view>
       </view>
     </view>
     <view class="section section">
-      <view class="div section-head">
+      <view class="section-head">
         <text class="h2">记录</text>
         <view class="a more" bindtap="go" data-page="records" hover-class="tap">
           <text>全部</text>
           <view class="i-chevron ic"></view>
         </view>
       </view>
-      <view class="div card flush">
+      <view class="card flush">
         <view class="nav rec-tabs">
           <view class="a t-consume" hover-class="tap" bindtap="setState" data-state="default">
             <text>消费核销</text>
@@ -152,8 +152,8 @@
             <text>次卡核销</text>
           </view>
         </view>
-        <view class="div list">
-          <view class="div cell rec t-consume">
+        <view class="list">
+          <view class="cell rec t-consume">
             <view class="span rec-time">
               <text class="b">11-24</text>
               <text class="span">16:20</text>
@@ -164,7 +164,7 @@
             </view>
             <text class="span cell-amt">−¥168.00</text>
           </view>
-          <view class="div cell rec t-consume">
+          <view class="cell rec t-consume">
             <view class="span rec-time">
               <text class="b">11-12</text>
               <text class="span">14:05</text>
@@ -175,7 +175,7 @@
             </view>
             <text class="span cell-amt">−¥228.00</text>
           </view>
-          <view class="div cell rec t-consume">
+          <view class="cell rec t-consume">
             <view class="span rec-time">
               <text class="b">10-03</text>
               <text class="span">11:26</text>
@@ -186,7 +186,7 @@
             </view>
             <text class="span cell-amt">−¥98.00</text>
           </view>
-          <view class="div cell rec t-recharge">
+          <view class="cell rec t-recharge">
             <view class="span rec-time">
               <text class="b">11-24</text>
               <text class="span">15:02</text>
@@ -197,7 +197,7 @@
             </view>
             <text class="span cell-amt in">+¥550.00</text>
           </view>
-          <view class="div cell rec t-recharge">
+          <view class="cell rec t-recharge">
             <view class="span rec-time">
               <text class="b">10-20</text>
               <text class="span">12:40</text>
@@ -208,7 +208,7 @@
             </view>
             <text class="span cell-amt in">+¥1,100.00</text>
           </view>
-          <view class="div cell rec t-cardbuy">
+          <view class="cell rec t-cardbuy">
             <view class="span rec-time">
               <text class="b">09-12</text>
               <text class="span">18:30</text>
@@ -219,7 +219,7 @@
             </view>
             <text class="span cell-amt in">+¥680.00</text>
           </view>
-          <view class="div cell rec t-cardbuy">
+          <view class="cell rec t-cardbuy">
             <view class="span rec-time">
               <text class="b">06-08</text>
               <text class="span">13:15</text>
@@ -230,7 +230,7 @@
             </view>
             <text class="span cell-amt in">+¥1,680.00</text>
           </view>
-          <view class="div cell rec t-cardverify">
+          <view class="cell rec t-cardverify">
             <view class="span rec-time">
               <text class="b">11-25</text>
               <text class="span">10:12</text>
@@ -244,7 +244,7 @@
               <text class="span u">次</text>
             </view>
           </view>
-          <view class="div cell rec t-cardverify">
+          <view class="cell rec t-cardverify">
             <view class="span rec-time">
               <text class="b">11-18</text>
               <text class="span">16:40</text>

@@ -7,7 +7,7 @@
         <text>的颜色。选好后全店生效，已保存的记录不受影响。</text>
       </view>
     </view>
-    <view class="div theme-list">
+    <view class="theme-list">
       <view class="button theme-opt {{theme === 'blue' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="blue" hover-class="tap">
         <view class="span theme-swatch">
           <view class="i" style="background:#2457F5"></view>
@@ -89,20 +89,20 @@
     </view>
     <view class="section card preview-block">
       <text class="h2">效果预览</text>
-      <view class="div pv-row">
+      <view class="pv-row">
         <text class="span pv-chip">会员价 9 折</text>
         <text class="span pv-dot">金</text>
         <text class="span btn btn-sm btn-primary" style="height:68rpx">确认核销</text>
       </view>
-      <view class="div pv-line">
+      <view class="pv-line">
         <text class="span">累计消费</text>
         <text class="b">¥6,420 / ¥8,000</text>
       </view>
-      <view class="div bar-track">
+      <view class="bar-track">
         <view class="i" style="width:80%"></view>
       </view>
     </view>
-    <view class="div reset-row">
+    <view class="reset-row">
       <view class="button" data-theme-reset="" hover-class="tap">
         <text>恢复默认（经典蓝）</text>
       </view>

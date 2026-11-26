@@ -1,20 +1,20 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page has-action">
-    <view class="div card who">
+    <view class="card who">
       <text class="span ava gold">陈</text>
-      <view class="div cell-main">
-        <view class="div nm">
+      <view class="cell-main">
+        <view class="nm">
           <text>陈嘉怡</text>
           <text class="span badge gold">金卡</text>
         </view>
-        <text class="div sub">138 **** 6621 · QH 8821</text>
+        <text class="sub">138 **** 6621 · QH 8821</text>
       </view>
-      <view class="div fig">
+      <view class="fig">
         <text class="span">当前余额</text>
         <text class="b">¥1,280.00</text>
       </view>
     </view>
-    <view class="div seg" style="margin-top:24rpx">
+    <view class="seg" style="margin-top:24rpx">
       <view class="a s-recharge" hover-class="tap" bindtap="setState" data-state="default">
         <text>余额充值</text>
       </view>
@@ -22,13 +22,13 @@
         <text>购买次卡</text>
       </view>
     </view>
-    <view class="div recharge-only">
+    <view class="recharge-only">
       <view class="section card vsec" style="margin-top:24rpx">
-        <view class="div vsec-head">
+        <view class="vsec-head">
           <text class="h2">充值金额</text>
           <text class="span">充 500 赠 50</text>
         </view>
-        <view class="div amt-grid">
+        <view class="amt-grid">
           <view class="button" hover-class="tap">
             <text>¥200</text>
           </view>
@@ -42,39 +42,39 @@
             <text>¥2,000</text>
           </view>
         </view>
-        <view class="div amount lg">
+        <view class="amount lg">
           <text class="span cur">¥</text>
           <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
         </view>
-        <view class="div giftline">
+        <view class="giftline">
           <view class="span">
             <view class="i-gift ic"></view>
             <text>满 ¥500 赠 ¥50</text>
           </view>
           <text class="b">+50.00</text>
         </view>
-        <view class="div arrive">
+        <view class="arrive">
           <text class="span">本次到账（含赠送）</text>
           <text class="b">¥550.00</text>
         </view>
       </view>
       <view class="section card vsec" style="margin-top:24rpx">
-        <view class="div vsec-head">
+        <view class="vsec-head">
           <text class="h2">升级进度</text>
           <text class="span">黑金卡</text>
         </view>
-        <view class="div between" style="font-size:var(--fs-12);color:var(--muted)">
+        <view class="between" style="font-size:var(--fs-12);color:var(--muted)">
           <text class="span">累计消费 ¥6,420 / ¥8,000</text>
           <text class="span">差 ¥1,580</text>
         </view>
-        <view class="div bar-track" style="margin-top:16rpx">
+        <view class="bar-track" style="margin-top:16rpx">
           <view class="i gold" style="width:80%"></view>
         </view>
         <text class="p vsec-head" style="margin:16rpx 0 0;display:block;font-size:var(--fs-11);color:var(--muted)">本次充值计 500 积分，赠送金额不计积分。</text>
       </view>
     </view>
-    <view class="div card-only">
-      <view class="div card list pick" style="margin-top:24rpx">
+    <view class="card-only">
+      <view class="card list pick" style="margin-top:24rpx">
         <view class="button cell on" hover-class="tap">
           <view class="span ck on">
             <view class="i-check ic"></view>
@@ -125,19 +125,19 @@
         </view>
       </view>
       <view class="section card vsec" style="margin-top:24rpx">
-        <view class="div vsec-head">
+        <view class="vsec-head">
           <text class="h2">本次开卡</text>
           <text class="span">1 张</text>
         </view>
-        <view class="div arrive" style="margin-top:0">
+        <view class="arrive" style="margin-top:0">
           <text class="span">剪发次卡到账</text>
           <text class="b">12 次</text>
         </view>
-        <view class="div arrive">
+        <view class="arrive">
           <text class="span">计入累计消费</text>
           <text class="b">¥680.00</text>
         </view>
-        <view class="div arrive">
+        <view class="arrive">
           <text class="span">预计获得积分</text>
           <text class="b">340</text>
         </view>
@@ -181,10 +181,10 @@
         </view>
       </view>
     </view>
-    <view class="div fields">
-      <view class="div field">
+    <view class="fields">
+      <view class="field">
         <text class="span lb">备注</text>
-        <view class="div ctl">
+        <view class="ctl">
           <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="选填，如「双十一活动」" bindinput="onInput" />
         </view>
       </view>
@@ -194,8 +194,8 @@
       <text>收款后立即生成记录，可在「记录」中查看；赠送金额不可提现、不可退。</text>
     </view>
   </view>
-  <view class="div mp-actionbar recharge-only">
-    <view class="div sum">
+  <view class="mp-actionbar recharge-only">
+    <view class="sum">
       <text class="span">实收金额</text>
       <text class="b">¥500.00</text>
     </view>
@@ -203,8 +203,8 @@
       <text>确认收款</text>
     </view>
   </view>
-  <view class="div mp-actionbar card-only">
-    <view class="div sum">
+  <view class="mp-actionbar card-only">
+    <view class="sum">
       <text class="span">实收金额</text>
       <text class="b">¥680.00</text>
     </view>

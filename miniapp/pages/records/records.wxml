@@ -1,10 +1,10 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
-    <view class="div monthbar">
+    <view class="monthbar">
       <view class="button mnav" hover-class="tap">
         <view class="i-back ic"></view>
       </view>
-      <view class="div mcur">
+      <view class="mcur">
         <text class="b">2026 年 11 月</text>
         <text class="span">11-01 至 11-30 · 全部会员</text>
       </view>
@@ -13,15 +13,15 @@
       </view>
     </view>
     <view class="section card sum3">
-      <view class="div">
+      <view>
         <text class="span">收款合计</text>
         <text class="b">¥18,660</text>
       </view>
-      <view class="div">
+      <view>
         <text class="span">核销合计</text>
         <text class="b">¥9,800</text>
       </view>
-      <view class="div">
+      <view>
         <text class="span">流水笔数</text>
         <view class="b">
           <text>486</text>
@@ -29,7 +29,7 @@
         </view>
       </view>
     </view>
-    <view class="div chips">
+    <view class="chips">
       <view class="a chip c-all" hover-class="tap" bindtap="setState" data-state="default">
         <text>全部</text>
       </view>
@@ -46,12 +46,12 @@
         <text>次卡核销</text>
       </view>
     </view>
-    <view class="div list-head">
+    <view class="list-head">
       <text class="h2">流水明细</text>
       <text class="span">按时间倒序</text>
     </view>
-    <view class="div card list">
-      <view class="div cell rec t-recharge">
+    <view class="card list">
+      <view class="cell rec t-recharge">
         <view class="span rec-ic">
           <view class="i-wallet ic"></view>
         </view>
@@ -61,7 +61,7 @@
         </view>
         <text class="span cell-amt in">+¥550.00</text>
       </view>
-      <view class="div cell rec t-cardverify">
+      <view class="cell rec t-cardverify">
         <view class="span rec-ic verify">
           <view class="i-scan ic"></view>
         </view>
@@ -74,7 +74,7 @@
           <text class="span u">次</text>
         </view>
       </view>
-      <view class="div cell rec t-cardbuy">
+      <view class="cell rec t-cardbuy">
         <view class="span rec-ic buy">
           <view class="i-cards ic"></view>
         </view>
@@ -84,7 +84,7 @@
         </view>
         <text class="span cell-amt in">+¥1,080.00</text>
       </view>
-      <view class="div cell rec t-consume">
+      <view class="cell rec t-consume">
         <view class="span rec-ic consum">
           <view class="i-banknote ic"></view>
         </view>
@@ -94,7 +94,7 @@
         </view>
         <text class="span cell-amt">−¥128.00</text>
       </view>
-      <view class="div cell rec t-consume">
+      <view class="cell rec t-consume">
         <view class="span rec-ic consum">
           <view class="i-banknote ic"></view>
         </view>
@@ -104,7 +104,7 @@
         </view>
         <text class="span cell-amt">−¥388.00</text>
       </view>
-      <view class="div cell rec t-recharge">
+      <view class="cell rec t-recharge">
         <view class="span rec-ic">
           <view class="i-wallet ic"></view>
         </view>
@@ -114,7 +114,7 @@
         </view>
         <text class="span cell-amt in">+¥1,100.00</text>
       </view>
-      <view class="div cell rec t-cardbuy">
+      <view class="cell rec t-cardbuy">
         <view class="span rec-ic buy">
           <view class="i-cards ic"></view>
         </view>
@@ -124,7 +124,7 @@
         </view>
         <text class="span cell-amt in">+¥680.00</text>
       </view>
-      <view class="div cell rec t-recharge">
+      <view class="cell rec t-recharge">
         <view class="span rec-ic">
           <view class="i-wallet ic"></view>
         </view>
@@ -134,7 +134,7 @@
         </view>
         <text class="span cell-amt in">+¥200.00</text>
       </view>
-      <view class="div cell rec t-cardverify">
+      <view class="cell rec t-cardverify">
         <view class="span rec-ic verify">
           <view class="i-scan ic"></view>
         </view>
@@ -147,7 +147,7 @@
           <text class="span u">次</text>
         </view>
       </view>
-      <view class="div cell rec t-consume">
+      <view class="cell rec t-consume">
         <view class="span rec-ic consum">
           <view class="i-banknote ic"></view>
         </view>
@@ -157,7 +157,7 @@
         </view>
         <text class="span cell-amt">−¥228.00</text>
       </view>
-      <view class="div cell rec t-cardverify">
+      <view class="cell rec t-cardverify">
         <view class="span rec-ic verify">
           <view class="i-scan ic"></view>
         </view>
@@ -170,7 +170,7 @@
           <text class="span u">次</text>
         </view>
       </view>
-      <view class="div cell rec t-recharge">
+      <view class="cell rec t-recharge">
         <view class="span rec-ic">
           <view class="i-wallet ic"></view>
         </view>

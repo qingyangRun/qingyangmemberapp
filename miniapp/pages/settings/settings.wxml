@@ -1,10 +1,10 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
     <view class="section card shop">
-      <view class="div shop-top">
+      <view class="shop-top">
         <text class="span mark">青</text>
-        <view class="div cell-main">
-          <view class="div nm">
+        <view class="cell-main">
+          <view class="nm">
             <text>清样造型</text>
             <text class="span badge green">营业中</text>
           </view>
@@ -19,22 +19,22 @@
           <text>资料</text>
         </view>
       </view>
-      <view class="div shop-stats">
-        <view class="div">
+      <view class="shop-stats">
+        <view>
           <text class="span">会员总数</text>
           <view class="b">
             <text>1,286</text>
             <text class="small">人</text>
           </view>
         </view>
-        <view class="div">
+        <view>
           <text class="span">会员等级</text>
           <view class="b">
             <text>4</text>
             <text class="small">个</text>
           </view>
         </view>
-        <view class="div">
+        <view>
           <text class="span">在售次卡</text>
           <view class="b">
             <text>3</text>
@@ -44,7 +44,7 @@
       </view>
     </view>
     <text class="p g-label">会员设置</text>
-    <view class="div card list set">
+    <view class="card list set">
       <view class="a cell" bindtap="go" data-page="levels" hover-class="tap">
         <view class="span lead gold">
           <view class="i-crown ic"></view>
@@ -91,7 +91,7 @@
       </view>
     </view>
     <text class="p g-label">数据与记录</text>
-    <view class="div card list set">
+    <view class="card list set">
       <view class="a cell" bindtap="go" data-page="records" hover-class="tap">
         <view class="span lead">
           <view class="i-receipt ic"></view>
@@ -125,7 +125,7 @@
       </view>
     </view>
     <text class="p g-label">外观</text>
-    <view class="div card list set">
+    <view class="card list set">
       <view class="a cell" bindtap="go" data-page="theme" hover-class="tap">
         <view class="span lead" style="background:var(--primary-soft);color:var(--primary)">
           <view class="i-sliders ic"></view>
@@ -139,7 +139,7 @@
       </view>
     </view>
     <text class="p g-label">其他</text>
-    <view class="div card list set">
+    <view class="card list set">
       <view class="button cell" style="text-align:left" hover-class="tap">
         <view class="span lead gray">
           <view class="i-help ic"></view>
@@ -150,7 +150,7 @@
         </view>
         <view class="i-chevron ic chev"></view>
       </view>
-      <view class="div cell">
+      <view class="cell">
         <view class="span lead gray">
           <view class="i-store ic"></view>
         </view>

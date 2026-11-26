@@ -1,7 +1,7 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
-    <view class="div search-row">
-      <view class="div searchbar">
+    <view class="search-row">
+      <view class="searchbar">
         <view class="i-search ic"></view>
         <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="搜索姓名 / 手机号 / 卡号" bindinput="onInput" />
       </view>
@@ -9,7 +9,7 @@
         <view class="i-filter ic"></view>
       </view>
     </view>
-    <view class="div chips" style="margin-top:28rpx">
+    <view class="chips" style="margin-top:28rpx">
       <view class="a chip on" hover-class="tap" bindtap="setState" data-state="default">
         <text>全部</text>
       </view>
@@ -29,11 +29,11 @@
         <text>生日月</text>
       </view>
     </view>
-    <view class="div list-head">
+    <view class="list-head">
       <text class="b">1,286 位会员</text>
       <text class="span">本月新增 42 · 沉睡 63</text>
     </view>
-    <view class="div card list">
+    <view class="card list">
       <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
         <text class="span ava gold">陈</text>
         <view class="span cell-main">
@@ -141,18 +141,18 @@
     </view>
     <text class="p list-end">已显示 6 / 1,286 位</text>
   </view>
-  <view class="div mask">
-    <view class="div sheet">
-      <view class="div sheet-grab"></view>
-      <view class="div sheet-head">
+  <view class="mask">
+    <view class="sheet">
+      <view class="sheet-grab"></view>
+      <view class="sheet-head">
         <text class="h2">筛选会员</text>
         <view class="a sheet-close" hover-class="tap" bindtap="setState" data-state="default">
           <view class="i-close ic"></view>
         </view>
       </view>
-      <view class="div fgroup">
+      <view class="fgroup">
         <text class="h3">会员等级</text>
-        <view class="div chips">
+        <view class="chips">
           <view class="button chip on" hover-class="tap">
             <text>全部等级</text>
           </view>
@@ -170,9 +170,9 @@
           </view>
         </view>
       </view>
-      <view class="div fgroup">
+      <view class="fgroup">
         <text class="h3">会员状态</text>
-        <view class="div chips">
+        <view class="chips">
           <view class="button chip on" hover-class="tap">
             <text>正常</text>
           </view>
@@ -184,9 +184,9 @@
           </view>
         </view>
       </view>
-      <view class="div fgroup">
+      <view class="fgroup">
         <text class="h3">会员标记（可多选）</text>
-        <view class="div chips">
+        <view class="chips">
           <view class="button chip on" hover-class="tap">
             <text>高复购</text>
           </view>
@@ -207,21 +207,21 @@
           </view>
         </view>
       </view>
-      <view class="div fgroup">
+      <view class="fgroup">
         <text class="h3">余额区间</text>
-        <view class="div range">
-          <view class="div input-box">
+        <view class="range">
+          <view class="input-box">
             <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="最低" bindinput="onInput" />
             <text class="span unit">元</text>
           </view>
           <text class="span dash">—</text>
-          <view class="div input-box">
+          <view class="input-box">
             <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="最高" bindinput="onInput" />
             <text class="span unit">元</text>
           </view>
         </view>
       </view>
-      <view class="div sheet-actions">
+      <view class="sheet-actions">
         <view class="a btn btn-ghost" hover-class="tap" bindtap="setState" data-state="default">
           <text>重置</text>
         </view>
