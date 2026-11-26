@@ -213,7 +213,12 @@ qingyang-member/
 
 ## 贡献
 
-Issue / PR 都欢迎。如果是较大的改动，建议先开 Issue 聊一下方向，避免白做。
+Issue / PR 都欢迎。动手前先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
+如果是较大的改动，建议先开 Issue 聊一下方向，避免白做。
+
+## 致谢
+
+界面与代码由本项目维护者原创完成，未使用任何第三方 UI 组件库或图标字体。
 
 ## 免责
 
