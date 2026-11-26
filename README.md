@@ -178,18 +178,26 @@ qingyang-member/
 - ❌ 真实的列表渲染与查询（数据未接 `setData`）
 
 也就是说：**这是一个可以看、可以点、可以改成你自己样子的完整界面，但还不能真正记账。**
-下一步接微信云开发（`CloudBase`）的计划见 [docs/ROADMAP.md](docs/ROADMAP.md)。
+下一步接微信云开发（CloudBase）的完整步骤见 [docs/CLOUD.md](docs/CLOUD.md)，功能规划见 [docs/ROADMAP.md](docs/ROADMAP.md)。
 
 ## 路线图
 
 - [x] 14 屏界面设计与静态原型
 - [x] 微信原生小程序代码
 - [x] 设计变量与主题体系
-- [ ] 云开发数据库集合设计（会员 / 次卡 / 流水 / 等级 / 配置）
+- [ ] 云开发数据库集合设计（会员 / 次卡 / 流水 / 等级 / 配置）——**步骤见 [docs/CLOUD.md](docs/CLOUD.md)**
 - [ ] 云函数：会员 CRUD、充值、核销、次卡、统计
 - [ ] 真实数据渲染与分页查询
 - [ ] 微信登录 + 员工权限
 - [ ] 数据导出（Excel / CSV）
+
+## 文档
+
+| 文档 | 内容 |
+|---|---|
+| [docs/CLOUD.md](docs/CLOUD.md) | **云开发接入完整步骤**：开环境、建 7 个集合、建索引、配权限、写云函数、前端接上、金额操作的三条铁律、统计聚合、7 个常见坑 |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | 功能规划与范围边界 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 开发约定 |
 
 ## 技术说明
 
