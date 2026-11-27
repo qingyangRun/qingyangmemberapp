@@ -222,11 +222,11 @@ const RECORDS = [
 const CONFIG = [
   {
     _id: 'shop',
-    shopName: '清样造型',
+    shopName: '青禾造型',
     branch: '望京店',
     address: '朝阳区望京 SOHO T1 101',
     manager: '林岚',
-    phone: '010-88000000',
+    phone: '010-8800 6621',
     shopNo: '0108',
     pointRules: { consume: 1, recharge: 0.5, sign: 5 },
     rechargeTiers: [

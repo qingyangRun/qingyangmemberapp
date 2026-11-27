@@ -29,7 +29,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: app.globalData.theme })
+    app.applyTheme(this)
     this.loadData()
   },
 

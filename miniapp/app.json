@@ -5,6 +5,7 @@
     "pages/records/records",
     "pages/stats/stats",
     "pages/settings/settings",
+    "pages/shop-edit/shop-edit",
     "pages/member-detail/member-detail",
     "pages/member-new/member-new",
     "pages/member-edit/member-edit",
@@ -17,9 +18,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarBackgroundColor": "#2457F5",
     "navigationBarTitleText": "清样会员",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#F4F6FA"
   },
   "tabBar": {

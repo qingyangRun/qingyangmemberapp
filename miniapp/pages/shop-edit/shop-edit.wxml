@@ -1,0 +1,45 @@
+<view class="app theme-{{theme}} st-{{state}}">
+  <view class="main mp-page has-action">
+    <view class="section form-group">
+      <view class="group-head">
+        <text class="h2">门店信息</text>
+        <text class="span">店内展示资料</text>
+      </view>
+      <view class="field">
+        <text class="lb">店铺名称</text>
+        <view class="ctl">
+          <input class="input" data-key="shopName" value="{{inputs.shopName}}" placeholder="请输入店铺名称" bindinput="onInput" />
+        </view>
+      </view>
+      <view class="field">
+        <text class="lb">地址</text>
+        <view class="ctl">
+          <input class="input" data-key="address" value="{{inputs.address}}" placeholder="门店详细地址" bindinput="onInput" />
+        </view>
+      </view>
+      <view class="field">
+        <text class="lb">店长</text>
+        <view class="ctl">
+          <input class="input" data-key="manager" value="{{inputs.manager}}" placeholder="店长姓名" bindinput="onInput" />
+        </view>
+      </view>
+      <view class="field">
+        <text class="lb">电话</text>
+        <view class="ctl">
+          <input class="input" data-key="phone" value="{{inputs.phone}}" placeholder="联系电话" bindinput="onInput" />
+        </view>
+      </view>
+    </view>
+
+    <view class="field-note">保存后设置页立即更新；云端备份会在联网后自动进行。</view>
+  </view>
+
+  <view class="mp-actionbar split">
+    <view class="a btn btn-ghost" style="flex:1" bindtap="cancel" hover-class="tap">
+      <text>取消</text>
+    </view>
+    <view class="a btn btn-primary" style="flex:2" bindtap="save" hover-class="tap">
+      <text>保存</text>
+    </view>
+  </view>
+</view>

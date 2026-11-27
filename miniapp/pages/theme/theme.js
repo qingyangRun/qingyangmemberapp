@@ -30,7 +30,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: app.globalData.theme })
+    app.applyTheme(this)
     this.loadPreview()
     const s = biz.syncStatus()
     this.setData({

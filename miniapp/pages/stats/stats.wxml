@@ -18,7 +18,7 @@
     </view>
 
     <view class="stat-grid kpis">
-      <view class="section stat">
+      <view class="stat">
         <text class="k">营业额</text>
         <view class="v num">
           <text class="span">¥{{revenueText}}</text>
@@ -28,7 +28,7 @@
           <text class="span">{{revenueDiffText}}</text>
         </view>
       </view>
-      <view class="section stat">
+      <view class="stat">
         <text class="k">会员充值</text>
         <view class="v num">
           <text class="span">¥{{rechargeText}}</text>
@@ -38,7 +38,7 @@
           <text class="span">{{rechargeDiffText}}</text>
         </view>
       </view>
-      <view class="section stat">
+      <view class="stat">
         <text class="k">次卡售出</text>
         <view class="v num">
           <text class="span">{{cardSold}}</text>
@@ -49,7 +49,7 @@
           <text class="span">{{cardSoldDiffText}}</text>
         </view>
       </view>
-      <view class="section stat">
+      <view class="stat">
         <text class="k">核销</text>
         <view class="v num">
           <text class="span">{{verifyCount}}</text>

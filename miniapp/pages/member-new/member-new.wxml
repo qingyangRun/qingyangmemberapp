@@ -42,7 +42,6 @@
           </view>
         </picker>
       </view>
-      <text class="p field-note">生日为选填项，填写后生日当月自动加入提醒，并可发送生日礼。</text>
     </view>
 
     <view class="section form-group">
@@ -57,7 +56,6 @@
           <text class="span unit">元</text>
         </view>
       </view>
-      <text class="p field-note">填写后同步生成一条「余额充值」记录；可稍后在会员详情继续充值。</text>
     </view>
 
     <view class="section form-group" wx:if="{{cardTypes.length}}">
@@ -109,7 +107,6 @@
       </view>
     </view>
 
-    <text class="p page-lead" style="margin-top:24rpx">创建后可立即为会员充值、核销，或在详情页补充标记与备注。</text>
   </view>
 
   <view class="mp-actionbar">

@@ -14,7 +14,7 @@
             <text>店长 {{shop.manager}} · {{shop.phone}}</text>
           </view>
         </view>
-        <view class="button edit" hover-class="tap">
+        <view class="button edit" bindtap="go" data-page="shop-edit" hover-class="tap">
           <text>资料</text>
         </view>
       </view>
@@ -43,48 +43,6 @@
       </view>
     </view>
 
-    <!-- 同步状态卡片 -->
-    <text class="p g-label">数据同步</text>
-    <view class="card sync-card">
-      <view class="sync-top" bindtap="doSync" hover-class="tap">
-        <view class="span dot-wrap">
-          <view class="dot {{syncDot}}"></view>
-        </view>
-        <view class="cell-main">
-          <view class="nm-row">
-            <text class="nm">{{syncTitle}}</text>
-            <text class="span badge {{syncMode === 'cloud' ? 'green' : 'gray'}}">{{syncMode === 'cloud' ? '云端' : '本地'}}</text>
-          </view>
-          <text class="p desc">{{syncDesc}}</text>
-        </view>
-        <view class="i-refresh ic {{syncing ? 'spin' : ''}}" style="color:var(--muted)"></view>
-      </view>
-
-      <view class="sync-meta">
-        <view>
-          <text class="span">上次同步</text>
-          <text class="b">{{lastSyncText}}</text>
-        </view>
-        <view>
-          <text class="span">待同步</text>
-          <text class="b">{{pending}} 项</text>
-        </view>
-        <view>
-          <text class="span">网络</text>
-          <text class="b">{{online ? '在线' : '离线'}}</text>
-        </view>
-      </view>
-
-      <view class="sync-actions">
-        <view class="a btn btn-sm btn-soft" bindtap="doSync" hover-class="tap">
-          <text>{{syncing ? '同步中…' : '立即同步'}}</text>
-        </view>
-        <view class="a btn btn-sm btn-ghost" bindtap="retryCloud" hover-class="tap">
-          <text>重连云端</text>
-        </view>
-      </view>
-    </view>
-
     <text class="p g-label">会员设置</text>
     <view class="card list set">
       <view class="a cell" bindtap="go" data-page="levels" hover-class="tap">
@@ -93,7 +51,7 @@
         </view>
         <view class="span cell-main">
           <text class="span cell-title">等级管理</text>
-          <text class="span cell-sub">累计充值 / 消费达标升级</text>
+          <text class="span cell-sub">按累计充值 / 消费自动评定</text>
         </view>
         <text class="span cell-amt">{{levelCount}} 个等级</text>
         <view class="i-chevron ic chev"></view>
@@ -104,7 +62,7 @@
         </view>
         <view class="span cell-main">
           <text class="span cell-title">积分设置</text>
-          <text class="span cell-sub">按比例获得积分</text>
+          <text class="span cell-sub">充值、消费、购卡按比例获得</text>
         </view>
         <text class="span cell-amt">已启用</text>
         <view class="i-chevron ic chev"></view>
@@ -115,7 +73,7 @@
         </view>
         <view class="span cell-main">
           <text class="span cell-title">次卡项目</text>
-          <text class="span cell-sub">价格、次数与有效期</text>
+          <text class="span cell-sub">价格、次数与赠送次数</text>
         </view>
         <text class="span cell-amt">{{cardCount}} 个在售</text>
         <view class="i-chevron ic chev"></view>
@@ -143,7 +101,6 @@
           <text class="span cell-title">记录查看</text>
           <text class="span cell-sub">充值、消费核销、次卡买卖</text>
         </view>
-        <text class="span cell-amt">{{recordCount}} 笔</text>
         <view class="i-chevron ic chev"></view>
       </view>
       <view class="a cell" bindtap="go" data-page="stats" hover-class="tap">
@@ -212,6 +169,47 @@
         <view class="span cell-main">
           <text class="span cell-title">关于清样会员</text>
           <text class="span cell-sub">版本 2.4.1 · 数据存储于境内</text>
+        </view>
+      </view>
+    </view>
+
+    <text class="p g-label">数据同步</text>
+    <view class="card sync-card">
+      <view class="sync-top" bindtap="doSync" hover-class="tap">
+        <view class="span dot-wrap">
+          <view class="dot {{syncDot}}"></view>
+        </view>
+        <view class="cell-main">
+          <view class="nm-row">
+            <text class="nm">{{syncTitle}}</text>
+            <text class="span badge {{syncMode === 'cloud' ? 'green' : 'gray'}}">{{syncMode === 'cloud' ? '云端' : '本地'}}</text>
+          </view>
+          <text class="p desc">{{syncDesc}}</text>
+        </view>
+        <view class="i-refresh ic {{syncing ? 'spin' : ''}}" style="color:var(--muted)"></view>
+      </view>
+
+      <view class="sync-meta">
+        <view>
+          <text class="span">上次同步</text>
+          <text class="b">{{lastSyncText}}</text>
+        </view>
+        <view>
+          <text class="span">待同步</text>
+          <text class="b">{{pending}} 项</text>
+        </view>
+        <view>
+          <text class="span">网络</text>
+          <text class="b">{{online ? '在线' : '离线'}}</text>
+        </view>
+      </view>
+
+      <view class="sync-actions">
+        <view class="a btn btn-sm btn-soft" bindtap="doSync" hover-class="tap">
+          <text>{{syncing ? '同步中…' : '立即同步'}}</text>
+        </view>
+        <view class="a btn btn-sm btn-ghost" bindtap="retryCloud" hover-class="tap">
+          <text>重连云端</text>
         </view>
       </view>
     </view>

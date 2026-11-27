@@ -35,7 +35,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: app.globalData.theme })
+    app.applyTheme(this)
     const tabBar = this.getTabBar && this.getTabBar()
     if (tabBar) tabBar.setData({ selected: 'settings', theme: app.globalData.theme })
     this.loadData()
@@ -56,14 +56,14 @@ Page({
 
     this.setData({
       shop: {
-        name: cfg.shopName || '清样造型',
+        name: cfg.shopName || '青禾造型',
         branch: cfg.branch || '',
         address: cfg.address || '',
         manager: cfg.manager || '',
         phone: biz.prettyPhone(cfg.phone || ''),
         shopNo: cfg.shopNo || ''
       },
-      memberCount: members.length,
+      memberCount: members.length.toLocaleString('zh-CN'),
       levelCount: biz.levels().length,
       cardCount: biz.cardTypes().filter((c) => c.onSale !== false).length,
       recordCount: store.all('records').length,
@@ -200,6 +200,7 @@ Page({
       'member-detail': 'pages/member-detail/member-detail',
       'member-new': 'pages/member-new/member-new',
       'member-edit': 'pages/member-edit/member-edit',
+      'shop-edit': 'pages/shop-edit/shop-edit',
       verify: 'pages/verify/verify',
       recharge: 'pages/recharge/recharge',
       levels: 'pages/levels/levels',

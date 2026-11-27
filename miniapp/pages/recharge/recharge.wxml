@@ -65,14 +65,14 @@
           <text class="h2">升级进度</text>
           <text class="span">{{progress.nextName}}</text>
         </view>
-        <view class="between" style="font-size:var(--fs-12);color:var(--muted)">
+        <view class="between" style="font-size:var(--fs-11);color:var(--primary)">
           <text class="span">累计消费 ¥{{progress.currentText}} / ¥{{progress.targetText}}</text>
           <text class="span">差 ¥{{progress.diffText}}</text>
         </view>
         <view class="bar-track" style="margin-top:16rpx">
           <view class="i gold" style="width:{{progress.percent}}%"></view>
         </view>
-        <text class="p vsec-head" style="margin:16rpx 0 0;display:block;font-size:var(--fs-11);color:var(--muted)">本次充值计 {{willPoints}} 积分，赠送金额不计积分。</text>
+        <text class="p vsec-head" style="margin:16rpx 0 0;display:block;font-size:var(--fs-10);color:var(--primary)">本次充值计 {{willPoints}} 积分，赠送金额不计积分。</text>
       </view>
     </view>
 

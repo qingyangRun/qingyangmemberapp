@@ -11,9 +11,9 @@
           </view>
           <text class="p hero-sub">{{dateText}} · 数据更新至 {{updatedText}}</text>
         </view>
-        <view class="span hero-tag {{syncMode === 'cloud' ? '' : 'local'}}">
-          <view class="{{syncMode === 'cloud' ? 'i-refresh' : 'i-phone'}} ic"></view>
-          <text>{{syncText}}</text>
+        <view class="span hero-tag {{compareUp ? '' : 'down'}}">
+          <view class="{{compareUp ? 'i-arrow-up' : 'i-arrow-down'}} ic"></view>
+          <text>{{compareText}}</text>
         </view>
       </view>
       <view class="hero-stats">

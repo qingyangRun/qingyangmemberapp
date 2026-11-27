@@ -28,7 +28,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: app.globalData.theme })
+    app.applyTheme(this)
     const tabBar = this.getTabBar && this.getTabBar()
     if (tabBar) tabBar.setData({ selected: 'records', theme: app.globalData.theme })
     this.loadData()

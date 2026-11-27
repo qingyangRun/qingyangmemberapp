@@ -9,6 +9,8 @@ Page({
     state: 'default',
     selected: 'index',
 
+    compareText: '较昨日 --',
+    compareUp: true,
     revenueInt: '0',
     revenueDec: '00',
     rechargeText: '0',
@@ -35,7 +37,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: app.globalData.theme })
+    app.applyTheme(this)
     const tabBar = this.getTabBar && this.getTabBar()
     if (tabBar) tabBar.setData({ selected: 'index', theme: app.globalData.theme })
     this.loadData()
@@ -101,6 +103,8 @@ Page({
       })
 
     this.setData({
+      compareText: o.compareText,
+      compareUp: o.compareUp,
       revenueInt: parts[0] || '0',
       revenueDec: parts[1] || '00',
       rechargeText: o.rechargeText,

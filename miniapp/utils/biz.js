@@ -720,7 +720,33 @@ function todayOverview() {
     .all('memberCards')
     .filter((c) => c.status === 'active' && c.expireAt && c.expireAt <= soon).length
 
+  // 较昨日营收变化（口径与 summary 一致：消费 + 购卡）
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+  const yesterdayTs = yesterday.getTime()
+  const yesterdayRevenue = store
+    .all('records')
+    .filter(
+      (r) =>
+        (r.createdAt || 0) >= yesterdayTs &&
+        (r.createdAt || 0) < todayTs &&
+        (r.type === 'consume' || r.type === 'cardbuy')
+    )
+    .reduce((sum, r) => sum + (r.amount || 0), 0)
+
+  let compareText = '较昨日 --'
+  let compareUp = true
+  if (yesterdayRevenue > 0) {
+    const pct = Math.round(((s.revenue - yesterdayRevenue) / yesterdayRevenue) * 1000) / 10
+    compareUp = pct >= 0
+    compareText = '较昨日 ' + Math.abs(pct).toFixed(1) + '%'
+  } else if (s.revenue > 0) {
+    compareText = '较昨日 新增'
+  }
+
   return {
+    compareText,
+    compareUp,
     revenueText: s.revenueText,
     rechargeText: s.rechargeText,
     verifyCount: s.verifyCount,
