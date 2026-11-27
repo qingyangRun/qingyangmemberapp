@@ -1,150 +1,126 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page has-action">
-    <view class="card who">
-      <text class="span ava gold">陈</text>
+    <view class="card who" wx:if="{{member}}">
+      <text class="span ava {{member.avaClass}}">{{member.initial}}</text>
       <view class="cell-main">
         <view class="nm">
-          <text>陈嘉怡</text>
-          <text class="span badge gold">金卡</text>
+          <text>{{member.name}}</text>
+          <text class="span badge {{member.levelBadge}}">{{member.levelName}}</text>
         </view>
-        <text class="sub">138 **** 6621 · QH 8821</text>
+        <text class="sub">{{member.phoneMasked}} · {{member.cardNo}}</text>
       </view>
       <view class="fig">
         <text class="span">当前余额</text>
-        <text class="b">¥1,280.00</text>
+        <text class="b">¥{{balanceText}}</text>
       </view>
     </view>
-    <view class="seg" style="margin-top:24rpx">
-      <view class="a s-recharge" hover-class="tap" bindtap="setState" data-state="default">
+
+    <view class="card empty" wx:else>
+      <text>请先在核销页选择会员</text>
+      <view class="a btn btn-soft btn-sm" style="margin-top:24rpx;display:inline-flex" bindtap="goSearchMember">
+        <text>去选会员</text>
+      </view>
+    </view>
+
+    <view class="seg" style="margin-top:24rpx" wx:if="{{member}}">
+      <view class="a {{state === 'card' ? '' : 'on'}}" hover-class="tap" bindtap="setState" data-state="default">
         <text>余额充值</text>
       </view>
-      <view class="a s-card" hover-class="tap" bindtap="setState" data-state="card">
+      <view class="a {{state === 'card' ? 'on' : ''}}" hover-class="tap" bindtap="setState" data-state="card">
         <text>购买次卡</text>
       </view>
     </view>
+
+    <!-- 余额充值 -->
     <view class="recharge-only">
       <view class="section card vsec" style="margin-top:24rpx">
         <view class="vsec-head">
           <text class="h2">充值金额</text>
-          <text class="span">充 500 赠 50</text>
+          <text class="span">{{tierHint}}</text>
         </view>
         <view class="amt-grid">
-          <view class="button" hover-class="tap">
-            <text>¥200</text>
-          </view>
-          <view class="button on" hover-class="tap">
-            <text>¥500</text>
-          </view>
-          <view class="button" hover-class="tap">
-            <text>¥1,000</text>
-          </view>
-          <view class="button" hover-class="tap">
-            <text>¥2,000</text>
+          <view class="button {{amount === item.amount ? 'on' : ''}}" hover-class="tap" bindtap="pickAmount" data-amount="{{item.amount}}" wx:for="{{tiers}}" wx:key="amount">
+            <text>¥{{item.label}}</text>
           </view>
         </view>
         <view class="amount lg">
           <text class="span cur">¥</text>
-          <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+          <input class="input" type="digit" value="{{amountInput}}" placeholder="0.00" bindinput="onAmountInput" />
         </view>
-        <view class="giftline">
+        <view class="giftline" wx:if="{{gift > 0}}">
           <view class="span">
             <view class="i-gift ic"></view>
-            <text>满 ¥500 赠 ¥50</text>
+            <text>本档赠送</text>
           </view>
-          <text class="b">+50.00</text>
+          <text class="b">+{{giftText}}</text>
         </view>
         <view class="arrive">
           <text class="span">本次到账（含赠送）</text>
-          <text class="b">¥550.00</text>
+          <text class="b">¥{{arriveText}}</text>
         </view>
       </view>
-      <view class="section card vsec" style="margin-top:24rpx">
+
+      <view class="section card vsec" style="margin-top:24rpx" wx:if="{{progress}}">
         <view class="vsec-head">
           <text class="h2">升级进度</text>
-          <text class="span">黑金卡</text>
+          <text class="span">{{progress.nextName}}</text>
         </view>
         <view class="between" style="font-size:var(--fs-12);color:var(--muted)">
-          <text class="span">累计消费 ¥6,420 / ¥8,000</text>
-          <text class="span">差 ¥1,580</text>
+          <text class="span">累计消费 ¥{{progress.currentText}} / ¥{{progress.targetText}}</text>
+          <text class="span">差 ¥{{progress.diffText}}</text>
         </view>
         <view class="bar-track" style="margin-top:16rpx">
-          <view class="i gold" style="width:80%"></view>
+          <view class="i gold" style="width:{{progress.percent}}%"></view>
         </view>
-        <text class="p vsec-head" style="margin:16rpx 0 0;display:block;font-size:var(--fs-11);color:var(--muted)">本次充值计 500 积分，赠送金额不计积分。</text>
+        <text class="p vsec-head" style="margin:16rpx 0 0;display:block;font-size:var(--fs-11);color:var(--muted)">本次充值计 {{willPoints}} 积分，赠送金额不计积分。</text>
       </view>
     </view>
+
+    <!-- 购买次卡 -->
     <view class="card-only">
-      <view class="card list pick" style="margin-top:24rpx">
-        <view class="button cell on" hover-class="tap">
-          <view class="span ck on">
+      <view class="card list pick" style="margin-top:24rpx" wx:if="{{cardTypes.length}}">
+        <view class="button cell {{pickedCardId === item.id ? 'on' : ''}}" hover-class="tap" bindtap="pickCard" data-id="{{item.id}}" wx:for="{{cardTypes}}" wx:key="id">
+          <view class="span ck {{pickedCardId === item.id ? 'on' : ''}}">
             <view class="i-check ic"></view>
           </view>
           <view class="span cell-main">
             <view class="span nm">
-              <text>剪发次卡</text>
-              <text class="span badge teal">10 + 2 次</text>
+              <text>{{item.name}}</text>
+              <text class="span badge teal">{{item.times}} 次</text>
             </view>
-            <text class="span sub">有效期 12 个月 · 单价 ¥56.7 / 次</text>
+            <text class="span sub">有效期 {{item.validDays}} 天 · 单价 ¥{{item.unitPrice}} / 次</text>
           </view>
           <view class="span pr">
-            <text class="b">¥680</text>
-            <text class="span">省 ¥136</text>
-          </view>
-        </view>
-        <view class="button cell" hover-class="tap">
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-          <view class="span cell-main">
-            <view class="span nm">
-              <text>头皮护理</text>
-              <text class="span badge teal">6 + 1 次</text>
-            </view>
-            <text class="span sub">有效期 12 个月 · 单价 ¥154.3 / 次</text>
-          </view>
-          <view class="span pr">
-            <text class="b">¥1,080</text>
-            <text class="span">省 ¥96</text>
-          </view>
-        </view>
-        <view class="button cell" hover-class="tap">
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-          <view class="span cell-main">
-            <view class="span nm">
-              <text>染发次卡</text>
-              <text class="span badge teal">3 次</text>
-            </view>
-            <text class="span sub">有效期 12 个月 · 单价 ¥560 / 次</text>
-          </view>
-          <view class="span pr">
-            <text class="b">¥1,680</text>
-            <text class="span">省 ¥84</text>
+            <text class="b">¥{{item.priceText}}</text>
           </view>
         </view>
       </view>
-      <view class="section card vsec" style="margin-top:24rpx">
+      <view class="card empty" wx:else>
+        <text>还没有在售的次卡项目</text>
+      </view>
+
+      <view class="section card vsec" style="margin-top:24rpx" wx:if="{{pickedCard}}">
         <view class="vsec-head">
           <text class="h2">本次开卡</text>
           <text class="span">1 张</text>
         </view>
         <view class="arrive" style="margin-top:0">
-          <text class="span">剪发次卡到账</text>
-          <text class="b">12 次</text>
+          <text class="span">{{pickedCard.name}}到账</text>
+          <text class="b">{{pickedCard.times}} 次</text>
         </view>
         <view class="arrive">
           <text class="span">计入累计消费</text>
-          <text class="b">¥680.00</text>
+          <text class="b">¥{{pickedCard.price}}</text>
         </view>
         <view class="arrive">
           <text class="span">预计获得积分</text>
-          <text class="b">340</text>
+          <text class="b">{{pickedCard.points}}</text>
         </view>
       </view>
     </view>
+
     <view class="section card list pay" style="margin-top:24rpx">
-      <view class="button cell" hover-class="tap">
+      <view class="button cell" hover-class="tap" bindtap="pickPay" data-pay="wechat">
         <view class="span lead" style="background:var(--success-soft);color:var(--success)">
           <view class="i-wallet ic"></view>
         </view>
@@ -152,11 +128,11 @@
           <text class="span cell-title">微信支付</text>
           <text class="span cell-sub">实时到账，可原路退款</text>
         </view>
-        <view class="span radio on">
+        <view class="span radio {{pay === 'wechat' ? 'on' : ''}}">
           <view class="i"></view>
         </view>
       </view>
-      <view class="button cell" hover-class="tap">
+      <view class="button cell" hover-class="tap" bindtap="pickPay" data-pay="cash">
         <view class="span lead gold">
           <view class="i-banknote ic"></view>
         </view>
@@ -164,11 +140,11 @@
           <text class="span cell-title">现金</text>
           <text class="span cell-sub">前台收取，需当班对账</text>
         </view>
-        <view class="span radio">
+        <view class="span radio {{pay === 'cash' ? 'on' : ''}}">
           <view class="i"></view>
         </view>
       </view>
-      <view class="button cell" hover-class="tap">
+      <view class="button cell" hover-class="tap" bindtap="pickPay" data-pay="card">
         <view class="span lead">
           <view class="i-bankcard ic"></view>
         </view>
@@ -176,11 +152,12 @@
           <text class="span cell-title">银行卡</text>
           <text class="span cell-sub">POS 刷卡后手动确认</text>
         </view>
-        <view class="span radio">
+        <view class="span radio {{pay === 'card' ? 'on' : ''}}">
           <view class="i"></view>
         </view>
       </view>
     </view>
+
     <view class="fields">
       <view class="field">
         <text class="span lb">备注</text>
@@ -189,26 +166,29 @@
         </view>
       </view>
     </view>
+
     <view class="p notice">
       <view class="i-help ic"></view>
-      <text>收款后立即生成记录，可在「记录」中查看；赠送金额不可提现、不可退。</text>
+      <text>收款后立即生成记录，可在「记录」中查看；赠送金额不可提现、不可退。当前为{{syncText}}。</text>
     </view>
   </view>
-  <view class="mp-actionbar recharge-only">
+
+  <view class="mp-actionbar recharge-only" wx:if="{{member}}">
     <view class="sum">
       <text class="span">实收金额</text>
-      <text class="b">¥500.00</text>
+      <text class="b">¥{{amountText}}</text>
     </view>
-    <view class="a btn btn-primary" bindtap="go" data-page="member-detail" hover-class="tap">
+    <view class="a btn btn-primary {{amount > 0 ? '' : 'disabled'}}" bindtap="submitRecharge" hover-class="tap">
       <text>确认收款</text>
     </view>
   </view>
-  <view class="mp-actionbar card-only">
+
+  <view class="mp-actionbar card-only" wx:if="{{member}}">
     <view class="sum">
       <text class="span">实收金额</text>
-      <text class="b">¥680.00</text>
+      <text class="b">¥{{pickedCardPriceText}}</text>
     </view>
-    <view class="a btn btn-primary" bindtap="go" data-page="member-detail" hover-class="tap">
+    <view class="a btn btn-primary {{pickedCard ? '' : 'disabled'}}" bindtap="submitBuyCard" hover-class="tap">
       <text>确认购买</text>
     </view>
   </view>

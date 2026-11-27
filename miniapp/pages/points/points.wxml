@@ -8,96 +8,59 @@
         <text class="nm">启用积分</text>
         <text class="sub">消费完成后实时入账，会员可在详情页查看积分余额</text>
       </view>
-      <view class="button sw on" hover-class="tap"></view>
+      <view class="button sw {{enabled ? 'on' : ''}}" hover-class="tap" bindtap="toggleEnabled"></view>
     </view>
+
     <view class="section-head" style="padding:36rpx 8rpx 20rpx">
       <text class="h2">积分获得方式</text>
       <text class="span small muted">按实付金额计算</text>
     </view>
-    <view class="article card rule">
+
+    <view class="article card rule" wx:for="{{rules}}" wx:key="key">
       <view class="rule-top">
-        <view class="span lead">
-          <view class="i-wallet ic"></view>
+        <view class="span lead {{item.leadClass}}">
+          <view class="{{item.ic}} ic"></view>
         </view>
         <view class="cell-main">
-          <text class="nm">余额充值</text>
-          <text class="sub">充值到账后入账，赠送金额不计积分</text>
+          <text class="nm">{{item.name}}</text>
+          <text class="sub">{{item.desc}}</text>
         </view>
-        <view class="button sw on" hover-class="tap"></view>
+        <view class="button sw {{item.on ? 'on' : ''}}" hover-class="tap" bindtap="toggleRule" data-key="{{item.key}}"></view>
       </view>
-      <view class="ratio">
+      <view class="ratio" wx:if="{{item.on}}">
         <text class="span rt">每 1 元获得</text>
         <view class="rbox">
-          <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+          <input class="input" type="digit" data-key="{{item.key}}" value="{{item.value}}" placeholder="0" bindinput="onRuleInput" />
           <text class="span u">积分</text>
         </view>
       </view>
     </view>
-    <view class="article card rule">
-      <view class="rule-top">
-        <view class="span lead teal">
-          <view class="i-scan ic"></view>
-        </view>
-        <view class="cell-main">
-          <text class="nm">消费核销</text>
-          <text class="sub">余额或次卡核销后，按消费金额入账</text>
-        </view>
-        <view class="button sw on" hover-class="tap"></view>
-      </view>
-      <view class="ratio">
-        <text class="span rt">每 1 元获得</text>
-        <view class="rbox">
-          <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="" bindinput="onInput" />
-          <text class="span u">积分</text>
-        </view>
-      </view>
-    </view>
-    <view class="article card rule">
-      <view class="rule-top">
-        <view class="span lead gold">
-          <view class="i-cards ic"></view>
-        </view>
-        <view class="cell-main">
-          <text class="nm">购买次卡</text>
-          <text class="sub">次卡收款后按售价入账，退款时扣回</text>
-        </view>
-        <view class="button sw on" hover-class="tap"></view>
-      </view>
-      <view class="ratio">
-        <text class="span rt">每 1 元获得</text>
-        <view class="rbox">
-          <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="" bindinput="onInput" />
-          <text class="span u">积分</text>
-        </view>
-      </view>
-    </view>
+
     <view class="section card preview-card">
       <view class="preview-head">
         <view class="i-sparkles ic"></view>
-        <text>以陈嘉怡为例</text>
+        <text>以 {{sampleName}} 为例</text>
       </view>
       <view class="pline">
-        <text class="span">充值 ¥500（赠送 ¥50 不计）</text>
-        <text class="span pts">+500 积分</text>
+        <text class="span">充值 ¥{{sampleRecharge}}</text>
+        <text class="span pts">+{{sampleRechargePoints}} 积分</text>
       </view>
       <view class="pline">
-        <text class="span">余额核销 ¥128</text>
-        <text class="span pts">+128 积分</text>
-      </view>
-      <view class="pline">
-        <text class="span">购买 ¥680 次卡</text>
-        <text class="span pts">+340 积分</text>
+        <text class="span">余额核销 ¥{{sampleConsume}}</text>
+        <text class="span pts">+{{sampleConsumePoints}} 积分</text>
       </view>
       <text class="p preview-note">积分按实付金额向下取整；发生退款时，对应积分会自动扣回。积分不可折现、不可转让。</text>
     </view>
+
     <text class="p page-lead" style="margin-top:28rpx">修改比例不会追溯已产生的积分，仅对之后的充值、消费生效。</text>
   </view>
+
   <view class="mp-actionbar">
     <view class="sum">
       <text class="span">保存后立即生效</text>
-      <text class="b">3 项获得方式</text>
+      <text class="b">{{enabledCount}} 项获得方式</text>
     </view>
-    <view class="a btn btn-primary" bindtap="go" data-page="settings" hover-class="tap">
+    <view class="a btn btn-primary" bindtap="save" hover-class="tap">
       <text>保存设置</text>
     </view>
   </view>

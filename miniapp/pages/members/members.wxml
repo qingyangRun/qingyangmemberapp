@@ -3,233 +3,132 @@
     <view class="search-row">
       <view class="searchbar">
         <view class="i-search ic"></view>
-        <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="搜索姓名 / 手机号 / 卡号" bindinput="onInput" />
+        <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="搜索姓名 / 手机号 / 卡号" bindinput="onInput" bindconfirm="onSearch" confirm-type="search" />
+        <view class="a i-close ic search-clear" wx:if="{{inputs.f0}}" bindtap="onSearchClear"></view>
       </view>
-      <view class="a btn-icon" hover-class="tap" bindtap="setState" data-state="filter">
+      <view class="a btn-icon" hover-class="tap" bindtap="openFilter" data-state="filter">
         <view class="i-filter ic"></view>
       </view>
     </view>
+
     <view class="chips" style="margin-top:28rpx">
-      <view class="a chip on" hover-class="tap" bindtap="setState" data-state="default">
+      <view class="a chip {{levelId === '' && !status && !tags.length ? 'on' : ''}}" hover-class="tap" bindtap="resetFilter">
         <text>全部</text>
       </view>
-      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+      <view class="a chip {{levelId === 'level-gold' ? 'on' : ''}}" hover-class="tap" bindtap="pickLevel" data-value="level-gold">
         <text>金卡以上</text>
       </view>
-      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
-        <text>有余额</text>
-      </view>
-      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
-        <text>有次卡</text>
-      </view>
-      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
+      <view class="a chip {{status === 'sleeping' ? 'on' : ''}}" hover-class="tap" bindtap="pickStatus" data-value="sleeping">
         <text>沉睡</text>
       </view>
-      <view class="a chip" hover-class="tap" bindtap="setState" data-state="default">
-        <text>生日月</text>
+      <view class="a chip {{tags.length ? 'on' : ''}}" hover-class="tap" bindtap="openFilter">
+        <text>筛选{{tags.length ? ' ' + tags.length : ''}}</text>
       </view>
     </view>
+
     <view class="list-head">
-      <text class="b">1,286 位会员</text>
-      <text class="span">本月新增 42 · 沉睡 63</text>
+      <text class="b">{{totalText}} 位会员</text>
+      <text class="span">本月新增 {{newThisMonth}} · 沉睡 {{sleeping}}</text>
     </view>
-    <view class="card list">
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava gold">陈</text>
+
+    <!-- 有数据 -->
+    <view class="card list" wx:if="{{list.length}}">
+      <view class="a cell mrow" wx:for="{{list}}" wx:key="id" bindtap="openMember" data-id="{{item.id}}" hover-class="tap">
+        <text class="span ava {{item.avaClass}}">{{item.initial}}</text>
         <view class="span cell-main">
           <view class="span mrow-top">
-            <text class="b">陈嘉怡</text>
-            <text class="span badge gold">金卡</text>
+            <text class="b">{{item.name}}</text>
+            <text class="span badge {{item.levelBadge}}">{{item.levelName}}</text>
           </view>
-          <text class="span cell-sub">138 **** 6621 · 卡号 QH 8821</text>
-          <view class="span wrap-tags">
-            <text class="span tag">高复购</text>
-            <text class="span tag">生日月</text>
+          <text class="span cell-sub">{{item.phoneMasked}} · 卡号 {{item.cardNo}}</text>
+          <view class="span wrap-tags" wx:if="{{item.tags.length}}">
+            <text class="span tag" wx:for="{{item.tags}}" wx:for-item="t" wx:key="*this">{{t}}</text>
           </view>
         </view>
         <view class="span figure">
-          <text class="b">¥1,280</text>
-          <text class="span">次卡 10 次</text>
-        </view>
-      </view>
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava dark">周</text>
-        <view class="span cell-main">
-          <view class="span mrow-top">
-            <text class="b">周明轩</text>
-            <text class="span badge gray">黑金</text>
-          </view>
-          <text class="span cell-sub">139 **** 0837 · 卡号 QH 8830</text>
-          <view class="span wrap-tags">
-            <text class="span tag">高复购</text>
-            <text class="span tag">转介绍</text>
-          </view>
-        </view>
-        <view class="span figure">
-          <text class="b">¥4,860</text>
-          <text class="span">次卡 21 次</text>
-        </view>
-      </view>
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava">林</text>
-        <view class="span cell-main">
-          <view class="span mrow-top">
-            <text class="b">林之遥</text>
-            <text class="span badge blue">银卡</text>
-          </view>
-          <text class="span cell-sub">137 **** 4290 · 卡号 QH 8842</text>
-          <view class="span wrap-tags">
-            <text class="span tag">敏感头皮</text>
-          </view>
-        </view>
-        <view class="span figure">
-          <text class="b">¥620</text>
-          <text class="span">次卡 8 次</text>
-        </view>
-      </view>
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava gray">苏</text>
-        <view class="span cell-main">
-          <view class="span mrow-top">
-            <text class="b">苏晚</text>
-            <text class="span badge gray">普通</text>
-          </view>
-          <text class="span cell-sub">150 **** 1176 · 卡号 QH 8855</text>
-          <view class="span wrap-tags">
-            <text class="span tag">新会员</text>
-          </view>
-        </view>
-        <view class="span figure">
-          <text class="b zero">¥0</text>
-          <text class="span">暂无次卡</text>
-        </view>
-      </view>
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava gold">黄</text>
-        <view class="span cell-main">
-          <view class="span mrow-top">
-            <text class="b">黄诗敏</text>
-            <text class="span badge gold">金卡</text>
-          </view>
-          <text class="span cell-sub">186 **** 5502 · 卡号 QH 8861</text>
-          <view class="span wrap-tags">
-            <text class="span tag">只做烫染</text>
-          </view>
-        </view>
-        <view class="span figure">
-          <text class="b">¥2,100</text>
-          <text class="span">次卡 6 次</text>
-        </view>
-      </view>
-      <view class="a cell mrow" bindtap="go" data-page="member-detail" hover-class="tap">
-        <text class="span ava gray">郑</text>
-        <view class="span cell-main">
-          <view class="span mrow-top">
-            <text class="b">郑凯文</text>
-            <text class="span badge blue">银卡</text>
-          </view>
-          <text class="span cell-sub">135 **** 9948 · 卡号 QH 8873</text>
-          <view class="span wrap-tags">
-            <text class="span tag">沉睡 62 天</text>
-          </view>
-        </view>
-        <view class="span figure">
-          <text class="b">¥340</text>
-          <text class="span">次卡 3 次</text>
+          <text class="b {{item.isZero ? 'zero' : ''}}">¥{{item.balanceText}}</text>
+          <text class="span">{{item.cardText}}</text>
         </view>
       </view>
     </view>
-    <text class="p list-end">已显示 6 / 1,286 位</text>
+
+    <!-- 空状态 -->
+    <view class="empty" wx:else>
+      <view class="i-users ic" style="width:72rpx;height:72rpx;margin:0 auto 16rpx;color:var(--line-strong)"></view>
+      <text>没有符合条件的会员</text>
+      <view class="a btn btn-soft btn-sm" style="margin-top:24rpx;display:inline-flex" bindtap="resetFilter">
+        <text>清空筛选</text>
+      </view>
+    </view>
+
+    <text class="p list-end" wx:if="{{list.length}}">已显示 {{total}} / {{totalText}} 位 · {{syncText}}</text>
   </view>
-  <view class="mask">
+
+  <!-- 筛选面板 -->
+  <view class="mask {{state === 'filter' ? 'show' : ''}}">
     <view class="sheet">
       <view class="sheet-grab"></view>
       <view class="sheet-head">
         <text class="h2">筛选会员</text>
-        <view class="a sheet-close" hover-class="tap" bindtap="setState" data-state="default">
+        <view class="a sheet-close" hover-class="tap" bindtap="closeFilter">
           <view class="i-close ic"></view>
         </view>
       </view>
+
       <view class="fgroup">
         <text class="h3">会员等级</text>
         <view class="chips">
-          <view class="button chip on" hover-class="tap">
+          <view class="button chip {{pendingLevel === '' ? 'on' : ''}}" hover-class="tap" bindtap="pickLevel" data-value="">
             <text>全部等级</text>
           </view>
-          <view class="button chip" hover-class="tap">
-            <text>普通</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>银卡</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>金卡</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>黑金</text>
+          <view class="button chip {{pendingLevel === item.id ? 'on' : ''}}" hover-class="tap" bindtap="pickLevel" data-value="{{item.id}}" wx:for="{{levels}}" wx:key="id">
+            <text>{{item.name}}</text>
           </view>
         </view>
       </view>
+
       <view class="fgroup">
         <text class="h3">会员状态</text>
         <view class="chips">
-          <view class="button chip on" hover-class="tap">
-            <text>正常</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>沉睡</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>停用</text>
+          <view class="button chip {{status === item.value ? 'on' : ''}}" hover-class="tap" bindtap="pickStatus" data-value="{{item.value}}" wx:for="{{statusOptions}}" wx:key="value">
+            <text>{{item.label}}</text>
           </view>
         </view>
       </view>
+
       <view class="fgroup">
         <text class="h3">会员标记（可多选）</text>
         <view class="chips">
-          <view class="button chip on" hover-class="tap">
-            <text>高复购</text>
-          </view>
-          <view class="button chip on" hover-class="tap">
-            <text>生日月</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>敏感头皮</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>只做烫染</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>转介绍</text>
-          </view>
-          <view class="button chip" hover-class="tap">
-            <text>沉睡唤醒</text>
+          <view class="button chip {{pendingTags.indexOf(item) >= 0 ? 'on' : ''}}" hover-class="tap" bindtap="toggleTag" data-tag="{{item}}" wx:for="{{tagOptions}}" wx:key="*this">
+            <text>{{item}}</text>
           </view>
         </view>
       </view>
+
       <view class="fgroup">
         <text class="h3">余额区间</text>
         <view class="range">
           <view class="input-box">
-            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="最低" bindinput="onInput" />
+            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="最低" bindinput="onInput" type="digit" />
             <text class="span unit">元</text>
           </view>
           <text class="span dash">—</text>
           <view class="input-box">
-            <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="最高" bindinput="onInput" />
+            <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="最高" bindinput="onInput" type="digit" />
             <text class="span unit">元</text>
           </view>
         </view>
       </view>
+
       <view class="sheet-actions">
-        <view class="a btn btn-ghost" hover-class="tap" bindtap="setState" data-state="default">
+        <view class="a btn btn-ghost" hover-class="tap" bindtap="resetFilter">
           <text>重置</text>
         </view>
-        <view class="a btn btn-primary" hover-class="tap" bindtap="setState" data-state="default">
-          <text>查看 218 位会员</text>
+        <view class="a btn btn-primary" hover-class="tap" bindtap="confirmFilter">
+          <text>查看 {{total}} 位会员</text>
         </view>
       </view>
-      <text class="p sheet-note">筛选条件可叠加，结果会同步到会员列表；「查看」后可在列表继续按标记搜索。</text>
+      <text class="p sheet-note">筛选条件可叠加；余额区间按「元」输入，内部按「分」存储。</text>
     </view>
   </view>
 </view>

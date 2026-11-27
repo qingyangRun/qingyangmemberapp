@@ -4,89 +4,28 @@
       <view class="p">
         <text>主题颜色决定</text>
         <text class="b">按钮、选中态、进度条和强调文字</text>
-        <text>的颜色。选好后全店生效，已保存的记录不受影响。</text>
+        <text>的颜色。选好后</text>
+        <text class="b">{{syncHint}}</text>
+        <text>，已保存的记录不受影响。</text>
       </view>
     </view>
+
     <view class="theme-list">
-      <view class="button theme-opt {{theme === 'blue' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="blue" hover-class="tap">
+      <view class="button theme-opt {{theme === item.id ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="{{item.id}}" hover-class="tap" wx:for="{{themes}}" wx:key="id">
         <view class="span theme-swatch">
-          <view class="i" style="background:#2457F5"></view>
-          <view class="i deep" style="background:#EBF0FF"></view>
+          <view class="i" style="background:{{item.main}}"></view>
+          <view class="i deep" style="background:{{item.soft}}"></view>
         </view>
         <view class="span theme-nm">
-          <text>经典蓝</text>
+          <text>{{item.name}}</text>
           <view class="span ck">
             <view class="i-check ic"></view>
           </view>
         </view>
-        <text class="span theme-desc">默认 · 专业稳重</text>
-      </view>
-      <view class="button theme-opt {{theme === 'green' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="green" hover-class="tap">
-        <view class="span theme-swatch">
-          <view class="i" style="background:#0F7A5A"></view>
-          <view class="i deep" style="background:#E6F4EF"></view>
-        </view>
-        <view class="span theme-nm">
-          <text>清样绿</text>
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-        </view>
-        <text class="span theme-desc">贴合店名 · 温和自然</text>
-      </view>
-      <view class="button theme-opt {{theme === 'violet' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="violet" hover-class="tap">
-        <view class="span theme-swatch">
-          <view class="i" style="background:#5B3FD1"></view>
-          <view class="i deep" style="background:#EEEAFB"></view>
-        </view>
-        <view class="span theme-nm">
-          <text>雅紫</text>
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-        </view>
-        <text class="span theme-desc">偏美业 · 细腻有质感</text>
-      </view>
-      <view class="button theme-opt {{theme === 'orange' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="orange" hover-class="tap">
-        <view class="span theme-swatch">
-          <view class="i" style="background:#BF5A14"></view>
-          <view class="i deep" style="background:#FDF0E4"></view>
-        </view>
-        <view class="span theme-nm">
-          <text>琥珀橙</text>
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-        </view>
-        <text class="span theme-desc">温暖亲切 · 亲和力强</text>
-      </view>
-      <view class="button theme-opt {{theme === 'rose' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="rose" hover-class="tap">
-        <view class="span theme-swatch">
-          <view class="i" style="background:#BF3566"></view>
-          <view class="i deep" style="background:#FCE9F0"></view>
-        </view>
-        <view class="span theme-nm">
-          <text>玫瑰红</text>
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-        </view>
-        <text class="span theme-desc">女性客群 · 明快醒目</text>
-      </view>
-      <view class="button theme-opt {{theme === 'graphite' ? 'on' : ''}}" bindtap="pickTheme" data-theme-option="graphite" hover-class="tap">
-        <view class="span theme-swatch">
-          <view class="i" style="background:#2B3A52"></view>
-          <view class="i deep" style="background:#EAEEF5"></view>
-        </view>
-        <view class="span theme-nm">
-          <text>石墨黑</text>
-          <view class="span ck">
-            <view class="i-check ic"></view>
-          </view>
-        </view>
-        <text class="span theme-desc">克制高级 · 突出内容</text>
+        <text class="span theme-desc">{{item.desc}}</text>
       </view>
     </view>
+
     <view class="section card preview-block">
       <text class="h2">效果预览</text>
       <view class="pv-row">
@@ -96,14 +35,15 @@
       </view>
       <view class="pv-line">
         <text class="span">累计消费</text>
-        <text class="b">¥6,420 / ¥8,000</text>
+        <text class="b">¥{{previewCumulative}} / ¥{{previewTarget}}</text>
       </view>
       <view class="bar-track">
-        <view class="i" style="width:80%"></view>
+        <view class="i" style="width:{{previewPercent}}%"></view>
       </view>
     </view>
+
     <view class="reset-row">
-      <view class="button" data-theme-reset="" hover-class="tap">
+      <view class="button" data-theme-reset="" hover-class="tap" bindtap="resetTheme">
         <text>恢复默认（经典蓝）</text>
       </view>
     </view>

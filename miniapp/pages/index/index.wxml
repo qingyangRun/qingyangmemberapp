@@ -6,37 +6,38 @@
           <text class="p hero-lb">今日实收</text>
           <view class="p hero-num">
             <text class="span cny">¥</text>
-            <text>3,286</text>
-            <text class="span dec">.50</text>
+            <text>{{revenueInt}}</text>
+            <text class="span dec">.{{revenueDec}}</text>
           </view>
-          <text class="p hero-sub">11 月 25 日 周三 · 数据更新至 10:32</text>
+          <text class="p hero-sub">{{dateText}} · 数据更新至 {{updatedText}}</text>
         </view>
-        <view class="span hero-tag">
-          <view class="i-arrow-up ic"></view>
-          <text>较昨日 12.4%</text>
+        <view class="span hero-tag {{syncMode === 'cloud' ? '' : 'local'}}">
+          <view class="{{syncMode === 'cloud' ? 'i-refresh' : 'i-phone'}} ic"></view>
+          <text>{{syncText}}</text>
         </view>
       </view>
       <view class="hero-stats">
         <view>
           <text class="span">会员充值</text>
-          <text class="b">¥1,200</text>
+          <text class="b">¥{{rechargeText}}</text>
         </view>
         <view>
           <text class="span">核销</text>
           <view class="b">
-            <text>27</text>
+            <text>{{verifyCount}}</text>
             <text class="i">笔</text>
           </view>
         </view>
         <view>
           <text class="span">新增会员</text>
           <view class="b">
-            <text>6</text>
+            <text>{{newMembers}}</text>
             <text class="i">人</text>
           </view>
         </view>
       </view>
     </view>
+
     <view class="nav card quick">
       <view class="a" bindtap="go" data-page="member-new" hover-class="tap">
         <view class="span qi">
@@ -63,24 +64,25 @@
         <text>次卡开卡</text>
       </view>
     </view>
+
     <view class="section section">
       <view class="section-head">
         <text class="h2">待处理</text>
-        <view class="a more" bindtap="go" data-page="members" hover-class="tap">
+        <view class="a more" bindtap="go" data-page="members" data-state="filter" hover-class="tap">
           <text>全部</text>
           <view class="i-chevron ic"></view>
         </view>
       </view>
       <view class="card list task">
-        <view class="a cell" bindtap="go" data-page="members" hover-class="tap">
+        <view class="a cell" bindtap="go" data-page="members" data-state="filter" hover-class="tap">
           <view class="span lead gold">
             <view class="i-cake ic"></view>
           </view>
           <view class="span cell-main">
             <text class="span cell-title">今天生日</text>
-            <text class="span cell-sub">3 位会员 · 可发送生日券</text>
+            <text class="span cell-sub">{{birthday}} 位会员 · 可发送生日券</text>
           </view>
-          <text class="span pill">3</text>
+          <text class="span pill {{birthday ? '' : 'gray'}}">{{birthday}}</text>
           <view class="i-chevron ic chev"></view>
         </view>
         <view class="a cell" bindtap="go" data-page="members" data-state="filter" hover-class="tap">
@@ -89,9 +91,9 @@
           </view>
           <view class="span cell-main">
             <text class="span cell-title">沉睡会员</text>
-            <text class="span cell-sub">12 人超过 30 天未到店</text>
+            <text class="span cell-sub">{{sleeping}} 人超过 30 天未到店</text>
           </view>
-          <text class="span pill warn">12</text>
+          <text class="span pill warn">{{sleeping}}</text>
           <view class="i-chevron ic chev"></view>
         </view>
         <view class="a cell" bindtap="go" data-page="members" hover-class="tap">
@@ -100,13 +102,14 @@
           </view>
           <view class="span cell-main">
             <text class="span cell-title">次卡将到期</text>
-            <text class="span cell-sub">5 张 · 30 天内到期</text>
+            <text class="span cell-sub">{{expiring}} 张 · 30 天内到期</text>
           </view>
-          <text class="span pill gray">5</text>
+          <text class="span pill gray">{{expiring}}</text>
           <view class="i-chevron ic chev"></view>
         </view>
       </view>
     </view>
+
     <view class="section section">
       <view class="section-head">
         <text class="h2">最近动态</text>
@@ -115,61 +118,29 @@
           <view class="i-chevron ic"></view>
         </view>
       </view>
-      <view class="card list feed">
-        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
-          <text class="span ava sm gold">陈</text>
+
+      <view class="card list feed" wx:if="{{feed.length}}">
+        <view class="a cell" wx:for="{{feed}}" wx:key="id" bindtap="openRecord" data-id="{{item.id}}" hover-class="tap">
+          <text class="span ava sm {{item.avaClass}}">{{item.initial}}</text>
           <view class="span cell-main">
             <view class="span cell-title">
-              <text class="b">陈嘉怡</text>
-              <text>充值 ¥500</text>
+              <text class="b">{{item.memberName}}</text>
+              <text>{{item.actionText}}</text>
             </view>
-            <text class="span cell-sub">10:24 · 余额充值 · 赠 ¥50</text>
+            <text class="span cell-sub">{{item.subText}}</text>
           </view>
-          <text class="span cell-amt in">+¥550.00</text>
-        </view>
-        <view class="a cell" bindtap="go" data-page="records" data-state="cardverify" hover-class="tap">
-          <text class="span ava sm teal">林</text>
-          <view class="span cell-main">
-            <view class="span cell-title">
-              <text class="b">林之遥</text>
-              <text>核销剪发次卡</text>
-            </view>
-            <text class="span cell-sub">10:12 · 次卡核销 · 剩 8 次</text>
-          </view>
-          <view class="span cell-amt">
-            <text>−1</text>
-            <text class="span u">次</text>
-          </view>
-        </view>
-        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
-          <text class="span ava sm gray">周</text>
-          <view class="span cell-main">
-            <view class="span cell-title">
-              <text class="b">周明轩</text>
-              <text>购买头皮护理卡</text>
-            </view>
-            <text class="span cell-sub">09:58 · 次卡购买 · 6 次</text>
-          </view>
-          <text class="span cell-amt in">+¥1,080.00</text>
-        </view>
-        <view class="a cell" bindtap="go" data-page="member-detail" hover-class="tap">
-          <text class="span ava sm">沈</text>
-          <view class="span cell-main">
-            <view class="span cell-title">
-              <text class="b">沈知夏</text>
-              <text>新会员建档</text>
-            </view>
-            <text class="span cell-sub">09:41 · 由 林岚 创建</text>
-          </view>
-          <view class="span cell-amt">
-            <text class="span badge blue">新会员</text>
-          </view>
+          <text class="span cell-amt {{item.amountCls}}">{{item.amountText}}</text>
         </view>
       </view>
+
+      <view class="card empty" wx:else>
+        <text>还没有流水，去核销或充值试试</text>
+      </view>
     </view>
-    <view class="p foot-note">
+
+    <view class="p foot-note" bindtap="onSyncTap">
       <view class="i-refresh ic" style="width:24rpx;height:24rpx"></view>
-      <text>数据每 5 分钟同步一次</text>
+      <text>{{syncFootText}}</text>
     </view>
   </view>
 </view>

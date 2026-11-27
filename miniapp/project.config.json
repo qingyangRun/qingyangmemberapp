@@ -4,8 +4,10 @@
   "libVersion": "3.5.5",
   "appid": "touristappid",
   "projectname": "qingyang-member",
+  "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "urlCheck": false,
-    "es6": true
+    "es6": true,
+    "minified": false
   }
 }

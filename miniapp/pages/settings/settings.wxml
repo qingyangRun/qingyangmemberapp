@@ -1,18 +1,17 @@
 <view class="app theme-{{theme}} st-{{state}}">
   <view class="main mp-page">
+
     <view class="section card shop">
       <view class="shop-top">
-        <text class="span mark">青</text>
+        <text class="span mark">清</text>
         <view class="cell-main">
           <view class="nm">
-            <text>清样造型</text>
+            <text>{{shop.name}}</text>
             <text class="span badge green">营业中</text>
           </view>
           <view class="p sub">
-            <text>望京店 · 朝阳区望京 SOHO T1 101</text>
-            <text>
-</text>
-            <text>店长 林岚 · 010-8800 6621</text>
+            <text>{{shop.branch}} · {{shop.address}}</text>
+            <text>店长 {{shop.manager}} · {{shop.phone}}</text>
           </view>
         </view>
         <view class="button edit" hover-class="tap">
@@ -23,26 +22,69 @@
         <view>
           <text class="span">会员总数</text>
           <view class="b">
-            <text>1,286</text>
+            <text>{{memberCount}}</text>
             <text class="small">人</text>
           </view>
         </view>
         <view>
           <text class="span">会员等级</text>
           <view class="b">
-            <text>4</text>
+            <text>{{levelCount}}</text>
             <text class="small">个</text>
           </view>
         </view>
         <view>
           <text class="span">在售次卡</text>
           <view class="b">
-            <text>3</text>
+            <text>{{cardCount}}</text>
             <text class="small">个项目</text>
           </view>
         </view>
       </view>
     </view>
+
+    <!-- 同步状态卡片 -->
+    <text class="p g-label">数据同步</text>
+    <view class="card sync-card">
+      <view class="sync-top" bindtap="doSync" hover-class="tap">
+        <view class="span dot-wrap">
+          <view class="dot {{syncDot}}"></view>
+        </view>
+        <view class="cell-main">
+          <view class="nm-row">
+            <text class="nm">{{syncTitle}}</text>
+            <text class="span badge {{syncMode === 'cloud' ? 'green' : 'gray'}}">{{syncMode === 'cloud' ? '云端' : '本地'}}</text>
+          </view>
+          <text class="p desc">{{syncDesc}}</text>
+        </view>
+        <view class="i-refresh ic {{syncing ? 'spin' : ''}}" style="color:var(--muted)"></view>
+      </view>
+
+      <view class="sync-meta">
+        <view>
+          <text class="span">上次同步</text>
+          <text class="b">{{lastSyncText}}</text>
+        </view>
+        <view>
+          <text class="span">待同步</text>
+          <text class="b">{{pending}} 项</text>
+        </view>
+        <view>
+          <text class="span">网络</text>
+          <text class="b">{{online ? '在线' : '离线'}}</text>
+        </view>
+      </view>
+
+      <view class="sync-actions">
+        <view class="a btn btn-sm btn-soft" bindtap="doSync" hover-class="tap">
+          <text>{{syncing ? '同步中…' : '立即同步'}}</text>
+        </view>
+        <view class="a btn btn-sm btn-ghost" bindtap="retryCloud" hover-class="tap">
+          <text>重连云端</text>
+        </view>
+      </view>
+    </view>
+
     <text class="p g-label">会员设置</text>
     <view class="card list set">
       <view class="a cell" bindtap="go" data-page="levels" hover-class="tap">
@@ -53,7 +95,7 @@
           <text class="span cell-title">等级管理</text>
           <text class="span cell-sub">累计充值 / 消费达标升级</text>
         </view>
-        <text class="span cell-amt">4 个等级</text>
+        <text class="span cell-amt">{{levelCount}} 个等级</text>
         <view class="i-chevron ic chev"></view>
       </view>
       <view class="a cell" bindtap="go" data-page="points" hover-class="tap">
@@ -73,9 +115,9 @@
         </view>
         <view class="span cell-main">
           <text class="span cell-title">次卡项目</text>
-          <text class="span cell-sub">价格、次数与赠送次数</text>
+          <text class="span cell-sub">价格、次数与有效期</text>
         </view>
-        <text class="span cell-amt">3 个在售</text>
+        <text class="span cell-amt">{{cardCount}} 个在售</text>
         <view class="i-chevron ic chev"></view>
       </view>
       <view class="a cell" bindtap="go" data-page="members" data-state="filter" hover-class="tap">
@@ -90,6 +132,7 @@
         <view class="i-chevron ic chev"></view>
       </view>
     </view>
+
     <text class="p g-label">数据与记录</text>
     <view class="card list set">
       <view class="a cell" bindtap="go" data-page="records" hover-class="tap">
@@ -100,6 +143,7 @@
           <text class="span cell-title">记录查看</text>
           <text class="span cell-sub">充值、消费核销、次卡买卖</text>
         </view>
+        <text class="span cell-amt">{{recordCount}} 笔</text>
         <view class="i-chevron ic chev"></view>
       </view>
       <view class="a cell" bindtap="go" data-page="stats" hover-class="tap">
@@ -112,21 +156,31 @@
         </view>
         <view class="i-chevron ic chev"></view>
       </view>
-      <view class="button cell" style="text-align:left" hover-class="tap">
+      <view class="button cell" style="text-align:left" hover-class="tap" bindtap="reseed">
         <view class="span lead gray">
-          <view class="i-download ic"></view>
+          <view class="i-refresh ic"></view>
         </view>
         <view class="span cell-main">
-          <text class="span cell-title">导出数据</text>
-          <text class="span cell-sub">本月流水 .xlsx · 486 条</text>
+          <text class="span cell-title">恢复示例数据</text>
+          <text class="span cell-sub">重置本机数据并灌入演示内容</text>
         </view>
-        <text class="span cell-amt">导出</text>
+        <view class="i-chevron ic chev"></view>
+      </view>
+      <view class="button cell" style="text-align:left" hover-class="tap" bindtap="clearLocal">
+        <view class="span lead danger">
+          <view class="i-trash ic"></view>
+        </view>
+        <view class="span cell-main">
+          <text class="span cell-title">清空本地数据</text>
+          <text class="span cell-sub">删除本机记录，云端不受影响</text>
+        </view>
         <view class="i-chevron ic chev"></view>
       </view>
     </view>
+
     <text class="p g-label">外观</text>
     <view class="card list set">
-      <view class="a cell" bindtap="go" data-page="theme" hover-class="tap">
+      <view class="a cell" bindtap="goTheme" hover-class="tap">
         <view class="span lead" style="background:var(--primary-soft);color:var(--primary)">
           <view class="i-sliders ic"></view>
         </view>
@@ -134,10 +188,11 @@
           <text class="span cell-title">主题颜色</text>
           <text class="span cell-sub">全站强调色随之变化</text>
         </view>
-        <text class="span cell-amt" data-theme-name="">经典蓝</text>
+        <text class="span cell-amt">{{themeName}}</text>
         <view class="i-chevron ic chev"></view>
       </view>
     </view>
+
     <text class="p g-label">其他</text>
     <view class="card list set">
       <view class="button cell" style="text-align:left" hover-class="tap">
@@ -160,11 +215,10 @@
         </view>
       </view>
     </view>
+
     <view class="p footer">
-      <text>清样会员 · 门店编号 0108</text>
-      <text>
-</text>
-      <text>数据同步于 2026-11-25 10:32</text>
+      <text>清样会员 · 门店编号 {{shop.shopNo}}</text>
+      <text>{{syncMode === 'cloud' ? '已开启云端备份' : '当前仅本机存储'}}</text>
     </view>
   </view>
 </view>

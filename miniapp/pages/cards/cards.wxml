@@ -4,208 +4,132 @@
       <view>
         <text class="span">在售项目</text>
         <view class="b">
-          <text>3</text>
+          <text>{{onSaleCount}}</text>
           <text class="small">个</text>
         </view>
       </view>
       <view>
-        <text class="span">本月售出</text>
+        <text class="span">累计售出</text>
         <view class="b">
-          <text>52</text>
+          <text>{{soldAll}}</text>
           <text class="small">张</text>
         </view>
       </view>
       <view>
-        <text class="span">本月核销</text>
+        <text class="span">累计核销</text>
         <view class="b">
-          <text>186</text>
+          <text>{{verifiedAll}}</text>
           <text class="small">次</text>
         </view>
       </view>
     </view>
+
     <view style="margin-top:24rpx">
-      <view class="article card tcard">
+      <view class="article card tcard {{item.onSale ? '' : 'off'}}" wx:for="{{list}}" wx:key="id">
         <view class="tcard-top">
-          <view class="span tem">
+          <view class="span tem" style="{{item.onSale ? '' : 'background:var(--surface-3);color:var(--muted)'}}">
             <view class="i-cards ic"></view>
           </view>
           <view class="cell-main">
             <view class="nm">
-              <text>剪发次卡</text>
-              <text class="span badge teal">在售</text>
+              <text>{{item.name}}</text>
+              <text class="span badge {{item.onSale ? 'teal' : 'gray'}}">{{item.onSale ? '在售' : '已下架'}}</text>
             </view>
-            <text class="sub">10 次 + 赠 2 次 · 有效期 12 个月</text>
+            <text class="sub">{{item.times}} 次 · 有效期 {{item.validDays}} 天</text>
           </view>
           <view class="price">
-            <text class="b">¥680</text>
-            <text class="span">¥56.7 / 次</text>
+            <text class="b" style="{{item.onSale ? '' : 'color:var(--muted)'}}">¥{{item.priceText}}</text>
+            <text class="span">¥{{item.unitPrice}} / 次</text>
           </view>
         </view>
         <view class="tcard-foot">
-          <text class="span">已售 186 张 · 核销 1,024 次</text>
-          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
+          <text class="span">已售 {{item.sold}} 张 · 核销 {{item.verified}} 次</text>
+          <view class="a lk" hover-class="tap" bindtap="openEdit" data-id="{{item.id}}">
             <text>编辑</text>
             <view class="i-chevron ic"></view>
           </view>
         </view>
       </view>
-      <view class="article card tcard">
-        <view class="tcard-top">
-          <view class="span tem">
-            <view class="i-cards ic"></view>
-          </view>
-          <view class="cell-main">
-            <view class="nm">
-              <text>头皮护理</text>
-              <text class="span badge teal">在售</text>
-            </view>
-            <text class="sub">6 次 + 赠 1 次 · 有效期 12 个月</text>
-          </view>
-          <view class="price">
-            <text class="b">¥1,080</text>
-            <text class="span">¥154.3 / 次</text>
-          </view>
-        </view>
-        <view class="tcard-foot">
-          <text class="span">已售 64 张 · 核销 302 次</text>
-          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
-            <text>编辑</text>
-            <view class="i-chevron ic"></view>
-          </view>
-        </view>
-      </view>
-      <view class="article card tcard">
-        <view class="tcard-top">
-          <view class="span tem">
-            <view class="i-cards ic"></view>
-          </view>
-          <view class="cell-main">
-            <view class="nm">
-              <text>染发次卡</text>
-              <text class="span badge teal">在售</text>
-            </view>
-            <text class="sub">3 次 · 有效期 12 个月</text>
-          </view>
-          <view class="price">
-            <text class="b">¥1,680</text>
-            <text class="span">¥560 / 次</text>
-          </view>
-        </view>
-        <view class="tcard-foot">
-          <text class="span">已售 22 张 · 核销 58 次</text>
-          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
-            <text>编辑</text>
-            <view class="i-chevron ic"></view>
-          </view>
-        </view>
-      </view>
-      <view class="article card tcard off">
-        <view class="tcard-top">
-          <view class="span tem" style="background:var(--surface-3);color:var(--muted)">
-            <view class="i-cards ic"></view>
-          </view>
-          <view class="cell-main">
-            <view class="nm">
-              <text>造型次卡</text>
-              <text class="span badge gray">已下架</text>
-            </view>
-            <text class="sub">5 次 + 赠 1 次 · 2026-10-01 下架</text>
-          </view>
-          <view class="price">
-            <text class="b" style="color:var(--muted)">¥500</text>
-            <text class="span">¥83.3 / 次</text>
-          </view>
-        </view>
-        <view class="tcard-foot">
-          <text class="span">已售 45 张 · 核销 210 次 · 不影响已购会员使用</text>
-          <view class="a lk" hover-class="tap" bindtap="setState" data-state="edit">
-            <text>编辑</text>
-            <view class="i-chevron ic"></view>
-          </view>
-        </view>
+
+      <view class="card empty" wx:if="{{!list.length}}">
+        <text>还没有次卡项目，点下面新建一个</text>
       </view>
     </view>
+
     <text class="p page-lead" style="margin-top:28rpx">下架项目不影响会员已购买次卡的使用；删除项目会保留历史记录。</text>
   </view>
+
   <view class="mp-actionbar">
     <view class="sum">
-      <text class="span">共 4 个项目</text>
-      <text class="b">3 个在售</text>
+      <text class="span">共 {{list.length}} 个项目</text>
+      <text class="b">{{onSaleCount}} 个在售</text>
     </view>
-    <view class="a btn btn-primary" hover-class="tap" bindtap="setState" data-state="edit">
+    <view class="a btn btn-primary" hover-class="tap" bindtap="openNew">
       <text>新建次卡项目</text>
     </view>
   </view>
-  <view class="mask">
+
+  <view class="mask {{state === 'edit' ? 'show' : ''}}">
     <view class="sheet">
       <view class="sheet-grab"></view>
       <view class="sheet-head">
         <text class="h2">次卡项目设置</text>
-        <view class="a sheet-close" hover-class="tap" bindtap="setState" data-state="default">
+        <view class="a sheet-close" hover-class="tap" bindtap="closeEdit">
           <view class="i-close ic"></view>
         </view>
       </view>
+
       <view class="sform">
         <view class="srow">
           <text class="span lb">项目名称</text>
           <view class="ctl">
-            <input class="input" data-key="f0" value="{{inputs.f0}}" placeholder="" bindinput="onInput" />
+            <input class="input" data-key="editName" value="{{editName}}" placeholder="如 剪发次卡" bindinput="onEditInput" />
           </view>
         </view>
         <view class="srow">
           <text class="span lb">售价</text>
           <view class="ctl">
-            <input class="input" data-key="f1" value="{{inputs.f1}}" placeholder="" bindinput="onInput" />
+            <input class="input" type="digit" data-key="editPrice" value="{{editPrice}}" placeholder="0" bindinput="onEditInput" />
             <text class="span unit">元</text>
           </view>
         </view>
         <view class="srow">
           <text class="span lb">可用次数</text>
           <view class="ctl">
-            <input class="input" data-key="f2" value="{{inputs.f2}}" placeholder="" bindinput="onInput" />
-            <text class="span unit">次</text>
-          </view>
-        </view>
-        <view class="srow">
-          <text class="span lb">赠送次数</text>
-          <view class="ctl">
-            <input class="input" data-key="f3" value="{{inputs.f3}}" placeholder="" bindinput="onInput" />
+            <input class="input" type="number" data-key="editTimes" value="{{editTimes}}" placeholder="0" bindinput="onEditInput" />
             <text class="span unit">次</text>
           </view>
         </view>
       </view>
+
       <view class="sgroup">
         <text class="h3">使用规则</text>
         <view class="sform">
           <view class="srow">
             <text class="span lb">有效期</text>
             <view class="ctl">
-              <input class="input" data-key="f4" value="{{inputs.f4}}" placeholder="" bindinput="onInput" />
-              <text class="span unit">个月</text>
-            </view>
-          </view>
-          <view class="srow">
-            <text class="span lb">适用项目</text>
-            <view class="ctl">
-              <input class="input" data-key="f5" value="{{inputs.f5}}" placeholder="" bindinput="onInput" />
+              <input class="input" type="number" data-key="editValidDays" value="{{editValidDays}}" placeholder="365" bindinput="onEditInput" />
+              <text class="span unit">天</text>
             </view>
           </view>
           <view class="srow">
             <text class="span lb">上架状态</text>
             <view class="ctl">
-              <view class="button sw on" hover-class="tap"></view>
+              <view class="button sw {{editOnSale ? 'on' : ''}}" hover-class="tap" bindtap="toggleOnSale"></view>
             </view>
           </view>
         </view>
       </view>
+
       <view class="preview">
         <view class="i-cards ic"></view>
-        <text class="p">会员购买后到账 12 次，单次成本 ¥56.7；按「购买次卡」规则可获得 340 积分。</text>
+        <text class="p">会员购买后到账 {{editTimes || 0}} 次，单次成本 ¥{{editUnitPrice}}；按「购买次卡」规则可获得 {{editPoints}} 积分。</text>
       </view>
-      <view class="a btn btn-primary btn-block" hover-class="tap" bindtap="setState" data-state="default">
+
+      <view class="a btn btn-primary btn-block" hover-class="tap" bindtap="saveEdit">
         <text>保存项目</text>
       </view>
-      <view class="button del-link" hover-class="tap">
+      <view class="button del-link" hover-class="tap" bindtap="removeItem" wx:if="{{editing}}">
         <view class="i-trash ic"></view>
         <text>删除该项目</text>
       </view>

@@ -1,0 +1,9 @@
+{
+  "name": "sync",
+  "version": "1.0.0",
+  "description": "清样会员 · 本地与云数据库双向同步",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~3.0.0"
+  }
+}
