@@ -59,7 +59,6 @@ async function push({ coll, op, id, doc }) {
 
   const stamp = {
     updatedAt: Date.now(),
-    rev: _.inc(1),
     _deleted: op === 'delete'
   }
 
@@ -77,8 +76,16 @@ async function push({ coll, op, id, doc }) {
   }
 
   // upsert：有就更新，没有就建（用 set 保持 _id 一致）
-  const payload = Object.assign({}, data, stamp)
-  if (isNaN(payload.rev)) payload.rev = 1
+  // set 不支持 _.inc() 命令，先读出当前 rev 再显式 +1
+  let rev = 1
+  try {
+    const old = await db.collection(coll).doc(id).get()
+    rev = ((old.data && old.data.rev) || 0) + 1
+  } catch (e) {
+    // 文档不存在时按新增处理
+  }
+
+  const payload = Object.assign({}, data, stamp, { rev })
 
   await db.collection(coll).doc(id).set({ data: payload })
 

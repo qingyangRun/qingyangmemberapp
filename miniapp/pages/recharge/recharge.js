@@ -144,21 +144,9 @@ Page({
 
   /* ------------------------------ 充值金额 ------------------------------ */
 
-  /** 按金额算赠送：命中档位给对应赠额，没命中按最近低档的比例估 */
+  /** 按金额算赠送：与 biz.recharge 共用同一套规则 */
   calcGift(amount) {
-    const tiers = this.data.tiers
-    if (!tiers.length) return 0
-
-    const hit = tiers.find((t) => t.amount === amount)
-    if (hit) return hit.gift || 0
-
-    // 自定义金额：取不超过它的最高档，按比例折算
-    const lower = tiers
-      .filter((t) => t.amount <= amount && t.gift > 0)
-      .sort((a, b) => b.amount - a.amount)[0]
-
-    if (!lower) return 0
-    return Math.floor((amount / lower.amount) * lower.gift)
+    return biz.calcRechargeGift(this.data.tiers, amount)
   },
 
   setAmount(fen) {

@@ -4,6 +4,8 @@ const seed = require('./utils/seed')
 App({
   globalData: {
     theme: 'blue',
+    // 从其他 tab 页跳到会员页时用全局状态传筛选态（switchTab 不支持 query）
+    pendingMembersState: '',
     // 把你的云开发环境 ID 填在这里；留空则自动使用纯本地模式
     env: ''
   },

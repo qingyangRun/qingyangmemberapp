@@ -1,4 +1,58 @@
+/* 底部标签栏（自定义组件）
+ *
+ * 注意：custom-tab-bar 是自定义组件，默认 styleIsolation: isolated，
+ * app.wxss 里的 .ic / .i-* 规则不会进入组件内部——图标会显示成空白。
+ * 所以这里把用到的 5 个图标样式复制了一份，图标定义仍以 app.wxss 为准，
+ * 增删 tab 时两边要一起改。
+ */
+
 .tb{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;height:calc(100rpx + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:#fff;box-shadow:0 -2rpx 0 #E4E9F1}
-.tb-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6rpx;color:#5A6A82;font-size:20rpx;font-weight:500}
-.tb-item.on{color:#2457F5;font-weight:600}
+
+.tb-item{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6rpx;
+  color:#5A6A82;
+  font-size:20rpx;
+  font-weight:500;
+  /* 点击区至少 88rpx 高，符合移动端最小点击尺寸 */
+  min-height:88rpx;
+}
+
+.tb-item.on{color:var(--primary,#2457F5);font-weight:600}
+
+/* 图标基类：用 SVG data-URI 做 mask，颜色跟随 currentColor */
+.ic{
+  width:48rpx;
+  height:48rpx;
+  flex:none;
+  display:block;
+  background-color:currentColor;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  -webkit-mask-size:contain;
+  mask-size:contain;
+}
+
 .tb-ic{width:46rpx;height:46rpx}
+
+/* ---------- 图标（与 app.wxss 保持一致） ---------- */
+.i-home{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.7 12 4l8 6.7V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z'/%3E%3Cpath d='M9.5 21v-6h5v6'/%3E%3C/g%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.7 12 4l8 6.7V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z'/%3E%3Cpath d='M9.5 21v-6h5v6'/%3E%3C/g%3E%3C/svg%3E")}
+.i-users{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.2'/%3E%3Cpath d='M3.5 20c.5-3.3 2.7-5.2 5.5-5.2s5 1.9 5.5 5.2'/%3E%3Cpath d='M15.5 5.3a3.1 3.1 0 0 1 0 5.4'/%3E%3Cpath d='M17 14.8c1.9.5 3.1 2.2 3.4 4.7'/%3E%3C/g%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.2'/%3E%3Cpath d='M3.5 20c.5-3.3 2.7-5.2 5.5-5.2s5 1.9 5.5 5.2'/%3E%3Cpath d='M15.5 5.3a3.1 3.1 0 0 1 0 5.4'/%3E%3Cpath d='M17 14.8c1.9.5 3.1 2.2 3.4 4.7'/%3E%3C/g%3E%3C/svg%3E")}
+.i-receipt{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12a1 1 0 0 1 1 1V21l-3.5-2.2L12 21l-3.5-2.2L5 21V4.5a1 1 0 0 1 1-1z'/%3E%3Cpath d='M9 8.5h6M9 12.5h6'/%3E%3C/g%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12a1 1 0 0 1 1 1V21l-3.5-2.2L12 21l-3.5-2.2L5 21V4.5a1 1 0 0 1 1-1z'/%3E%3Cpath d='M9 8.5h6M9 12.5h6'/%3E%3C/g%3E%3C/svg%3E")}
+.i-chart{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M7.5 20v-5.5M12 20V9.5M16.5 20v-8'/%3E%3C/g%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M7.5 20v-5.5M12 20V9.5M16.5 20v-8'/%3E%3C/g%3E%3C/svg%3E")}
+.i-sliders{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4.5' width='16' height='15' rx='3'/%3E%3Cpath d='M4 10h16'/%3E%3Cpath d='M9.5 10v9.5'/%3E%3C/g%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4.5' width='16' height='15' rx='3'/%3E%3Cpath d='M4 10h16'/%3E%3Cpath d='M9.5 10v9.5'/%3E%3C/g%3E%3C/svg%3E")}
+/* ---------- 主题色 ----------
+ * 组件样式隔离，page 上的 --primary 拿不到，这里按主题各声明一份。
+ * 与 app.wxss 的 .theme-* 保持一致（只取标签栏用到的 --primary）。
+ */
+.tb.theme-green{--primary:#0F7A5A}
+.tb.theme-violet{--primary:#5B3FD1}
+.tb.theme-orange{--primary:#BF5A14}
+.tb.theme-rose{--primary:#BF3566}
+.tb.theme-graphite{--primary:#2B3A52}

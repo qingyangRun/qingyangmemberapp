@@ -54,6 +54,8 @@ Page({
 
   onShow() {
     this.setData({ theme: app.globalData.theme })
+    const tabBar = this.getTabBar && this.getTabBar()
+    if (tabBar) tabBar.setData({ selected: 'stats', theme: app.globalData.theme })
     this.loadData()
     biz.refresh()
     setTimeout(() => {
@@ -356,7 +358,9 @@ Page({
   },
 
   openMemberFilter() {
-    wx.navigateTo({ url: '/pages/members/members?state=filter' })
+    // members 是 tabBar 页，navigateTo 会失败且 switchTab 不支持 query
+    app.globalData.pendingMembersState = 'filter'
+    wx.switchTab({ url: '/pages/members/members' })
   },
 
   go(e) {

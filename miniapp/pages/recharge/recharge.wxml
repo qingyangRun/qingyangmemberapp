@@ -110,7 +110,7 @@
         </view>
         <view class="arrive">
           <text class="span">计入累计消费</text>
-          <text class="b">¥{{pickedCard.price}}</text>
+          <text class="b">¥{{pickedCardPriceText}}</text>
         </view>
         <view class="arrive">
           <text class="span">预计获得积分</text>

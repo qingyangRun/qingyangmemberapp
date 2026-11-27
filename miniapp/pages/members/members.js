@@ -50,6 +50,12 @@ Page({
 
   onShow() {
     this.setData({ theme: app.globalData.theme })
+    const tabBar = this.getTabBar && this.getTabBar()
+    if (tabBar) tabBar.setData({ selected: 'members', theme: app.globalData.theme })
+    if (app.globalData.pendingMembersState) {
+      this.setData({ state: app.globalData.pendingMembersState })
+      app.globalData.pendingMembersState = ''
+    }
     this.loadData()
     // 后台尝试同步；没网或没云环境时静默降级，不影响界面
     biz.refresh()

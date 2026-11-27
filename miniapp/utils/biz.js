@@ -360,6 +360,17 @@ function cardRow(c) {
 
 /* ------------------------------ 储值 ------------------------------ */
 
+/** 按档位计算赠送金额：命中档位取赠额，自定义金额按最近低档比例折算 */
+function calcRechargeGift(tiers, amountFen) {
+  if (!tiers || !tiers.length || !amountFen) return 0
+  const hit = tiers.find((t) => t.amount === amountFen)
+  if (hit) return hit.gift || 0
+  const lower = tiers
+    .filter((t) => t.amount <= amountFen && t.gift > 0)
+    .sort((a, b) => b.amount - a.amount)[0]
+  return lower ? Math.floor((amountFen / lower.amount) * lower.gift) : 0
+}
+
 /**
  * 充值。赠送规则从 config.rechargeTiers 里按档位取，
  * 自定义金额时按最近的档位比例算。
@@ -371,8 +382,7 @@ function recharge(memberId, amountFen, remark) {
 
   const cfg = config()
   const tiers = cfg.rechargeTiers || []
-  const hit = tiers.find((t) => t.amount === amountFen)
-  const gift = hit ? hit.gift || 0 : 0
+  const gift = calcRechargeGift(tiers, amountFen)
   const total = amountFen + gift
 
   const after = (m.balance || 0) + total
@@ -764,6 +774,7 @@ module.exports = {
   cardsOf,
   cardRow,
   // 储值
+  calcRechargeGift,
   recharge,
   buyCard,
   // 核销
@@ -774,6 +785,7 @@ module.exports = {
   recordRow,
   RECORD_META,
   // 统计
+  rangeOf,
   summary,
   dailyRevenue,
   todayOverview,

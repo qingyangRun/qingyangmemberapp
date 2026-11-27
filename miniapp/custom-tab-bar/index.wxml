@@ -1,4 +1,4 @@
-<view class="tb">
+<view class="tb theme-{{theme}}">
   <view class="tb-item {{selected === 'index' ? 'on' : ''}}" bindtap="switchTab" data-page="index"><view class="ic tb-ic i-home"></view><text class="tb-tx">工作台</text></view>
   <view class="tb-item {{selected === 'members' ? 'on' : ''}}" bindtap="switchTab" data-page="members"><view class="ic tb-ic i-users"></view><text class="tb-tx">会员</text></view>
   <view class="tb-item {{selected === 'records' ? 'on' : ''}}" bindtap="switchTab" data-page="records"><view class="ic tb-ic i-receipt"></view><text class="tb-tx">记录</text></view>

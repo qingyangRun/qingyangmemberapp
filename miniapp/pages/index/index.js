@@ -36,6 +36,8 @@ Page({
 
   onShow() {
     this.setData({ theme: app.globalData.theme })
+    const tabBar = this.getTabBar && this.getTabBar()
+    if (tabBar) tabBar.setData({ selected: 'index', theme: app.globalData.theme })
     this.loadData()
     biz.refresh()
     setTimeout(() => this.loadSyncState(), 900)
@@ -190,6 +192,9 @@ Page({
     if (!url) return
     const tabs = ['home', 'members', 'records', 'stats', 'settings']
     if (tabs.indexOf(target) >= 0) {
+      if (target === 'members' && ds.state === 'filter') {
+        app.globalData.pendingMembersState = 'filter'
+      }
       wx.switchTab({ url: '/' + url })
     } else {
       wx.navigateTo({

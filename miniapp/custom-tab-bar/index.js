@@ -1,6 +1,7 @@
 Component({
   data: {
-    selected: 'index'
+    selected: 'index',
+    theme: 'blue'
   },
 
   methods: {
