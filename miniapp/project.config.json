@@ -1,13 +1,28 @@
 {
   "description": "清样会员 · 微信小程序",
   "compileType": "miniprogram",
-  "libVersion": "3.5.5",
-  "appid": "touristappid",
+  "libVersion": "3.18.1",
+  "appid": "wx60810db768d70426",
   "projectname": "qingyang-member",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "urlCheck": false,
     "es6": true,
-    "minified": false
+    "minified": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "condition": false
+  },
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }

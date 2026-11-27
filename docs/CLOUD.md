@@ -1,8 +1,13 @@
 # 云开发后端接入指南
 
-这份文档写的是**从零把微信云开发接进这个项目**的完整步骤。照着做，能把现在写死的示例数据换成真实的数据库读写。
+这份文档写的是**从零把微信云开发接进这个项目**的完整步骤。
 
-> 预计耗时：环境开通 10 分钟，建集合与权限 20 分钟，第一个云函数跑通 30 分钟。
+> 说明：本项目已经内置本地存储与云同步（见 [SYNC.md](SYNC.md)），**不接云也能完整使用**。
+> 这份文档讲的是怎么把云端备份真正开起来——开环境、建集合、配权限、部署云函数。
+>
+> 如果你只想要「能跑起来看」，跳过本文即可。想要「换手机数据不丢、多端同步」，再往下看。
+
+> 预计耗时：环境开通 10 分钟，建集合与权限 20 分钟，跑通同步 30 分钟。
 > 前提：你有一个小程序 AppID（测试号的云开发功能受限，建议用正式 AppID）。
 
 ---
@@ -16,10 +21,10 @@
 - [第 4 步：建索引](#第-4-步建索引)
 - [第 5 步：配权限（最容易出事的一步）](#第-5-步配权限最容易出事的一步)
 - [第 6 步：灌初始数据](#第-6-步灌初始数据)
-- [第 7 步：写第一个云函数](#第-7-步写第一个云函数)
+- [第 7 步：部署同步云函数](#第-7-步部署同步云函数)
 - [第 8 步：前端接上](#第-8-步前端接上)
-- [第 9 步：钱相关操作的正确写法](#第-9-步钱相关操作的正确写法)
-- [第 10 步：统计怎么做](#第-10-步统计怎么做)
+- [第 9 步：钱相关操作的正确写法](#第-9-步钱相关操作的正确写法)（进阶）
+- [第 10 步：统计怎么做](#第-10-步统计怎么做)（进阶）
 - [常见坑](#常见坑)
 - [做完之后的检查清单](#做完之后的检查清单)
 
@@ -35,7 +40,12 @@
 
 也就是说：**自己玩、做演示，免费额度够用；真上线给店里用，按 20 元/月左右预算。**
 
-如果你的目标只是「让别人 star」，可以先不接后端——界面本身已经能跑。要接的话，下面的顺序不要跳。
+不接云也能完整使用——数据存在本机，关掉小程序再打开还在，断网也不影响。接云的意义只有两个：
+
+1. **换手机 / 重装小程序数据不丢**
+2. **多台设备看到同一份数据**
+
+如果你不介意数据只在这台手机上，可以跳过本文。要接的话，下面的顺序不要跳。
 
 ---
 
@@ -286,9 +296,17 @@ App({
 
 手写 `_id`（像上面这样给语义化 ID）比自动生成的随机串好用得多，云函数里可以直接引用。
 
-### 6.3 写个一次性初始化云函数
+### 6.3 最省事的办法：让小程序自己推上去
 
-数据多了（比如要造 100 个测试会员），写个 `init` 云函数，跑完就删掉：
+**推荐这条路。** 项目首次启动时会在本地灌入一套示例数据（`utils/seed.js`），配好云环境后会自动同步到云端，不需要手动灌。
+
+如果你想要一套干净的初始数据（不要示例会员）：
+
+1. 打开小程序 → 管理页 → 「清空本地数据」
+2. 然后按 6.1 手动加等级、次卡项目、服务项、门店配置
+3. 让小程序同步一次，这些数据会自动推上云
+
+数据量特别大（比如要造 100 个测试会员）时，才需要下面这个一次性云函数：
 
 ```js
 // cloudfunctions/init/index.js —— 跑完请删除，别部署到生产
@@ -325,282 +343,110 @@ exports.main = async () => {
 }
 ```
 
+> 注意：手写的这些记录**没有 `updatedAt` 和 `rev`**，同步时会被当成旧数据。如果要用它们，记得同时写 `updatedAt: Date.now(), rev: 1`，否则 `pull` 的增量查询拉不到。
+
 ---
 
-## 第 7 步：写第一个云函数
+## 第 7 步：部署同步云函数
 
-先做 `member`，因为它没有金额逻辑，最容易跑通。
+项目内置的云函数只有一个：`cloudfunctions/sync`，负责本地与云端的双向同步。不需要你写代码，直接部署即可。
 
-### 7.1 目录结构
+### 7.1 它做什么
 
 ```
-miniapp/cloudfunctions/
-├── member/
-│   ├── index.js
-│   └── package.json
-├── recharge/
-├── verify/
-├── card/
-├── stats/
-├── level/
-└── point/
+miniapp/cloudfunctions/sync/
+├── index.js       push / pull / ping 三个 action
+└── package.json   只依赖 wx-server-sdk
 ```
 
-每个云函数自己一个 `package.json`：
+| action | 作用 |
+|---|---|
+| `push` | 把本地发件箱里的一条操作写进云数据库（upsert 或软删除） |
+| `pull` | 按 `updatedAt` 增量拉取某个集合的变更，单次最多 100 条 |
+| `ping` | 健康检查，返回服务端时间 |
+
+### 7.2 部署
+
+1. 在微信开发者工具里，`miniapp/project.config.json` 已经配好 `"cloudfunctionRoot": "cloudfunctions/"`
+2. 右键 `cloudfunctions/sync` 目录
+3. 选「上传并部署：云端安装依赖」
+4. 第一次要等 1-2 分钟装 `wx-server-sdk`，之后改代码再部署只要几秒
+
+### 7.3 验证
+
+部署完成后，在云开发控制台 →「云函数」→ 找到 `sync` → 「云端测试」，输入：
 
 ```json
-{
-  "name": "member",
-  "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "wx-server-sdk": "~3.0.0"
-  }
-}
+{ "action": "ping" }
 ```
 
-> 依赖**只写 `wx-server-sdk`**。云开发运行环境自带 Node，别装一堆没用的。
+返回 `{"ok": true, "data": {"serverTime": 1732626000000}}` 就通了。
 
-### 7.2 `member` 云函数完整实现
+### 7.4 安全边界
+
+云函数里已经写死两道限制，部署后自动生效：
 
 ```js
-const cloud = require('wx-server-sdk')
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+// 只允许操作这 7 个集合，防止客户端乱写
+const COLLS = ['members','records','memberCards','levels','cardTypes','services','config']
 
-const db = cloud.database()
-const _ = db.command
-const $ = db.command.aggregate
-
-exports.main = async (event) => {
-  const { action } = event
-  const handlers = { list, detail, create, update, findByPhone, remove }
-  if (!handlers[action]) {
-    return { ok: false, msg: '未知操作: ' + action }
-  }
-  try {
-    const data = await handlers[action](event, db, _, $)
-    return { ok: true, data }
-  } catch (e) {
-    console.error(action, e)
-    return { ok: false, msg: e.message }
-  }
-}
-
-// 列表：支持关键词、等级、状态、分页
-async function list({ keyword, levelId, status, page = 1, size = 20 }, db, _) {
-  const where = {}
-
-  if (keyword) {
-    // 手机后四位 / 完整手机号 / 卡号 / 姓名
-    where.$or = [
-      { phone: db.RegExp({ regexp: keyword, options: 'i' }) },
-      { cardNo: db.RegExp({ regexp: keyword, options: 'i' }) },
-      { name: db.RegExp({ regexp: keyword, options: 'i' }) }
-    ]
-  }
-  if (levelId) where.levelId = levelId
-  if (status) where.status = status
-
-  const res = await db.collection('members')
-    .where(where)
-    .orderBy('lastVisitAt', 'desc')
-    .skip((page - 1) * size)
-    .limit(size)
-    .get()
-
-  const count = await db.collection('members').where(where).count()
-
-  return { list: res.data, total: count.total, page, size }
-}
-
-// 详情：会员 + 持有的次卡
-async function detail({ id }, db) {
-  const member = await db.collection('members').doc(id).get()
-  const cards = await db.collection('memberCards')
-    .where({ memberId: id })
-    .orderBy('createdAt', 'desc')
-    .get()
-  return { member: member.data, cards: cards.data }
-}
-
-// 精确查人：手机号 / 卡号
-async function findByPhone({ phone, cardNo }, db) {
-  const key = phone ? { phone } : { cardNo }
-  const res = await db.collection('members').where(key).limit(1).get()
-  return res.data[0] || null
-}
-
-// 建档
-async function create({ payload }, db) {
-  const now = new Date()
-
-  // 手机号唯一性前置检查（唯一索引是最后防线，这里先给友好提示）
-  const dup = await db.collection('members').where({ phone: payload.phone }).count()
-  if (dup.total > 0) throw new Error('该手机号已存在')
-
-  // 卡号：QH + 4 位序号
-  const seq = await db.collection('members').count()
-  const cardNo = 'QH' + String(seq.total + 1).padStart(4, '0')
-
-  const doc = {
-    ...payload,
-    cardNo,
-    balance: payload.balance || 0,
-    points: 0,
-    totalRecharge: payload.balance || 0,
-    totalConsume: 0,
-    tags: payload.tags || [],
-    status: 'normal',
-    joinedAt: now,
-    lastVisitAt: now,
-    createdAt: now,
-    updatedAt: now
-  }
-  const res = await db.collection('members').add({ data: doc })
-
-  // 初始余额 > 0 时，生成一笔充值流水
-  if (doc.balance > 0) {
-    await db.collection('records').add({
-      data: {
-        memberId: res._id,
-        type: 'recharge',
-        amount: doc.balance,
-        delta: doc.balance,
-        balanceAfter: doc.balance,
-        items: [],
-        remark: '开卡初始余额',
-        createdAt: now
-      }
-    })
-  }
-
-  return { id: res._id, cardNo }
-}
-
-// 编辑
-async function update({ id, payload }, db) {
-  const data = { ...payload, updatedAt: new Date() }
-  delete data.balance        // 余额只能通过充值/核销改
-  delete data.points
-  delete data.cardNo
-  delete data._id
-
-  await db.collection('members').doc(id).update({ data })
-  return { id }
-}
-
-async function remove({ id }, db) {
-  // 真删会破坏流水完整性，这里只做停用
-  await db.collection('members').doc(id).update({
-    data: { status: 'disabled', updatedAt: new Date() }
-  })
-  return { id }
-}
+// 流水不允许客户端直接写（必须走业务逻辑）
+const NO_DIRECT_WRITE = ['records']
 ```
 
-### 7.3 部署
-
-右键 `cloudfunctions/member` → 「上传并部署：云端安装依赖」。
-第一次要等 1-2 分钟装依赖。之后改代码再部署，几秒。
+服务端会覆盖客户端带来的 `updatedAt`、`rev`、`_deleted`，**以服务端时间和版本为准**，避免各端时钟不一致导致同步错乱。
 
 ---
 
 ## 第 8 步：前端接上
 
-### 8.1 封装一层调用
+**不用改代码。** 前端已经接好了，做完第 7 步只剩一件事：把环境 ID 填进去。
 
-新建 `miniapp/utils/api.js`：
+### 8.1 填环境 ID
 
-```js
-const call = (name, action, data = {}) => {
-  return wx.cloud.callFunction({ name, data: { action, ...data } })
-    .then(res => {
-      const r = res.result || {}
-      if (!r.ok) throw new Error(r.msg || '请求失败')
-      return r.data
-    })
-}
-
-module.exports = {
-  member: {
-    list: (params) => call('member', 'list', params),
-    detail: (id) => call('member', 'detail', { id }),
-    create: (payload) => call('member', 'create', { payload }),
-    update: (id, payload) => call('member', 'update', { id, payload }),
-    findByPhone: (params) => call('member', 'findByPhone', params)
-  },
-  recharge: {
-    submit: (params) => call('recharge', 'submit', params)
-  },
-  verify: {
-    submit: (params) => call('verify', 'submit', params)
-  },
-  stats: {
-    summary: (range) => call('stats', 'summary', { range })
-  }
-}
-```
-
-### 8.2 改一个页面试试
-
-以会员列表 `miniapp/pages/members/members.js` 为例：
+打开 `miniapp/app.js`：
 
 ```js
-const api = require('../../utils/api')
-
-Page({
-  data: {
+App({
+  globalData: {
     theme: 'blue',
-    state: 'default',
-    inputs: {},
-    selected: 'members',
-    list: [],
-    total: 0,
-    loading: true
+    env: 'qingyang-dev-8gxxxxx'   // ← 换成第 1 步拿到的环境 ID
   },
-
-  onShow() {
-    this.setData({ theme: getApp().globalData.theme })
-    this.loadList()
-  },
-
-  async loadList() {
-    this.setData({ loading: true })
-    try {
-      const res = await api.member.list({
-        keyword: this.data.inputs.f0 || '',
-        page: 1,
-        size: 20
-      })
-      this.setData({ list: res.list, total: res.total, loading: false })
-    } catch (e) {
-      wx.showToast({ title: e.message, icon: 'none' })
-      this.setData({ loading: false })
-    }
-  },
-
-  onInput(e) {
-    const key = e.currentTarget.dataset.key
-    this.setData({ [`inputs.${key}`]: e.detail.value })
-  },
-
-  onSearch() {
-    this.loadList()
-  }
+  ...
 })
 ```
 
-WXML 里把写死的 `<view class="cell">` 换成 `<block wx:for="{{list}}" wx:key="_id">`，字段用 `item.name`、`item.phone`。
+### 8.2 重启小程序
 
-**金额显示**记得除 100：
+设置页的同步卡片会从「本地存储 · 灰点」变成「已连接云端 · 绿点」。
 
-```js
-formatMoney: (fen) => (fen / 100).toFixed(2)
-```
+首页底部那行小字也会变成 `已同步云端 · 08:32`。
+
+### 8.3 验证双向同步
+
+1. 在小程序里建一个会员、充一笔钱
+2. 打开云开发控制台 →「数据库」→ `members`，应该能看到刚建的记录
+3. 在控制台手动改一条记录的 `updatedAt`（改大一点）
+4. 回小程序下拉刷新，能看到改动同步回来
+
+### 8.4 如果没生效
+
+| 现象 | 原因 |
+|---|---|
+| 设置页仍显示「本地存储」 | `env` 没填或填错；看控制台 Network 有没有报错 |
+| 显示「云端不可用」 | 云函数没部署，或没用正式 AppID |
+| 数据上不去云 | 集合没建，或集合权限配成了「所有用户可读写」但规则挡住 |
+| 数据下不来 | 拉取游标不对，可在设置页点「重连云端」强制全量 |
 
 ---
 
-## 第 9 步：钱相关操作的正确写法
+## 第 9 步：钱相关操作的正确写法（进阶）
+
+> 做完第 8 步，云同步已经能用了。这一节和下一节属于**进阶改造**：
+> 当前版本用「本地计算 + 同步」的方式记账，在单台设备上完全正确；
+> 但多台设备**同时**改同一个会员的余额时，后写的会覆盖前写的（详见 [SYNC.md](SYNC.md) 第四节）。
+>
+> 如果要支持多店员同时操作，按本节把金额操作搬进云函数事务。
 
 这是整个后端最不能出错的地方。**三条铁律：**
 
@@ -703,7 +549,10 @@ await transaction.collection('memberCards').doc(cardId).update({
 
 ---
 
-## 第 10 步：统计怎么做
+## 第 10 步：统计怎么做（进阶）
+
+> 当前版本统计在本地算（`biz.js` 的 `summary` / `dailyRevenue`），单店数据量下完全够用。
+> 这一节是数据量上万、或者想让多端看到一致统计时的改造方案。
 
 工作台和「数据」页需要今日 / 本周 / 本月的聚合。**不要在前端拉全量数据自己算**——数据一多就卡死，而且流量费很贵。
 
@@ -798,20 +647,26 @@ async function summary({ range }) {
 
 ## 做完之后的检查清单
 
+**必需（做完这些云同步就能用）**
+
 - [ ] 7 个集合都建好了，名字和文档一致
 - [ ] `members.phone`、`members.cardNo` 建了唯一索引
 - [ ] `members`、`records`、`memberCards` 权限设为「仅管理端可读写」
-- [ ] `levels`、`cardTypes`、`services`、`config` 灌了初始数据
-- [ ] `member` 云函数部署成功，能在控制台「云端测试」里跑通 `list`
-- [ ] 前端 `utils/api.js` 封装好了
-- [ ] 至少一个页面（会员列表）换成了真实数据
-- [ ] 金额全部以「分」存储，展示时除 100
-- [ ] 涉及余额的操作都走云函数 + 事务
+- [ ] `levels`、`cardTypes`、`services`、`config` 设为「所有用户可读，仅管理端可写」
+- [ ] `sync` 云函数部署成功，控制台「云端测试」跑 `{"action":"ping"}` 返回 ok
+- [ ] `miniapp/app.js` 的 `globalData.env` 填了环境 ID
+- [ ] 设置页显示「已连接云端 · 绿点」
+- [ ] 建一个会员，云开发控制台 `members` 集合里能看到这条记录
+
+**进阶（要支持多店员同时操作才需要）**
+
+- [ ] 涉及余额的操作走云函数 + 事务
 - [ ] 余额更新用的是 `_.inc()`，没有「先读再写」
 - [ ] 统计的聚合查询带了 `timezone: 'Asia/Shanghai'`
 - [ ] `init` 这类一次性函数没留在生产环境
 
-全部打勾，后端就算接完了。
+前三项打勾 = 云端备份可用。
+全部打勾 = 能支撑多人同时操作。
 
 ---
 
